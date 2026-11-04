@@ -19,9 +19,16 @@ data/site.json.tmp
 data/backups/*
 !data/backups/.gitkeep
 
-# Uploads (เก็บโฟลเดอร์ ไม่เก็บไฟล์รูป)
+# Uploads — keep tour/car images for Suwan Travel site
 assets/uploads/*
 !assets/uploads/.gitkeep
+!assets/uploads/tours/
+!assets/uploads/tours/**
+
+# One-off import / scrape scratch folders
+tools/_tour_import/
+tools/_tour_import2/
+tools/_tour_import_*/
 
 # Deploy packages (สร้างจาก tools/deploy)
 dist/

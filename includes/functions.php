@@ -50,7 +50,7 @@ function tt_write_data(array $data): bool
 
 function tt_write_fallback_js(array $data): void
 {
-    $js = "/* Auto-generated — อัปเดตจากระบบหลังบ้าน */\nwindow.__TT_FALLBACK = " .
+    $js = "/* Auto-generated — updated from admin */\nwindow.__TT_FALLBACK = " .
         json_encode($data, JSON_UNESCAPED_UNICODE) . ";\n";
     $tmp = TT_FALLBACK_JS . '.tmp';
     if (file_put_contents($tmp, $js, LOCK_EX) === false) {
@@ -82,55 +82,55 @@ function tt_home_sections_defaults(): array
 {
     return [
         'hero' => [
-            'title' => 'แพ็คเกจทัวร์ตรัง',
-            'lead' => 'รวมแพ็คเกจทัวร์เที่ยวเมืองตรัง หลากหลายบริการครบในที่เดียว ตั้งแต่เรือ ที่พัก รถ ตั๋วเรือ ไปจนถึงสัมมนาและสถานที่ถ่ายทำ',
+            'title' => 'Trang tour packages',
+            'lead' => 'All-in-one Trang tour packages — boats, stays, transfers, ferry tickets, seminars, and filming locations',
         ],
         'boats' => [
             'eyebrow' => 'One-day trips',
-            'title' => 'แพ็กเกจไปเช้า เย็นกลับ',
-            'lead' => 'ไปเช้าเย็นกลับ ถ้ำมรกต เกาะกระดาน เกาะแหวน เกาะเชือก และเกาะรอก — เริ่มต้น 650 บาท ครบเรือ ไกด์ อาหาร และประกัน',
+            'title' => 'Day-trip packages',
+            'lead' => 'Day trips to Emerald Cave, Koh Kradan, Koh Haew, Koh Chueak, and Koh Rok — from 650 THB including boat, guide, meals, and insurance',
         ],
         'programs' => [
-            'eyebrow' => 'พักค้างคืน',
-            'title' => 'แพ็กเกจ 2 วัน 1 คืน',
-            'lead' => 'เที่ยวทะเลเต็มอิ่ม 2 วัน 1 คืน รวมเรือ ที่พัก อาหาร และทีมงานดูแลตลอดทริป — ราคาเริ่มต้น 1,275 บาทต่อท่าน',
+            'eyebrow' => 'Overnight stays',
+            'title' => '2 days 1 night packages',
+            'lead' => 'A full sea getaway for 2 days 1 night — boat, stay, meals, and on-trip support from 1,275 THB per person',
         ],
         'packages3d2n' => [
-            'eyebrow' => 'พักยาวขึ้น',
-            'title' => 'แพ็กเกจ 3 วัน 2 คืน',
-            'lead' => 'เที่ยวทะเลตรังแบบสบาย ๆ 3 วัน 2 คืน ครบเรือ ที่พัก อาหาร กิจกรรมทะเล — ราคาเริ่มต้น 1,300 บาทต่อท่าน',
+            'eyebrow' => 'Longer stays',
+            'title' => '3 days 2 nights packages',
+            'lead' => 'A relaxed Trang sea trip for 3 days 2 nights — boat, stay, meals, and activities from 1,300 THB per person',
         ],
         'packages4d3n' => [
-            'eyebrow' => 'ทริปยาวพิเศษ',
-            'title' => 'แพ็กเกจ 4 วัน 3 คืน',
-            'lead' => 'เที่ยวทะเลตรังครบจบ 4 วัน 3 คืน รวมทริปทะเล ที่พัก ทัวร์เมือง — ราคาเริ่มต้น 1,850 บาทต่อท่าน',
+            'eyebrow' => 'Extended trips',
+            'title' => '4 days 3 nights packages',
+            'lead' => 'See Trang in full over 4 days 3 nights — sea trips, stays, and city tours from 1,850 THB per person',
         ],
         'booking' => [
-            'eyebrow' => 'จองง่ายใน 4 ขั้นตอน',
-            'title' => 'จองเรือเที่ยวทะเลตรังใช้เวลาไม่ถึง 2 นาที',
-            'lead' => 'ระบบคำนวณราคาให้อัตโนมัติ จากนั้นกดปุ่มเดียวเปิด LINE @talaytrang ติดต่อแอดมินได้ทันที',
+            'eyebrow' => 'Book in 4 easy steps',
+            'title' => 'Book a Trang sea trip in under 2 minutes',
+            'lead' => 'Prices calculate automatically — then open LINE @talaytrang in one tap to chat with our team',
         ],
         'reviews' => [
-            'eyebrow' => 'รีวิวลูกค้า',
-            'title' => 'เสียงจริงจากทริปจริง',
-            'lead' => 'ลูกค้าหลายร้อยทริปบอกต่อ ทั้งครอบครัว คู่รัก เพื่อนกลุ่ม และบริษัท',
+            'eyebrow' => 'Guest reviews',
+            'title' => 'Real voices from real trips',
+            'lead' => 'Hundreds of trips recommended by families, couples, friend groups, and companies',
         ],
         'videos' => [
-            'eyebrow' => 'TikTok ล่าสุด',
-            'title' => 'ทะเลตรังในมุมที่คุณยังไม่เคยเห็น',
-            'lead' => 'อัปเดตทุกสัปดาห์ที่',
+            'eyebrow' => 'Latest on TikTok',
+            'title' => 'Trang’s sea from angles you haven’t seen',
+            'lead' => 'Updated every week at',
             'tiktokHandle' => '@talaytrang',
         ],
         'office' => [
-            'eyebrow' => 'ออฟฟิศมีตัวตนจริง',
-            'title' => 'มาเจอเราได้จริงที่กันตัง จังหวัดตรัง',
-            'infoTitle' => 'มั่นใจได้ทุกทริป',
-            'infoLead' => 'เรามีออฟฟิศตั้งอยู่จริงที่อำเภอกันตัง เปิดบริการทุกวัน คุณสามารถนัดเข้ามาดูเรือก่อนตกลงจองได้',
+            'eyebrow' => 'A real local office',
+            'title' => 'Visit us in Kantang, Trang',
+            'infoTitle' => 'Confidence on every trip',
+            'infoLead' => 'We have a real office in Kantang district, open daily. You can visit and inspect the boat before booking.',
         ],
         'cta' => [
-            'eyebrow' => 'พร้อมออกทะเลแล้วใช่ไหม',
-            'title' => 'เลือกเรือ คำนวณราคา และจองผ่าน LINE ได้เลย',
-            'lead' => 'ทีมงานแอดมินตอบกลับใน LINE รวดเร็ว ดูแลคุณตั้งแต่ก่อนเที่ยวจนจบทริป',
+            'eyebrow' => 'Ready to head out to sea?',
+            'title' => 'Pick a boat, get a price, and book on LINE',
+            'lead' => 'Our team replies quickly on LINE and supports you from planning through the end of your trip',
         ],
     ];
 }
@@ -148,7 +148,7 @@ function tt_home_sections(?array $data = null): array
     return array_replace_recursive(tt_home_sections_defaults(), $stored);
 }
 
-/** แปลงลิงก์ share Facebook → URL เพจจริง (สำหรับ Page Plugin) */
+/** Convert Facebook share links → real page URL (for Page Plugin) */
 function tt_resolve_facebook_page_url(string $url): string
 {
     $url = trim($url);
@@ -294,12 +294,12 @@ function tt_parse_hotels(string $text): array
         if (str_contains($line, '|')) {
             $parts = array_map('trim', explode('|', $line, 2));
             $roomName = $parts[0] ?? '';
-            $priceRaw = $parts[1] ?? 'จอง';
+            $priceRaw = $parts[1] ?? 'Book';
             if ($roomName === '') {
                 continue;
             }
             if ($current === null) {
-                $current = ['name' => 'ที่พัก', 'rooms' => []];
+                $current = ['name' => 'Accommodation', 'rooms' => []];
                 $hotels[] = $current;
             }
             $idx = count($hotels) - 1;
@@ -331,7 +331,7 @@ function tt_hotels_to_text(array $hotels): string
     foreach ($hotels as $hotel) {
         $lines = [$hotel['name'] ?? ''];
         foreach ($hotel['rooms'] ?? [] as $room) {
-            $price = isset($room['price']) ? (string) $room['price'] : 'จอง';
+            $price = isset($room['price']) ? (string) $room['price'] : 'Book';
             $lines[] = ($room['name'] ?? '') . '|' . $price;
         }
         $blocks[] = implode("\n", $lines);
@@ -349,7 +349,7 @@ function tt_parse_inclusions_by_day(string $text): array
         if ($line === '') {
             continue;
         }
-        if (preg_match('/^วันที่\s*(\d+)/u', $line, $m)) {
+        if (preg_match('/^(?:Day|วันที่)\s*(\d+)/iu', $line, $m)) {
             if ($current) {
                 $blocks[] = $current;
             }
@@ -375,7 +375,7 @@ function tt_inclusions_by_day_to_text(array $blocks): string
 {
     $out = [];
     foreach ($blocks as $block) {
-        $out[] = $block['label'] ?? ('วันที่ ' . ($block['day'] ?? ''));
+        $out[] = $block['label'] ?? ('Day ' . ($block['day'] ?? ''));
         foreach ($block['items'] ?? [] as $item) {
             $out[] = $item;
         }
@@ -388,22 +388,22 @@ function tt_inclusions_by_day_to_text(array $blocks): string
 function tt_program_inclusion_options(): array
 {
     return [
-        'boat' => 'เรือนำเที่ยว',
-        'food' => 'อาหารบุฟเฟ่ต์',
-        'guide' => 'พนักงานนำเที่ยว',
-        'snorkel' => 'อุปกรณ์ดำน้ำตื้น',
-        'park' => 'ค่าเข้าอุทยาน',
-        'insurance' => 'ประกันอุบัติเหตุ',
-        'coffee' => 'กาแฟ',
-        'snack' => 'ของว่าง',
-        'lifejacket' => 'เสื้อชูชีพ',
+        'boat' => 'Tour boat',
+        'food' => 'Buffet meals',
+        'guide' => 'Tour guide',
+        'snorkel' => 'Snorkeling gear',
+        'park' => 'National park fee',
+        'insurance' => 'Accident insurance',
+        'coffee' => 'Coffee',
+        'snack' => 'Snacks',
+        'lifejacket' => 'Life jacket',
     ];
 }
 
 function tt_upload_image(array $file): array
 {
     if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
-        return ['ok' => false, 'error' => 'อัปโหลดไม่สำเร็จ'];
+        return ['ok' => false, 'error' => 'Upload failed'];
     }
     $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -412,10 +412,10 @@ function tt_upload_image(array $file): array
         finfo_close($finfo);
     }
     if (!in_array($mime, $allowed, true)) {
-        return ['ok' => false, 'error' => 'รองรับเฉพาะ JPG, PNG, WebP, GIF'];
+        return ['ok' => false, 'error' => 'Only JPG, PNG, WebP, and GIF are supported'];
     }
     if (($file['size'] ?? 0) > 5 * 1024 * 1024) {
-        return ['ok' => false, 'error' => 'ไฟล์ใหญ่เกิน 5MB'];
+        return ['ok' => false, 'error' => 'File exceeds 5MB'];
     }
 
     if (!is_dir(TT_UPLOAD_DIR)) {
@@ -432,7 +432,7 @@ function tt_upload_image(array $file): array
     $name = date('Ymd-His') . '-' . bin2hex(random_bytes(4)) . '.' . $ext;
     $dest = TT_UPLOAD_DIR . $name;
     if (!move_uploaded_file($file['tmp_name'], $dest)) {
-        return ['ok' => false, 'error' => 'ย้ายไฟล์ไม่สำเร็จ'];
+        return ['ok' => false, 'error' => 'Could not move uploaded file'];
     }
 
     return ['ok' => true, 'url' => 'assets/uploads/' . $name, 'name' => $name];
@@ -456,7 +456,7 @@ function tt_list_uploads(): array
     }, $files);
 }
 
-/** แปลง Markdown ง่าย ๆ เป็น article body blocks */
+/** Convert simple Markdown into article body blocks */
 function tt_markdown_to_body(string $md): array
 {
     $md = trim(str_replace("\r\n", "\n", $md));
@@ -572,7 +572,7 @@ function tt_backup_format_bytes(int $bytes): string
     return round($bytes / (1024 * 1024), 1) . ' MB';
 }
 
-/** เวลาจากชื่อไฟล์แบ็คอัพ เช่น 20260602-163045_manual.zip */
+/** Timestamp from backup filename, e.g. 20260602-163045_manual.zip */
 function tt_backup_created_from_filename(string $file): ?int
 {
     if (!preg_match('/^(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})_(manual|auto)/', $file, $m)) {
@@ -610,8 +610,8 @@ function tt_backup_list(): array
             'createdDisplay' => tt_backup_format_datetime($created),
             'size' => (int)filesize($path),
             'label' => $type === 'auto'
-                ? 'ระบบสำรองให้ (ตอนกดบันทึก — ข้อความอย่างเดียว)'
-                : (str_ends_with($file, '.zip') ? 'สำรองเอง (ครบทุกส่วน)' : 'สำรองเอง (ข้อความอย่างเดียว)'),
+                ? 'Auto backup (on save — text only)'
+                : (str_ends_with($file, '.zip') ? 'Manual backup (full)' : 'Manual backup (text only)'),
             'isZip' => str_ends_with($file, '.zip'),
         ];
     }
@@ -635,7 +635,7 @@ function tt_backup_prune(string $suffix, int $max): void
     }
 }
 
-/** แฮชเนื้อหาจริง (ไม่รวม meta.updated) — กันสำรองซ้ำเมื่อกดบันทึกหลายครั้งโดยไม่ได้แก้อะไร */
+/** Hash of real content (excluding meta.updated) — avoid duplicate backups on unchanged saves */
 function tt_backup_content_hash(string $jsonRaw): string
 {
     $data = json_decode($jsonRaw, true);
@@ -669,7 +669,7 @@ function tt_auto_backup_before_write(): void
     tt_backup_prune('_auto.json', TT_BACKUP_MAX_AUTO);
 }
 
-/** ให้ไฟล์ fallback บนหน้าเว็บตรงกับ site.json ก่อนสำรอง */
+/** Sync frontend fallback with site.json before backup */
 function tt_backup_sync_frontend_cache(): void
 {
     $data = tt_read_data();
@@ -708,17 +708,17 @@ function tt_backup_collect_upload_files(): array
 function tt_backup_pack_full_zip(string $zipPath): array
 {
     if (!class_exists('ZipArchive')) {
-        return ['ok' => false, 'error' => 'เซิร์ฟเวอร์ไม่รองรับ ZipArchive'];
+        return ['ok' => false, 'error' => 'Server does not support ZipArchive'];
     }
     if (!is_file(TT_DATA_FILE)) {
-        return ['ok' => false, 'error' => 'ไม่พบ data/site.json'];
+        return ['ok' => false, 'error' => 'data/site.json not found'];
     }
 
     tt_backup_sync_frontend_cache();
 
     $zip = new ZipArchive();
     if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
-        return ['ok' => false, 'error' => 'สร้างไฟล์ ZIP ไม่สำเร็จ'];
+        return ['ok' => false, 'error' => 'Could not create ZIP file'];
     }
 
     $zip->addFile(TT_DATA_FILE, 'site.json');
@@ -762,7 +762,7 @@ function tt_backup_pack_full_zip(string $zipPath): array
 function tt_backup_create(): array
 {
     if (!is_file(TT_DATA_FILE)) {
-        return ['ok' => false, 'error' => 'ไม่พบ data/site.json'];
+        return ['ok' => false, 'error' => 'data/site.json not found'];
     }
 
     $dir = tt_backup_ensure_dir();
@@ -772,7 +772,7 @@ function tt_backup_create(): array
         $zipName = $stamp . '_manual.zip';
         $packed = tt_backup_pack_full_zip($dir . '/' . $zipName);
         if (!$packed['ok']) {
-            return ['ok' => false, 'error' => $packed['error'] ?? 'สร้างแบ็คอัพไม่สำเร็จ'];
+            return ['ok' => false, 'error' => $packed['error'] ?? 'Could not create backup'];
         }
         tt_backup_prune('_manual.zip', TT_BACKUP_MAX_MANUAL);
         return [
@@ -785,7 +785,7 @@ function tt_backup_create(): array
     tt_backup_sync_frontend_cache();
     $jsonName = $stamp . '_manual.json';
     if (!copy(TT_DATA_FILE, $dir . '/' . $jsonName)) {
-        return ['ok' => false, 'error' => 'คัดลอก site.json ไม่สำเร็จ'];
+        return ['ok' => false, 'error' => 'Could not copy site.json'];
     }
     tt_backup_prune('_manual.json', TT_BACKUP_MAX_MANUAL);
     return ['ok' => true, 'file' => $jsonName, 'partial' => true];
@@ -795,50 +795,50 @@ function tt_backup_create(): array
 function tt_backup_restore(string $filename): array
 {
     if (!tt_backup_is_valid_filename($filename)) {
-        return ['ok' => false, 'error' => 'ชื่อไฟล์ไม่ถูกต้อง'];
+        return ['ok' => false, 'error' => 'Invalid filename'];
     }
     $path = tt_backup_ensure_dir() . '/' . $filename;
     if (!is_file($path)) {
-        return ['ok' => false, 'error' => 'ไม่พบไฟล์แบ็คอัพ'];
+        return ['ok' => false, 'error' => 'Backup file not found'];
     }
 
     if (str_ends_with($filename, '.json')) {
         $raw = file_get_contents($path);
         if ($raw === false) {
-            return ['ok' => false, 'error' => 'อ่านไฟล์ไม่สำเร็จ'];
+            return ['ok' => false, 'error' => 'Could not read file'];
         }
         $data = json_decode($raw, true);
         if (!is_array($data)) {
-            return ['ok' => false, 'error' => 'JSON ไม่ถูกต้อง'];
+            return ['ok' => false, 'error' => 'Invalid JSON'];
         }
         if (!tt_write_data($data)) {
-            return ['ok' => false, 'error' => 'เขียน site.json ไม่สำเร็จ'];
+            return ['ok' => false, 'error' => 'Could not write site.json'];
         }
         return ['ok' => true];
     }
 
     if (!class_exists('ZipArchive')) {
-        return ['ok' => false, 'error' => 'เซิร์ฟเวอร์ไม่รองรับ ZipArchive'];
+        return ['ok' => false, 'error' => 'Server does not support ZipArchive'];
     }
 
     $zip = new ZipArchive();
     if ($zip->open($path) !== true) {
-        return ['ok' => false, 'error' => 'เปิด ZIP ไม่สำเร็จ'];
+        return ['ok' => false, 'error' => 'Could not open ZIP'];
     }
 
     $jsonRaw = $zip->getFromName('site.json');
     if ($jsonRaw === false) {
         $zip->close();
-        return ['ok' => false, 'error' => 'ไม่พบ site.json ใน ZIP'];
+        return ['ok' => false, 'error' => 'site.json not found in ZIP'];
     }
     $data = json_decode($jsonRaw, true);
     if (!is_array($data)) {
         $zip->close();
-        return ['ok' => false, 'error' => 'site.json ใน ZIP ไม่ถูกต้อง'];
+        return ['ok' => false, 'error' => 'Invalid site.json in ZIP'];
     }
     if (!tt_write_data($data)) {
         $zip->close();
-        return ['ok' => false, 'error' => 'เขียน site.json ไม่สำเร็จ'];
+        return ['ok' => false, 'error' => 'Could not write site.json'];
     }
 
     $restoreMap = [

@@ -1,82 +1,82 @@
-# Talay Trang — ระบบหลังบ้าน (CMS)
+# Talay Trang — Admin Panel (CMS)
 
 ## URL
 
-| หน้า | URL (XAMPP) |
+| Page | URL (XAMPP) |
 |------|-------------|
 | **Admin Login** | http://localhost/1495/admin/login.php |
 | **Dashboard** | http://localhost/1495/admin/ |
-| **API ข้อมูล** | http://localhost/1495/api/data.php |
+| **Data API** | http://localhost/1495/api/data.php |
 
-## เข้าสู่ระบบ (ครั้งแรก)
+## First login
 
 - **Username:** `admin`
 - **Password:** `talaytrang2026`
 
-เปลี่ยนรหัสผ่านทันทีที่เมนู **เปลี่ยนรหัสผ่าน**
+Change the password immediately in the **Change password** menu
 
-## แก้ไขได้ทุกส่วน
+## What you can edit
 
-| เมนู Admin | สิ่งที่แก้ |
-|------------|-----------|
-| ข้อมูลเว็บ | เบอร์โทร, LINE, Facebook, TikTok, ที่อยู่, แผนที่ |
-| เมนูนำทาง | ลิงก์เมนูหลัก |
-| แบนเนอร์หน้าแรก | สไลด์ Hero |
-| บริการ (Pills) | ปุ่มบริการบน Hero |
-| ประเภทเรือ | เรือหางยาว / Speed / เรือใหญ่ + ราคา |
-| โปรแกรมทัวร์ | โปรแกรมทั้งหมด |
-| ตัวเลือกจอง | อาหาร, ไกด์, รถรับ (หน้า booking) |
-| รีวิว | รีวิวลูกค้า |
-| วิดีโอ | TikTok cards |
-| จุดเด่น | Why us |
-| ขั้นตอนจอง | 4 ขั้นตอน |
-| บทความ | เพิ่ม/แก้/ลบ + Markdown |
-| หน้าเกี่ยวกับเรา | Hero, เรื่องราว, Trust strip, CTA |
-| การ์ดหน้าแรก | การ์ด Custom Trip + คะแนน/รีวิวเรือ & โปรแกรม |
-| SEO / Meta | title, description, og:tags ทุกหน้า |
-| รูปภาพ (Registry) | Hero, การ์ดเรือ, โปรแกรม (IMAGES) |
-| อัปโหลดรูป | อัปโหลดเข้า `assets/uploads/` |
+| Admin menu | What it edits |
+|------------|---------------|
+| Site info | Phone, LINE, Facebook, TikTok, address, map |
+| Navigation menu | Main menu links |
+| Home banner | Hero slides |
+| Services (Pills) | Service buttons on the Hero |
+| Boat types | Long-tail / Speed / Large boats + prices |
+| Tour packages | All programs |
+| Booking options | Food, guide, shuttle, etc. (booking page) |
+| Reviews | Customer reviews |
+| Videos | TikTok cards |
+| Highlights | Why us |
+| Booking steps | The 4 steps |
+| Articles | Add / edit / delete + Markdown |
+| About page | Hero, story, Trust strip, CTA |
+| Home cards | Custom Trip card + boat & program ratings / reviews |
+| SEO / Meta | title, description, og:tags for every page |
+| Images (Registry) | Hero, boat cards, programs (IMAGES) |
+| Upload image | Upload to `assets/uploads/` |
 
-## โครงสร้างไฟล์
-
-```
-data/site.json          ← ข้อมูลทั้งเว็บ (แก้ผ่าน admin)
-data/admin-credentials.json  ← รหัสผ่าน (สร้างอัตโนมัติ)
-api/data.php            ← API อ่านข้อมูล (หน้าบ้านใช้)
-assets/js/data-fallback.js   ← สำรองเมื่อ API ล้ม
-assets/js/data.js       ← โหลดข้อมูลเข้า window.TT
-admin/                  ← หลังบ้านทั้งหมด
-```
-
-## บทความ — Markdown
+## File structure
 
 ```
-## หัวข้อย่อย
-
-ย่อหน้าปกติ
-
-> คำคม
-
-- รายการ 1
-- รายการ 2
-
-![คำอธิบาย](https://url-รูป.jpg)
+data/site.json          ← all website data (edited via admin)
+data/admin-credentials.json  ← password (auto-generated)
+api/data.php            ← data-reading API (used by the front end)
+assets/js/data-fallback.js   ← fallback when the API fails
+assets/js/data.js       ← loads data into window.TT
+admin/                  ← the entire admin panel
 ```
 
-## หลังบันทึก
+## Articles — Markdown
 
-- อัปเดต `data/site.json` ทันที
-- อัปเดต `assets/js/data-fallback.js` อัตโนมัติ
-- รีเฟรชหน้าเว็บ (Ctrl+F5) เพื่อเห็นผล
+```
+## Subheading
 
-## Migrate ข้อมูลใหม่จาก data.js เดิม
+Normal paragraph
+
+> Quote
+
+- Item 1
+- Item 2
+
+![description](https://image-url.jpg)
+```
+
+## After saving
+
+- Updates `data/site.json` immediately
+- Updates `assets/js/data-fallback.js` automatically
+- Refresh the web page (Ctrl+F5) to see the result
+
+## Migrate new data from the old data.js
 
 ```bash
 node tools/migrate-to-json.js
 ```
 
-## ความปลอดภัย
+## Security
 
-- อย่า commit `data/admin-credentials.json`
-- เปลี่ยนรหัสผ่าน default ก่อน deploy จริง
-- บน production ควรใช้ HTTPS
+- Do not commit `data/admin-credentials.json`
+- Change the default password before going live
+- Use HTTPS in production

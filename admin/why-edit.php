@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $postIdx = isset($_POST['idx']) ? (int)$_POST['idx'] : -1;
     $title = trim($_POST['title'] ?? '');
     if ($title === '') {
-        tt_set_flash('กรุณาระบุหัวข้อ');
+        tt_set_flash('Please enter a title');
         header('Location: why-edit.php' . ($postIdx >= 0 ? '?i=' . $postIdx : ''));
         exit;
     }
@@ -38,37 +38,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data['whyUs'] = $items;
     tt_write_data($data);
-    tt_set_flash('บันทึกจุดเด่นแล้ว');
+    tt_set_flash('Highlight saved');
     header('Location: why-edit.php?i=' . $postIdx);
     exit;
 }
 
-$pageTitle = $isNew ? 'เพิ่มจุดเด่น' : 'แก้ไขจุดเด่น';
+$pageTitle = $isNew ? 'Add highlight' : 'Edit highlight';
 tt_admin_header($pageTitle, 'why');
 $flash = tt_flash();
 if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
 
 <form method="post">
   <div class="card">
-    <h2>จุดเด่นบริการ</h2>
+    <h2>Service highlight</h2>
     <input type="hidden" name="idx" value="<?= $isNew ? -1 : $idx ?>"/>
 
     <div class="grid-2">
-      <div class="field"><label>หัวข้อ</label><input name="title" required value="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field"><label>ไอคอน</label>
+      <div class="field"><label>Title</label><input name="title" required value="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field"><label>Icon</label>
         <?php tt_icon_select('icon', $iconOptions, $item['icon'] ?? 'star'); ?>
       </div>
-      <div class="field" style="grid-column:1/-1"><label>คำอธิบาย</label><textarea name="desc"><?= htmlspecialchars($item['desc'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea></div>
+      <div class="field" style="grid-column:1/-1"><label>Description</label><textarea name="desc"><?= htmlspecialchars($item['desc'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea></div>
     </div>
 
-    <p class="field-hint">แสดงบนหน้าแรกและหน้าเกี่ยวกับเรา</p>
+    <p class="field-hint">Shown on the home page and the About us page</p>
 
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">บันทึก</button>
-      <a class="btn btn-ghost" href="why.php">กลับ</a>
-      <a class="btn btn-ghost" href="../about.html" target="_blank">ดูหน้าเว็บ</a>
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a class="btn btn-ghost" href="why.php">Back</a>
+      <a class="btn btn-ghost" href="../about.html" target="_blank">View page</a>
       <?php if (!$isNew): ?>
-        <a class="btn btn-danger" href="why.php?delete=<?= $idx ?>" onclick="return confirm('ลบจุดเด่นนี้?')">ลบรายการนี้</a>
+        <a class="btn btn-danger" href="why.php?delete=<?= $idx ?>" onclick="return confirm('Delete this highlight?')">Delete this entry</a>
       <?php endif; ?>
     </div>
   </div>

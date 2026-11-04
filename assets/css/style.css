@@ -352,19 +352,19 @@ p  { margin: 0 0 1em; }
   text-decoration: none;
 }
 .brand-text {
-  display: none;
+  display: flex;
   flex-direction: column;
   line-height: 1.15;
-  color: var(--ink);
+  color: var(--c-ink);
 }
 .brand-text strong {
-  font-size: .92rem;
+  font-size: .95rem;
   font-weight: 700;
   letter-spacing: -.01em;
 }
 .brand-text small {
   font-size: .72rem;
-  color: var(--muted);
+  color: var(--c-muted);
   font-weight: 500;
 }
 .brand-text--footer {
@@ -372,37 +372,42 @@ p  { margin: 0 0 1em; }
   color: #fff;
 }
 .brand-text--footer small { color: rgba(255, 255, 255, .72); }
-@media (min-width: 900px) {
-  .brand-text { display: flex; }
-}
 .site-header.is-transparent .brand-text {
   color: #fff;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, .35);
+  text-shadow: 0 1px 6px rgba(0, 18, 30, .4);
 }
 .site-header.is-transparent .brand-text small {
-  color: rgba(255, 255, 255, .85);
+  color: rgba(255, 255, 255, .88);
+}
+.site-header.is-transparent.is-flush-top .brand-text {
+  color: #fff;
+}
+.site-header.is-transparent.is-flush-top .brand-text small {
+  color: rgba(255, 255, 255, .88);
 }
 .brand-logo {
   display: block;
-  height: 38px;
-  width: auto;
-  max-width: 180px;
+  height: 52px;
+  width: 52px;
+  max-width: none;
   object-fit: contain;
-  transition: filter .25s var(--ease), height .25s var(--ease);
+  border-radius: 50%;
+  transition: filter .25s var(--ease), height .25s var(--ease), width .25s var(--ease);
 }
 @media (min-width: 768px) {
-  .brand-logo { height: 42px; max-width: 200px; }
+  .brand-logo { height: 58px; width: 58px; }
 }
 
-/* โลโก้บน hero โปร่งใส (พื้นสว่างจากภาพแบนเนอร์) — โลโก้ต้นฉบับสีน้ำเงิน อ่านได้ดีอยู่แล้ว */
+/* Circular photo logo — soft lift on transparent header */
 .site-header.is-transparent .brand-logo {
-  filter: drop-shadow(0 2px 6px rgba(255, 255, 255, .55));
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .28));
 }
 
-/* footer logo: ทำให้เป็นโทนขาวเพราะ footer พื้นเข้ม */
+/* Footer: keep full-color circular logo (no invert) */
 .brand-footer .brand-logo {
-  filter: brightness(0) invert(1);
-  height: 40px;
+  filter: none;
+  height: 64px;
+  width: 64px;
 }
 
 .nav-menu {
@@ -430,7 +435,17 @@ p  { margin: 0 0 1em; }
 .nav-link:hover { color: var(--c-ocean); }
 .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
 .nav-link.active { color: var(--c-ocean); }
-.site-header.is-transparent .nav-link.active { color: #fff; }
+.site-header.is-transparent .nav-link {
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 8px rgba(0, 18, 30, 0.35);
+}
+.site-header.is-transparent .nav-link:hover,
+.site-header.is-transparent .nav-link.active {
+  color: #fff;
+}
+.site-header.is-transparent .nav-link::after {
+  background: #fff;
+}
 
 .nav-cta { display: none; }
 .nav-toggle {
@@ -642,11 +657,25 @@ p  { margin: 0 0 1em; }
   border-radius: 999px;
 }
 
-/* หน้าแรก: ยังไม่เลื่อน — เฮดเดอร์โปร่งใส + เมนูสีเข้ม (ภาพอยู่ใต้เฮดเดอร์) */
-.site-header.is-transparent.is-flush-top .nav-link,
-.site-header.is-transparent.is-flush-top .nav-toggle { color: var(--c-ink); border-color: rgba(0,0,0,.12); }
-.site-header.is-transparent.is-flush-top .nav-link.active { color: var(--c-ocean); }
-.site-header.is-transparent.is-flush-top .brand-logo { filter: none; }
+/* หน้าแรก: บนสุดของฮีโร่ — เมนูสีขาวให้อ่านบนท้องฟ้า/ทะเล */
+.site-header.is-transparent.is-flush-top .nav-link {
+  color: rgba(255, 255, 255, 0.95);
+}
+.site-header.is-transparent.is-flush-top .nav-link:hover,
+.site-header.is-transparent.is-flush-top .nav-link.active {
+  color: #fff;
+}
+.site-header.is-transparent.is-flush-top .nav-link::after {
+  background: #fff;
+}
+.site-header.is-transparent.is-flush-top .nav-toggle {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.16);
+}
+.site-header.is-transparent.is-flush-top .brand-logo {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.28));
+}
 
 /* ---------- Banner Overlay (services on hero) ---------- */
 .banner-overlay {
@@ -2254,7 +2283,10 @@ p  { margin: 0 0 1em; }
 }
 
 /* ---------- Welcome popup (contact on entry) ---------- */
-.welcome-popup {
+/* Contact strip permanently hidden */
+.welcome-popup { display: none !important; }
+
+.welcome-popup-legacy {
   position: fixed;
   --tt-site-w: min(var(--container), 100vw - 2 * var(--gutter));
   --tt-side-space: calc((100vw - var(--tt-site-w)) / 2);
@@ -3546,7 +3578,7 @@ p  { margin: 0 0 1em; }
 .footer-col-brand .brand-footer {
   display: inline-flex;
 }
-.footer-col-brand .brand-logo { height: 44px; }
+.footer-col-brand .brand-logo { height: 64px; width: 64px; }
 
 .footer-cta {
   margin-top: 18px;

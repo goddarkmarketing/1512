@@ -51,19 +51,19 @@
             <div class="pick-body">
               <span class="pick-tag">${b.tag}</span>
               <strong class="pick-title">${b.name}</strong>
-              <span class="pick-meta">รองรับ ${b.capacity}</span>
+              <span class="pick-meta">Capacity ${b.capacity}</span>
               <span class="pick-desc">${b.short}</span>
             </div>
           </div>
           <div class="pick-divider"></div>
           <div class="pick-bot">
             <div class="pick-price">
-              <small>เริ่มต้น</small>
+              <small>From</small>
               <strong>฿${fmt.format(b.basePrice)}</strong>
             </div>
             <span class="pick-cta">
-              <span class="cta-default">เลือก</span>
-              <span class="cta-checked">${checkSvg} เลือกแล้ว</span>
+              <span class="cta-default">Select</span>
+              <span class="cta-checked">${checkSvg} Selected</span>
             </span>
           </div>
         </div>
@@ -92,12 +92,12 @@
             <div class="pick-divider"></div>
             <div class="pick-bot">
               <div class="pick-price">
-                <small>เริ่มต้น</small>
+                <small>From</small>
                 <strong>฿${fmt.format(p.basePrice)}</strong>
               </div>
               <span class="pick-cta">
-                <span class="cta-default">เลือก</span>
-                <span class="cta-checked">${checkSvg} เลือกแล้ว</span>
+                <span class="cta-default">Select</span>
+                <span class="cta-checked">${checkSvg} Selected</span>
               </span>
             </div>
           </div>
@@ -194,15 +194,15 @@
         tripBase = adultTotal + childTotal;
         if (adults > 0) {
           ticketLines.push({
-            label: 'ผู้ใหญ่',
-            desc: `฿${fmt.format(adultPrice)} × ${adults} ท่าน`,
+            label: 'Adult',
+            desc: `฿${fmt.format(adultPrice)} × ${adults} guests`,
             value: adultTotal,
           });
         }
         if (children > 0) {
           ticketLines.push({
-            label: 'เด็ก',
-            desc: `฿${fmt.format(childPrice)} × ${children} ท่าน`,
+            label: 'Child',
+            desc: `฿${fmt.format(childPrice)} × ${children} guests`,
             value: childTotal,
           });
         }
@@ -210,7 +210,7 @@
         tripBase = boat.basePrice;
       }
 
-      const wantShuttleFromTransport = state.transport === 'ให้รถไปรับ';
+      const wantShuttleFromTransport = state.transport === 'Hotel pickup' || state.transport === 'ให้รถไปรับ' /* legacy Thai value */;
       const hasShuttleOpt = state.optionIds.includes('shuttle');
       const shuttle = (wantShuttleFromTransport && !hasShuttleOpt) ? SHUTTLE_PRICE : 0;
 
@@ -224,8 +224,8 @@
           id: o.id,
           label: o.label,
           desc: o.unit === 'per_person'
-            ? `฿${fmt.format(o.price)} × ${people || 0} ท่าน`
-            : 'ราคาเหมา/ทริป',
+            ? `฿${fmt.format(o.price)} × ${people || 0} guests`
+            : 'Flat rate / trip',
           value: sub,
         });
       });
@@ -278,7 +278,7 @@
         cartHeroName.textContent = calc.boat.name;
         cartHeroRoute.textContent = calc.program
           ? calc.program.name
-          : 'ยังไม่ได้เลือกโปรแกรม';
+          : 'No program selected';
       } else {
         cartHero.hidden = true;
       }
@@ -293,7 +293,7 @@
               <strong>${calc.boat.name}</strong>
               <small>${calc.boat.capacity}</small>
             </span>
-            <span class="line-pill">เลือกแล้ว</span>
+            <span class="line-pill">Selected</span>
           </div>
         `);
       }
@@ -305,7 +305,7 @@
               <strong>${calc.program.name}</strong>
               <small>${calc.program.duration}</small>
             </span>
-            <span class="line-pill">เลือกแล้ว</span>
+            <span class="line-pill">Selected</span>
           </div>
         `);
       }
@@ -328,8 +328,8 @@
             <div class="cart-line cart-line-base">
               <span class="line-icon line-icon-strong">${ICONS.calculator || ICONS.anchor}</span>
               <span class="line-body">
-                <strong>ราคาทริปเหมาลำ</strong>
-                <small>เรือ + โปรแกรมเที่ยว</small>
+                <strong>Private charter trip price</strong>
+                <small>Boat + tour program</small>
               </span>
               <span class="line-amt">฿${fmt.format(calc.tripBase)}</span>
             </div>
@@ -341,8 +341,8 @@
           <div class="cart-line">
             <span class="line-icon">${ICONS.carPick}</span>
             <span class="line-body">
-              <strong>รถรับส่งจากโรงแรม</strong>
-              <small>ราคาเหมา/ทริป</small>
+              <strong>Hotel shuttle</strong>
+              <small>Flat rate / trip</small>
             </span>
             <span class="line-amt">฿${fmt.format(SHUTTLE_PRICE)}</span>
           </div>
@@ -362,7 +362,7 @@
       });
 
       const totalItemCount = itemRows.length;
-      cartCount.textContent = `${totalItemCount} รายการ`;
+      cartCount.textContent = `${totalItemCount} items`;
 
       if (totalItemCount === 0) {
         cartItems.innerHTML = `
@@ -372,7 +372,7 @@
                 <path d="M3 3h2l2 12h12l2-9H6"/><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/>
               </svg>
             </span>
-            <p>ยังไม่ได้เลือกรายการ<br/>เลือกเรือและโปรแกรมเพื่อเริ่มต้น</p>
+            <p>Nothing selected yet<br/>Choose a boat and program to get started</p>
           </div>
         `;
         cartSubtotal.hidden = true;
@@ -380,12 +380,12 @@
         cartItems.innerHTML = itemRows.join('');
         cartSubtotal.hidden = false;
         subBase.textContent = calc.people > 0
-          ? `${calc.adults} ผู้ใหญ่${calc.children ? ` · ${calc.children} เด็ก` : ''}`
-          : '— ท่าน';
+          ? `${calc.adults} adults${calc.children ? ` · ${calc.children} children` : ''}`
+          : '— guests';
         rowShuttle.hidden = true;
         subPeople.textContent = state.date
           ? formatThaiDate(state.date)
-          : 'ยังไม่ได้เลือก';
+          : 'Not selected';
         rowPerhead.hidden = calc.people <= 0 || calc.total <= 0;
         subPerhead.textContent = '฿' + fmt.format(calc.perHead);
       }
@@ -440,33 +440,33 @@
       const state = getState();
       let ok = true;
       if (stepKey === 'boat') {
-        if (!state.boatId) { setError('boat', 'กรุณาเลือกเรือก่อน'); ok = false; }
+        if (!state.boatId) { setError('boat', 'Please select a boat first'); ok = false; }
         else setError('boat', '');
       } else if (stepKey === 'program') {
-        if (!state.programId) { setError('program', 'กรุณาเลือกโปรแกรมก่อน'); ok = false; }
+        if (!state.programId) { setError('program', 'Please select a program first'); ok = false; }
         else setError('program', '');
       } else if (stepKey === 'trip') {
-        if (!state.date) { setError('date', 'กรุณาเลือกวันที่เดินทาง'); ok = false; }
+        if (!state.date) { setError('date', 'Please select a travel date'); ok = false; }
         else setError('date', '');
-        if (!state.adults || state.adults < 1) { setError('adults', 'กรุณาระบุผู้ใหญ่อย่างน้อย 1 ท่าน'); ok = false; }
+        if (!state.adults || state.adults < 1) { setError('adults', 'Please enter at least 1 adult'); ok = false; }
         else setError('adults', '');
-        if (state.children < 0) { setError('children', 'จำนวนเด็กไม่ถูกต้อง'); ok = false; }
+        if (state.children < 0) { setError('children', 'Invalid number of children'); ok = false; }
         else setError('children', '');
-        if (!state.transport) { setError('transport', 'กรุณาเลือกวิธีเดินทาง'); ok = false; }
+        if (!state.transport) { setError('transport', 'Please select a transport option'); ok = false; }
         else setError('transport', '');
       } else if (stepKey === 'contact') {
-        if (!state.name) { setError('name', 'กรุณากรอกชื่อ'); ok = false; }
+        if (!state.name) { setError('name', 'Please enter your name'); ok = false; }
         else setError('name', '');
         const phoneClean = state.phone.replace(/[^\d]/g, '');
         if (!state.phone || phoneClean.length < 9 || phoneClean.length > 12) {
-          setError('phone', state.phone ? 'เบอร์โทรไม่ถูกต้อง' : 'กรุณากรอกเบอร์โทร');
+          setError('phone', state.phone ? 'Invalid phone number' : 'Please enter your phone number');
           ok = false;
         } else setError('phone', '');
       }
       if (!ok) {
         const firstError = form.querySelector('.wizard-step.is-active .field.has-error');
         if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        window.TT.toast?.('กรุณากรอกข้อมูลให้ครบ');
+        window.TT.toast?.('Please complete all required fields');
       }
       return ok;
     }
@@ -564,31 +564,31 @@
       let ok = true;
       const phoneClean = state.phone.replace(/[^\d]/g, '');
 
-      [['name','กรุณากรอกชื่อ'], ['phone','กรุณากรอกเบอร์โทร'], ['date','กรุณาเลือกวันที่เดินทาง']]
+      [['name','Please enter your name'], ['phone','Please enter your phone number'], ['date','Please select a travel date']]
         .forEach(([k, msg]) => {
           if (!state[k]) { setError(k, msg); ok = false; } else setError(k, '');
         });
 
       if (state.phone && (phoneClean.length < 9 || phoneClean.length > 12)) {
-        setError('phone', 'เบอร์โทรไม่ถูกต้อง');
+        setError('phone', 'Invalid phone number');
         ok = false;
       }
       if (!state.adults || state.adults < 1) {
-        setError('adults', 'กรุณาระบุผู้ใหญ่อย่างน้อย 1 ท่าน');
+        setError('adults', 'Please enter at least 1 adult');
         ok = false;
       } else setError('adults', '');
       if (state.children < 0) {
-        setError('children', 'จำนวนเด็กไม่ถูกต้อง');
+        setError('children', 'Invalid number of children');
         ok = false;
       } else setError('children', '');
 
-      if (!state.transport) { setError('transport', 'กรุณาเลือกวิธีเดินทาง'); ok = false; }
+      if (!state.transport) { setError('transport', 'Please select a transport option'); ok = false; }
       else setError('transport', '');
 
-      if (!state.boatId) { setError('boat', 'กรุณาเลือกประเภทเรือ'); ok = false; }
+      if (!state.boatId) { setError('boat', 'Please select a boat type'); ok = false; }
       else setError('boat', '');
 
-      if (!state.programId) { setError('program', 'กรุณาเลือกโปรแกรม'); ok = false; }
+      if (!state.programId) { setError('program', 'Please select a program'); ok = false; }
       else setError('program', '');
 
       return ok;
@@ -599,49 +599,49 @@
        ========================================================= */
     function buildLineMessage(state, calc) {
       const L = [];
-      L.push('สวัสดีครับ/ค่ะ สนใจจองเรือเที่ยวทะเลตรัง');
+      L.push('Hello, I would like to book a Trang sea boat trip');
       L.push('');
-      L.push('— ข้อมูลผู้จอง —');
-      L.push(`ชื่อ: ${state.name}`);
-      L.push(`เบอร์โทร: ${state.phone}`);
-      L.push(`วันที่เดินทาง: ${formatThaiDate(state.date)}`);
-      L.push(`ผู้ใหญ่: ${state.adults} ท่าน`);
-      if (state.children > 0) L.push(`เด็ก: ${state.children} ท่าน`);
-      L.push(`รวม: ${state.people} ท่าน`);
-      L.push(`วิธีเดินทาง: ${state.transport}`);
+      L.push('— Booking contact —');
+      L.push(`Name: ${state.name}`);
+      L.push(`Phone: ${state.phone}`);
+      L.push(`Travel date: ${formatThaiDate(state.date)}`);
+      L.push(`Adults: ${state.adults} guests`);
+      if (state.children > 0) L.push(`Children: ${state.children} guests`);
+      L.push(`Total: ${state.people} guests`);
+      L.push(`Transport: ${state.transport}`);
       L.push('');
-      L.push('— รายละเอียดทริป —');
-      L.push(`ประเภทเรือ: ${calc.boat ? calc.boat.name : '-'}`);
-      L.push(`โปรแกรม: ${calc.program ? calc.program.name : '-'}`);
-      if (calc.program) L.push(`เส้นทาง: ${calc.program.route}`);
+      L.push('— Trip details —');
+      L.push(`Boat type: ${calc.boat ? calc.boat.name : '-'}`);
+      L.push(`Program: ${calc.program ? calc.program.name : '-'}`);
+      if (calc.program) L.push(`Route: ${calc.program.route}`);
       L.push('');
-      L.push('— Option เพิ่มเติม —');
-      if (calc.shuttle > 0) L.push(`• รถรับส่ง (+฿${fmt.format(SHUTTLE_PRICE)})`);
+      L.push('— Extra options —');
+      if (calc.shuttle > 0) L.push(`• Shuttle (+฿${fmt.format(SHUTTLE_PRICE)})`);
       if (calc.addonLines.length === 0 && calc.shuttle === 0) {
-        L.push('• ไม่มี');
+        L.push('• None');
       } else {
         calc.addonLines.forEach(a => {
           L.push(`• ${a.label} (+฿${fmt.format(a.value)})`);
         });
       }
       L.push('');
-      L.push('— สรุปราคา —');
+      L.push('— Price summary —');
       if (calc.ticketLines.length) {
         calc.ticketLines.forEach(t => L.push(`${t.label}: ${t.desc} = ฿${fmt.format(t.value)}`));
       } else {
-        L.push(`ราคาทริป: ฿${fmt.format(calc.tripBase)}`);
+        L.push(`Trip price: ฿${fmt.format(calc.tripBase)}`);
       }
-      if (calc.shuttle > 0) L.push(`รถรับส่ง: +฿${fmt.format(calc.shuttle)}`);
-      if (calc.addonsTotal > 0) L.push(`Option เพิ่มเติม: +฿${fmt.format(calc.addonsTotal)}`);
-      L.push(`>>> รวมโดยประมาณ: ฿${fmt.format(calc.total)} <<<`);
-      if (calc.perHead > 0) L.push(`เฉลี่ย ฿${fmt.format(calc.perHead)} / ท่าน`);
+      if (calc.shuttle > 0) L.push(`Shuttle: +฿${fmt.format(calc.shuttle)}`);
+      if (calc.addonsTotal > 0) L.push(`Extra options: +฿${fmt.format(calc.addonsTotal)}`);
+      L.push(`>>> Estimated total: ฿${fmt.format(calc.total)} <<<`);
+      if (calc.perHead > 0) L.push(`Average ฿${fmt.format(calc.perHead)} / person`);
       L.push('');
       if (state.note) {
-        L.push('— หมายเหตุ —');
+        L.push('— Notes —');
         L.push(state.note);
         L.push('');
       }
-      L.push('รบกวนแอดมินติดต่อกลับเพื่อยืนยันการจองด้วยครับ/ค่ะ');
+      L.push('Please have an admin contact me to confirm the booking');
       return L.join('\n');
     }
 
@@ -649,8 +649,8 @@
       if (!d) return '-';
       try {
         const dt = new Date(d);
-        const months = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
-        return `${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear() + 543}`;
+        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        return `${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()}`;
       } catch { return d; }
     }
 
@@ -664,7 +664,7 @@
       e.preventDefault();
       const { state, calc } = renderSummary();
       if (!validateAll(state)) {
-        window.TT.toast?.('กรุณากรอกข้อมูลให้ครบ');
+        window.TT.toast?.('Please complete all required fields');
         // jump to the step containing the first error
         const firstError = form.querySelector('.field.has-error');
         if (firstError) {
@@ -676,7 +676,7 @@
       }
       const msg = buildLineMessage(state, calc);
       try { if (navigator.clipboard) navigator.clipboard.writeText(msg); } catch {}
-      window.TT.toast?.('คัดลอกข้อความเรียบร้อย กำลังเปิด LINE…');
+      window.TT.toast?.('Message copied — opening LINE…');
       window.open(SITE.lineUrl, '_blank', 'noopener');
     });
 
@@ -684,13 +684,13 @@
       e.preventDefault();
       const { state, calc } = renderSummary();
       if (!validateAll(state)) {
-        window.TT.toast?.('กรุณากรอกข้อมูลให้ครบก่อนคัดลอก');
+        window.TT.toast?.('Please complete all fields before copying');
         return;
       }
       const msg = buildLineMessage(state, calc);
       navigator.clipboard?.writeText(msg).then(
-        () => window.TT.toast?.('คัดลอกเรียบร้อย พร้อมส่งใน LINE'),
-        () => window.TT.toast?.('คัดลอกไม่สำเร็จ')
+        () => window.TT.toast?.('Copied — ready to send on LINE'),
+        () => window.TT.toast?.('Copy failed')
       );
     });
 

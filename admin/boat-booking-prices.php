@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bb['charterPrices'] = $bb['charterPrices'] ?? [];
     $bb['charterPrices']['longtail'] = tt_bb_parse_charter_matrix_post($_POST['charter_longtail'] ?? []);
     tt_bb_save($bb);
-    tt_set_flash('บันทึกราคาเรือหางยาวแล้ว');
+    tt_set_flash('Long-tail boat prices saved');
     header('Location: boat-booking-prices.php');
     exit;
 }
@@ -24,21 +24,21 @@ $routes = $bb['routes'] ?? [];
 $peopleTiers = $bb['peopleTiers'] ?? [];
 $charterLongtail = $bb['charterPrices']['longtail'] ?? [];
 
-tt_bb_page_start('④ ราคาเหมาเรือหางยาว', 'prices');
+tt_bb_page_start('④ Long-tail boat charter prices', 'prices');
 ?>
 
 <div class="card">
-  <h2><span class="adm-step-badge adm-step-badge--lg">4</span> ราคาเหมาเรือหางยาว</h2>
-  <p class="field-hint">แสดงในขั้นเลือกจำนวนคน — ตาราง <strong>เส้นทาง × ช่วงคน</strong> · ราคาสปีดโบ๊ท/เรือทัวร์แก้ใน <a href="boat-booking-profiles.php">โปรไฟล์เรือ</a></p>
+  <h2><span class="adm-step-badge adm-step-badge--lg">4</span> Long-tail boat charter prices</h2>
+  <p class="field-hint">Shown in the passenger count step — table of <strong>Route × Group size</strong> · Speedboat / tour boat prices are edited in <a href="boat-booking-profiles.php">Boat profiles</a></p>
   <?php if (!$routes || !$peopleTiers): ?>
-    <p class="field-hint">กรุณาตั้งค่า <a href="boat-booking-routes.php">เส้นทาง</a> และ <a href="boat-booking-tiers.php">ช่วงจำนวนคน</a> ก่อน</p>
+    <p class="field-hint">Please set up <a href="boat-booking-routes.php">Routes</a> and <a href="boat-booking-tiers.php">Group sizes</a> first</p>
   <?php else: ?>
   <form method="post">
     <div class="table-wrap">
       <table class="table table-form adm-charter-matrix">
         <thead>
           <tr>
-            <th>เส้นทาง</th>
+            <th>Route</th>
             <?php foreach ($peopleTiers as $t): ?>
               <th><?= htmlspecialchars((string) ($t['label'] ?? $t['id'] ?? ''), ENT_QUOTES, 'UTF-8') ?></th>
             <?php endforeach; ?>
@@ -61,7 +61,7 @@ tt_bb_page_start('④ ราคาเหมาเรือหางยาว', '
         </tbody>
       </table>
     </div>
-    <?php tt_bb_form_actions('บันทึกราคาเรือหางยาว'); ?>
+    <?php tt_bb_form_actions('Save long-tail boat prices'); ?>
   </form>
   <?php endif; ?>
 </div>

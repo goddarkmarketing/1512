@@ -21,15 +21,15 @@
     });
     const json = await res.json();
     if (!res.ok || !json.ok) {
-      throw new Error(json.error || 'บันทึกไม่สำเร็จ');
+      throw new Error(json.error || 'Save failed');
     }
     return json;
   };
 
   window.ttCopyText = function (text) {
     navigator.clipboard.writeText(text).then(
-      () => ttToast('คัดลอกแล้ว'),
-      () => ttToast('คัดลอกไม่สำเร็จ', true)
+      () => ttToast('Copied'),
+      () => ttToast('Copy failed', true)
     );
   };
 
@@ -95,7 +95,7 @@
     const res = await fetch('api/upload.php', { method: 'POST', body: fd });
     const json = await res.json();
     if (!res.ok || !json.ok) {
-      throw new Error(json.error || 'อัปโหลดไม่สำเร็จ');
+      throw new Error(json.error || 'Upload failed');
     }
     return json.url;
   };
@@ -115,7 +115,7 @@
       if (!file) return;
 
       btn.classList.add('is-loading');
-      btn.textContent = 'กำลังอัปโหลด…';
+      btn.textContent = 'Uploading…';
       try {
         const url = await ttUploadImageFile(file);
         const append = input.dataset.imageAppend === '1';
@@ -126,12 +126,12 @@
           input.value = url;
         }
         input.dispatchEvent(new Event('input', { bubbles: true }));
-        ttToast('อัปโหลดสำเร็จ — ใส่ path ในช่องแล้ว');
+        ttToast('Upload successful — path filled in');
       } catch (err) {
-        ttToast(err.message || 'อัปโหลดไม่สำเร็จ', true);
+        ttToast(err.message || 'Upload failed', true);
       } finally {
         btn.classList.remove('is-loading');
-        btn.textContent = 'อัปโหลด';
+      btn.textContent = 'Upload';
       }
     });
   };
@@ -162,13 +162,13 @@
     input.name = opts.name;
     input.id = opts.id;
     input.className = 'image-url-input';
-    input.placeholder = opts.placeholder || 'https://... หรือ assets/uploads/photo.jpg';
+    input.placeholder = opts.placeholder || 'https://... or assets/uploads/photo.jpg';
     input.value = opts.value || '';
 
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'btn btn-ghost image-upload-btn';
-    btn.textContent = 'อัปโหลด';
+    btn.textContent = 'Upload';
 
     const fileEl = document.createElement('input');
     fileEl.type = 'file';
@@ -318,7 +318,7 @@
     const doc = iframe.contentDocument;
     const win = iframe.contentWindow;
     if (!doc || !win) {
-      if (loading) loading.textContent = 'โหลดตัวอย่างไม่สำเร็จ';
+      if (loading) loading.textContent = 'Preview failed to load';
       iframe.style.visibility = '';
       delete fig.dataset.previewLoading;
       return;
@@ -338,18 +338,18 @@
 
     const found = await waitForTarget(doc, selector, waitChildren);
     if (!found) {
-      if (loading) loading.textContent = 'ไม่พบส่วนนี้บนหน้าเว็บ';
+      if (loading) loading.textContent = 'This section was not found on the web page';
       iframe.style.visibility = '';
       delete fig.dataset.previewLoading;
       return;
     }
 
-    if (loading) loading.textContent = 'กำลังจัดตำแหน่ง…';
+      if (loading) loading.textContent = 'Positioning…';
 
     const el = resolvePreviewTarget(found, scope);
     await waitForLayoutStable(doc, win, el);
     if (!el) {
-      if (loading) loading.textContent = 'ไม่พบส่วนนี้บนหน้าเว็บ';
+      if (loading) loading.textContent = 'Section not found on the web page';
       iframe.style.visibility = '';
       delete fig.dataset.previewLoading;
       return;
@@ -412,7 +412,7 @@
     if (url) {
       preview.innerHTML = '<img src="' + url.replace(/"/g, '&quot;') + '" alt="" loading="lazy"/>';
     } else {
-      preview.innerHTML = '<span class="gallery-slot-empty">ยังไม่มีรูป</span>';
+      preview.innerHTML = '<span class="gallery-slot-empty">No image yet</span>';
     }
   }
 
@@ -440,7 +440,7 @@
     if (url) {
       preview.innerHTML = '<img src="' + url.replace(/"/g, '&quot;') + '" alt="" loading="lazy"/>';
     } else {
-      preview.innerHTML = '<span class="card-image-empty">ยังไม่มีภาพปกการ์ด</span>';
+      preview.innerHTML = '<span class="card-image-empty">No card cover image yet</span>';
     }
   }
 

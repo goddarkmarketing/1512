@@ -10,7 +10,7 @@ function tt_image_field_label(string $base, ?string $key = null, ?string $contex
 }
 
 /**
- * ช่อง URL/path รูป + ปุ่มอัปโหลด (ใช้ class image-url-row — init ใน admin.js)
+ * Image URL/path field + upload button (uses class image-url-row — initialized in admin.js)
  *
  * @param array{
  *   id?: string,
@@ -33,7 +33,7 @@ function tt_render_image_url_field(
     $key = $opts['key'] ?? null;
     $context = $opts['context'] ?? null;
     $id = $opts['id'] ?? preg_replace('/[^a-zA-Z0-9_-]/', '-', $name);
-    $placeholder = $opts['placeholder'] ?? 'https://... หรือ assets/uploads/photo.jpg';
+    $placeholder = $opts['placeholder'] ?? 'https://... or assets/uploads/photo.jpg';
     $required = !empty($opts['required']);
     $multiline = !empty($opts['multiline']);
     $rows = (int)($opts['rows'] ?? 8);
@@ -51,15 +51,15 @@ function tt_render_image_url_field(
     <?php else: ?>
       <input type="text" name="<?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?>" id="<?= htmlspecialchars($id, ENT_QUOTES, 'UTF-8') ?>" class="image-url-input" value="<?= htmlspecialchars($value, ENT_QUOTES, 'UTF-8') ?>" placeholder="<?= htmlspecialchars($placeholder, ENT_QUOTES, 'UTF-8') ?>"<?= $reqAttr ?><?= $appendAttr ?>/>
     <?php endif; ?>
-    <button type="button" class="btn btn-ghost image-upload-btn">อัปโหลด</button>
+    <button type="button" class="btn btn-ghost image-upload-btn">Upload</button>
     <input type="file" class="image-upload-file" accept="image/*" hidden/>
   </div>
 </div>
 <?php
 }
 
-/** ช่อง URL รูป + ปุ่มอัปโหลด (ใช้ในตาราง — init ผ่าน .image-url-row ใน admin.js) */
-function tt_render_image_url_row(string $name, string $value = '', string $placeholder = 'https://... หรือ assets/uploads/...'): void
+/** Image URL field + upload button (used in tables — initialized via .image-url-row in admin.js) */
+function tt_render_image_url_row(string $name, string $value = '', string $placeholder = 'https://... or assets/uploads/...'): void
 {
     ?>
 <div class="image-url-row image-url-row--table">
@@ -68,16 +68,16 @@ function tt_render_image_url_row(string $name, string $value = '', string $place
          class="image-url-input"
          value="<?= htmlspecialchars($value, ENT_QUOTES, 'UTF-8') ?>"
          placeholder="<?= htmlspecialchars($placeholder, ENT_QUOTES, 'UTF-8') ?>"/>
-  <button type="button" class="btn btn-ghost image-upload-btn">อัปโหลด</button>
+  <button type="button" class="btn btn-ghost image-upload-btn">Upload</button>
   <input type="file" class="image-upload-file" accept="image/*" hidden/>
 </div>
 <?php
 }
 
 /**
- * แกลเลอรี 6 ช่อง — ตรง layout หน้า program.html (3 บน + 3 ล่าง)
+ * 6-slot gallery — matches the program.html layout (3 top + 3 bottom)
  *
- * @param list<string> $values URL รูป (0–6 รายการ)
+ * @param list<string> $values Image URLs (0–6 items)
  * @param array{name?: string, context?: string|null} $opts
  */
 function tt_render_gallery_grid(array $values = [], array $opts = []): void
@@ -85,18 +85,18 @@ function tt_render_gallery_grid(array $values = [], array $opts = []): void
     $name = $opts['name'] ?? 'gallery';
     $context = $opts['context'] ?? 'program';
     $labels = [
-        'รูป 1 — แถวบนซ้าย',
-        'รูป 2 — แถวบนหลัง',
-        'รูป 3 — แถวบนขวา',
-        'รูป 4 — แถวล่างซ้าย',
-        'รูป 5 — แถวล่างกลาง',
-        'รูป 6 — แถวล่างขวา',
+        'Image 1 — top left',
+        'Image 2 — top center',
+        'Image 3 — top right',
+        'Image 4 — bottom left',
+        'Image 5 — bottom center',
+        'Image 6 — bottom right',
     ];
     $sizeHint = tt_image_size_label(null, $context);
     ?>
 <div class="gallery-grid-field">
   <?php if ($sizeHint !== ''): ?>
-    <p class="field-hint gallery-grid-hint"><?= htmlspecialchars($sizeHint, ENT_QUOTES, 'UTF-8') ?> · แนะนำ 1200×800 px ขึ้นไป</p>
+    <p class="field-hint gallery-grid-hint"><?= htmlspecialchars($sizeHint, ENT_QUOTES, 'UTF-8') ?> · Recommended 1200×800 px or larger</p>
   <?php endif; ?>
   <div class="gallery-grid">
     <?php for ($i = 0; $i < 6; $i++):
@@ -110,7 +110,7 @@ function tt_render_gallery_grid(array $values = [], array $opts = []): void
         <?php if ($val !== ''): ?>
           <img src="<?= htmlspecialchars($val, ENT_QUOTES, 'UTF-8') ?>" alt="" loading="lazy"/>
         <?php else: ?>
-          <span class="gallery-slot-empty">ยังไม่มีรูป</span>
+          <span class="gallery-slot-empty">No image yet</span>
         <?php endif; ?>
       </div>
       <div class="image-url-row">
@@ -119,8 +119,8 @@ function tt_render_gallery_grid(array $values = [], array $opts = []): void
                id="<?= htmlspecialchars($slotId, ENT_QUOTES, 'UTF-8') ?>"
                class="image-url-input gallery-slot-input"
                value="<?= htmlspecialchars($val, ENT_QUOTES, 'UTF-8') ?>"
-               placeholder="https://... หรือ assets/uploads/..."/>
-        <button type="button" class="btn btn-ghost image-upload-btn">อัปโหลด</button>
+               placeholder="https://... or assets/uploads/..."/>
+        <button type="button" class="btn btn-ghost image-upload-btn">Upload</button>
         <input type="file" class="image-upload-file" accept="image/*" hidden/>
       </div>
     </div>
@@ -157,14 +157,14 @@ function tt_gallery_slots_for_form(?array $gallery): array
 }
 
 /**
- * ช่องรูปปกการ์ด — preview ใหญ่ + URL + อัปโหลด
+ * Card cover image field — large preview + URL + upload
  *
  * @param array{id?: string, context?: string|null, label?: string} $opts
  */
 function tt_render_card_image_field(string $name, string $value = '', array $opts = []): void
 {
     $context = $opts['context'] ?? 'program';
-    $label = $opts['label'] ?? 'ภาพปกการ์ด';
+    $label = $opts['label'] ?? 'Card cover image';
     $id = $opts['id'] ?? preg_replace('/[^a-zA-Z0-9_-]/', '-', $name);
     $sizeHint = tt_image_size_label(null, $context);
     ?>
@@ -173,7 +173,7 @@ function tt_render_card_image_field(string $name, string $value = '', array $opt
     <?php if ($value !== ''): ?>
       <img src="<?= htmlspecialchars($value, ENT_QUOTES, 'UTF-8') ?>" alt="" loading="lazy"/>
     <?php else: ?>
-      <span class="card-image-empty">ยังไม่มีภาพปกการ์ด</span>
+      <span class="card-image-empty">No card cover image yet</span>
     <?php endif; ?>
   </div>
   <div class="field card-image-input-wrap">
@@ -184,11 +184,11 @@ function tt_render_card_image_field(string $name, string $value = '', array $opt
              id="<?= htmlspecialchars($id, ENT_QUOTES, 'UTF-8') ?>"
              class="image-url-input card-image-input"
              value="<?= htmlspecialchars($value, ENT_QUOTES, 'UTF-8') ?>"
-             placeholder="https://... หรือ assets/uploads/..."/>
-      <button type="button" class="btn btn-ghost image-upload-btn">อัปโหลด</button>
+             placeholder="https://... or assets/uploads/..."/>
+      <button type="button" class="btn btn-ghost image-upload-btn">Upload</button>
       <input type="file" class="image-upload-file" accept="image/*" hidden/>
     </div>
-    <p class="field-hint">แสดงบนการ์ดหน้าแรกและหน้า programs.html · แนะนำ 1200×750 px (16:10)</p>
+    <p class="field-hint">Shown on home page cards and the programs.html page · Recommended 1200×750 px (16:10)</p>
   </div>
 </div>
 <?php

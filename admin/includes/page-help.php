@@ -21,33 +21,33 @@ function tt_admin_page_help_map(): array
 {
     return [
         'dashboard' => [
-            'lead' => 'หน้านี้เป็นภาพรวมระบบหลังบ้าน — ไม่ได้แสดงบนหน้าเว็บโดยตรง',
+            'lead' => 'This page is an overview of the admin system — it is not shown directly on the website',
             'items' => [
-                'ใช้เมนูด้านซ้ายเพื่อแก้เนื้อหาแต่ละส่วนของเว็บ',
-                'หลังบันทึก ข้อมูลจะอัปเดตบนเว็บทันที',
+                'Use the left menu to edit each section of the website',
+                'After saving, the data updates on the website immediately',
             ],
         ],
         'site' => [
-            'lead' => 'ข้อมูลติดต่อ & แบรนด์ — ใช้หลายจุดบนเว็บ',
+            'lead' => 'Contact info & brand — used in many places on the website',
             'items' => [
-                'Footer ทุกหน้า — เบอร์โทร, LINE, Facebook, TikTok, ที่อยู่, เวลเปิด',
-                'ปุ่ม 「จอง LINE」 และ 「โทรเลย」 ในเมนู / แถบมือถือ',
-                'หน้า About — แผนที่, ที่อยู่, เวลทำการ, LINE',
-                'หน้าจอง (booking) — เปิด LINE หลังกดส่งคำขอ',
-                'หน้าวิดีโอ — ฝัง Facebook feed (URL เพจ)',
+                'Footer on every page — phone, LINE, Facebook, TikTok, address, opening hours',
+                '「Book via LINE」 and 「Call now」 buttons in the menu / mobile bar',
+                'About page — map, address, opening hours, LINE',
+                'Booking page — opens LINE after the request is submitted',
+                'Videos page — embeds the Facebook feed (page URL)',
             ],
             'preview' => '../about.html',
-            'previewLabel' => 'ดู Footer / About',
+            'previewLabel' => 'View Footer / About',
             'visuals' => [
                 [
-                    'caption' => 'Footer ทุกหน้า — เบอร์, LINE, โซเชียล, ที่อยู่',
+                    'caption' => 'Footer on every page — phone, LINE, social, address',
                     'page' => '../index.html',
                     'selector' => '#site-footer',
                     'maxHeight' => 200,
                     'waitChildren' => true,
                 ],
                 [
-                    'caption' => 'หน้า About — แผนที่ & ข้อมูลติดต่อ',
+                    'caption' => 'About page — map & contact info',
                     'page' => '../about.html',
                     'selector' => '.office',
                     'maxHeight' => 220,
@@ -55,28 +55,28 @@ function tt_admin_page_help_map(): array
             ],
         ],
         'nav' => [
-            'lead' => 'เมนูลิงก์ด้านบน (และเมนูมือถือ)',
+            'lead' => 'Top link menu (and mobile menu)',
             'items' => [
-                'แสดงทุกหน้า — หน้าแรก, เรือ, โปรแกรม, จอง, บทความ, ฯลฯ',
-                'ลำดับและชื่อเมนูตามที่ตั้งในรายการ',
+                'Shown on every page — Home, Boats, Programs, Booking, Articles, etc.',
+                'Order and names follow the list settings',
             ],
             'preview' => '../index.html',
             'visuals' => [[
-                'caption' => 'แถบเมนูด้านบนทุกหน้า',
+                'caption' => 'Top menu bar on every page',
                 'page' => '../index.html',
                 'selector' => '#site-header',
                 'maxHeight' => 72,
             ]],
         ],
         'hero' => [
-            'lead' => 'สไลด์แบนเนอร์ด้านบนหน้าแรก',
+            'lead' => 'Banner slides at the top of the home page',
             'items' => [
-                'รูปสไลด์หมุนอัตโนมัติใต้เมนู (index.html)',
-                'แต่ละสไลด์ = รูป + คำอธิบาย alt',
+                'Slideshow images rotate automatically below the menu (index.html)',
+                'Each slide = image + alt description',
             ],
             'preview' => '../index.html',
             'visuals' => [[
-                'caption' => 'สไลด์แบนเนอร์หน้าแรก (ใต้เมนู)',
+                'caption' => 'Home page banner slides (below the menu)',
                 'page' => '../index.html',
                 'selector' => '#hero-slider',
                 'scope' => 'section',
@@ -85,14 +85,14 @@ function tt_admin_page_help_map(): array
             ]],
         ],
         'services' => [
-            'lead' => 'แถบบริการ (Pills) บนหน้าแรก',
+            'lead' => 'Service bar (Pills) on the home page',
             'items' => [
-                'ไอคอน + ชื่อบริการ เลื่อนแนวนอน',
-                'กดแล้วไปหน้าที่กำหนด (เรือ, จอง, LINE ฯลฯ)',
+                'Icon + service name, scrolls horizontally',
+                'Click to go to the configured page (boats, booking, LINE, etc.)',
             ],
             'preview' => '../index.html',
             'visuals' => [[
-                'caption' => 'แถบบริการ (Pills) บนหน้าแรก',
+                'caption' => 'Service bar (Pills) on the home page',
                 'page' => '../index.html',
                 'selector' => '#home-services',
                 'scope' => 'section',
@@ -101,16 +101,16 @@ function tt_admin_page_help_map(): array
             ]],
         ],
         'boats' => [
-            'lead' => 'ประเภทเรือ — หน้า boats.html (การ์ดแพ็กเกจไปเช้าเย็นกลับบนหน้าแรกมาจากโปรแกรมทัวร์)',
+            'lead' => 'Boat types — boats.html page (day trip package cards on the home page come from Tour packages)',
             'items' => [
-                'หัวข้อ Section แพ็กเกจไปเช้าเย็นกลับบนหน้าแรก — แก้ที่เมนู 「หัวข้อ Section」',
-                'หน้า 「ประเภทเรือ」 — รายละเอียดเรือแต่ละแบบ',
-                'การ์ดแพ็กเกจ 8 ใบบนหน้าแรก — แก้ที่เมนู 「โปรแกรมทัวร์」 (รหัส # บนการ์ด)',
+                'Day trip packages Section heading on the home page — edit in the 「Section headings」 menu',
+                '「Boat types」 page — details for each boat type',
+                '8 package cards on the home page — edit in the 「Tour packages」 menu (# code on the card)',
             ],
             'preview' => '../boats.html',
             'visuals' => [
                 [
-                    'caption' => 'Hero + รายการเรือ — หน้า boats.html',
+                    'caption' => 'Hero + boat list — boats.html page',
                     'page' => '../boats.html',
                     'selector' => '#boats-list',
                     'scope' => 'section',
@@ -118,7 +118,7 @@ function tt_admin_page_help_map(): array
                     'waitChildren' => true,
                 ],
                 [
-                    'caption' => 'การ์ดแพ็กเกจไปเช้าเย็นกลับบนหน้าแรก',
+                    'caption' => 'Day trip package cards on the home page',
                     'page' => '../index.html',
                     'selector' => '#home-boats',
                     'scope' => 'section',
@@ -128,17 +128,17 @@ function tt_admin_page_help_map(): array
             ],
         ],
         'programs' => [
-            'lead' => 'แพ็กเกจทัวร์ — หน้าแรก, programs.html และ program.html (รายละเอียด)',
+            'lead' => 'Tour packages — home page, programs.html and program.html (details)',
             'items' => [
-                'การ์ดหน้าแรก + หน้า programs.html — ชื่อ, รูปปก, ราคา, รหัส',
-                'หน้ารายละเอียด program.html — กด 「แก้หน้ารายละเอียด」 → แก้แกลเลอรี 6 รูป, โปรแกรมทัวร์, ราคา, สิ่งที่รวม',
-                'รองรับ 3 หมวด: ไปเช้าเย็นกลับ · 2 วัน 1 คืน · 3 วัน 2 คืน',
+                'Home page cards + programs.html page — name, cover image, price, code',
+                'Detail page program.html — click 「Edit」 → edit the 6-image gallery, tour program, prices, inclusions',
+                'Supports 3 categories: Day trip · 2 days 1 night · 3 days 2 nights',
             ],
             'preview' => '../program.html?id=dl001',
-            'previewLabel' => 'ดูหน้ารายละเอียด (ตัวอย่าง)',
+            'previewLabel' => 'View detail page (example)',
             'visuals' => [
                 [
-                    'caption' => 'การ์ดแพ็กเกจบนหน้าแรก',
+                    'caption' => 'Package cards on the home page',
                     'page' => '../index.html',
                     'selector' => '#home-boats',
                     'scope' => 'section',
@@ -146,7 +146,7 @@ function tt_admin_page_help_map(): array
                     'waitChildren' => true,
                 ],
                 [
-                    'caption' => 'หน้ารายละเอียด program.html — แกลเลอรี + เนื้อหา',
+                    'caption' => 'Detail page program.html — gallery + content',
                     'page' => '../program.html?id=dl001',
                     'selector' => '#pkg-gallery',
                     'scope' => 'main',
@@ -156,14 +156,14 @@ function tt_admin_page_help_map(): array
             ],
         ],
         'options' => [
-            'lead' => 'ตัวเลือกเสริมในหน้าจองเรือ',
+            'lead' => 'Extra options on the boat booking page',
             'items' => [
-                'อาหาร, ไกด์, ช่างภาพ, ดำน้ำ, รถรับส่ง ฯลฯ',
-                'ลูกค้าเลือกเพิ่มตอนคำนวณราคา (booking.html)',
+                'Food, guide, photographer, diving, shuttle, etc.',
+                'Customers add them when calculating the price (booking.html)',
             ],
             'preview' => '../booking.html?step=trip',
             'visuals' => [[
-                'caption' => 'ตัวเลือกเสริมในฟอร์มจอง',
+                'caption' => 'Extra options in the booking form',
                 'page' => '../booking.html?step=trip',
                 'selector' => '#option-choices',
                 'scope' => 'section',
@@ -172,14 +172,14 @@ function tt_admin_page_help_map(): array
             ]],
         ],
         'reviews' => [
-            'lead' => 'รีวิวลูกค้า — ส่วนรีวิวบนหน้าแรก',
+            'lead' => 'Customer reviews — reviews section on the home page',
             'items' => [
-                'การ์ดคำชมลูกค้า (สไลด์บนมือถือ)',
-                'ชื่อ, ทริป, ข้อความ, ดาว',
+                'Customer testimonial cards (slides on mobile)',
+                'Name, trip, text, stars',
             ],
             'preview' => '../index.html',
             'visuals' => [[
-                'caption' => 'ส่วนรีวิวลูกค้าหน้าแรก',
+                'caption' => 'Customer reviews section on the home page',
                 'page' => '../index.html',
                 'selector' => '#home-reviews',
                 'scope' => 'section',
@@ -188,14 +188,14 @@ function tt_admin_page_help_map(): array
             ]],
         ],
         'videos' => [
-            'lead' => 'วิดีโอ TikTok / Facebook — หน้า videos.html',
+            'lead' => 'TikTok / Facebook videos — videos.html page',
             'items' => [
-                'การ์ดคลิป + ลิงก์ไป TikTok / Facebook',
-                'ฝัง feed จาก TikTok และเพจ Facebook',
+                'Video cards + links to TikTok / Facebook',
+                'Embedded feed from TikTok and the Facebook page',
             ],
             'preview' => '../videos.html',
             'visuals' => [[
-                'caption' => 'ส่วนวิดีโอ TikTok บนหน้าเว็บ',
+                'caption' => 'TikTok video section on the web page',
                 'page' => '../videos.html',
                 'selector' => '#tiktok-feed',
                 'scope' => 'section',
@@ -204,14 +204,14 @@ function tt_admin_page_help_map(): array
             ]],
         ],
         'why' => [
-            'lead' => 'จุดเด่น 「ทำไมต้องจองกับเรา」',
+            'lead' => 'Highlights 「Why book with us」',
             'items' => [
-                'แสดงบนหน้า About (และส่วนที่เกี่ยวข้องบนหน้าแรก)',
-                'ไอคอน + หัวข้อ + คำอธิบายสั้น ๆ',
+                'Shown on the About page (and related sections on the home page)',
+                'Icon + title + short description',
             ],
             'preview' => '../about.html',
             'visuals' => [[
-                'caption' => '4 จุดเด่นบนหน้า About',
+                'caption' => '4 highlights on the About page',
                 'page' => '../about.html',
                 'selector' => '#why-list',
                 'scope' => 'section',
@@ -220,14 +220,14 @@ function tt_admin_page_help_map(): array
             ]],
         ],
         'steps' => [
-            'lead' => 'ขั้นตอนการจอง — หน้าแรก',
+            'lead' => 'Booking steps — home page',
             'items' => [
-                '4 ขั้นตอน: เลือกเรือ → โปรแกรม → คำนวณราคา → LINE',
-                'อยู่เหนือส่วนรีวิวหรือ CTA บนหน้าแรก',
+                '4 steps: Choose boat → Program → Calculate price → LINE',
+                'Located above the reviews section or CTA on the home page',
             ],
             'preview' => '../index.html',
             'visuals' => [[
-                'caption' => '4 ขั้นตอนจองบนหน้าแรก',
+                'caption' => '4 booking steps on the home page',
                 'page' => '../index.html',
                 'selector' => '#home-steps',
                 'scope' => 'section',
@@ -236,14 +236,14 @@ function tt_admin_page_help_map(): array
             ]],
         ],
         'articles' => [
-            'lead' => 'บทความ — หน้า articles.html + รายละเอียด',
+            'lead' => 'Articles — articles.html page + details',
             'items' => [
-                'รายการบทความ (รูปย่อ, หัวข้อ, คำโปรย)',
-                'หน้ article.html — เนื้อหาเต็มตาม slug',
+                'Article list (thumbnail, title, excerpt)',
+                'article.html page — full content by slug',
             ],
             'preview' => '../articles.html',
             'visuals' => [[
-                'caption' => 'รายการบทความบนหน้าเว็บ',
+                'caption' => 'Article list on the web page',
                 'page' => '../articles.html',
                 'selector' => '#articles-list',
                 'scope' => 'section',
@@ -252,22 +252,22 @@ function tt_admin_page_help_map(): array
             ]],
         ],
         'about' => [
-            'lead' => 'เนื้อหาหน้า 「เกี่ยวกับเรา」',
+            'lead' => 'Content of the 「About us」 page',
             'items' => [
-                'Hero, เรื่องราว, ตัวเลขความน่าเชื่อถือ, CTA',
-                'ที่อยู่/แผนที่/โทร/LINE ดึงจาก 「ข้อมูลเว็บ」 อัตโนมัติ',
-                'รูป story grid แก้ที่ 「รูปภาพ Registry」 (about1–3)',
+                'Hero, story, credibility numbers, CTA',
+                'Address / map / phone / LINE are pulled automatically from 「Site info」',
+                'Story grid images are edited in 「Images Registry」 (about1–3)',
             ],
             'preview' => '../about.html',
             'visuals' => [
                 [
-                    'caption' => 'Hero หน้า About',
+                    'caption' => 'About page Hero',
                     'page' => '../about.html',
                     'selector' => '.hero-sub',
                     'maxHeight' => 180,
                 ],
                 [
-                    'caption' => 'Story grid + รูป 3 ช่อง',
+                    'caption' => 'Story grid + 3 image slots',
                     'page' => '../about.html',
                     'selector' => '#story-grid',
                     'scope' => 'section',
@@ -277,14 +277,14 @@ function tt_admin_page_help_map(): array
             ],
         ],
         'deals' => [
-            'lead' => 'การ์ดโปรโมชัน Custom Trip บนหน้าแรก',
+            'lead' => 'Custom Trip promotion card on the home page',
             'items' => [
-                'การ์ดพิเศษในส่วน deal (ถัดจากโปรแกรม/เรือ)',
-                'เปิด/ปิดการแสดง, รูป, ราคา, ป้าย, ลิงก์ไปจอง',
+                'Special card in the deal section (after programs / boats)',
+                'Show/hide, image, price, badges, booking link',
             ],
             'preview' => '../index.html',
             'visuals' => [[
-                'caption' => 'การ์ด Custom Trip ในหน้าแรก (ส่วนเรือ)',
+                'caption' => 'Custom Trip card on the home page (boats section)',
                 'page' => '../index.html',
                 'selector' => '#home-boats',
                 'scope' => 'section',
@@ -293,14 +293,14 @@ function tt_admin_page_help_map(): array
             ]],
         ],
         'seo' => [
-            'lead' => 'Title & Meta ของแต่ละหน้า (Google / แชร์โซเชียล)',
+            'lead' => 'Title & Meta for each page (Google / social sharing)',
             'items' => [
-                'ชื่อแท็บเบราว์เซอร์, คำอธิบาย, og:image',
-                'ไม่เห็นบนหน้าเว็บโดยตรง แต่มีผลตอนค้นหาและแชร์ลิงก์',
+                'Browser tab title, description, og:image',
+                'Not visible directly on the web page, but affects search and link sharing',
             ],
             'preview' => '../index.html',
             'visuals' => [[
-                'caption' => 'หน้าเว็บที่ใช้ title / meta (ตัวอย่างหน้าแรก)',
+                'caption' => 'Web pages that use title / meta (home page example)',
                 'page' => '../index.html',
                 'selector' => '#hero-slider',
                 'maxHeight' => 160,
@@ -308,30 +308,30 @@ function tt_admin_page_help_map(): array
             ]],
         ],
         'images' => [
-            'lead' => 'คลังรูป (Registry) — รูปพื้นหลอง Hero ย่อย & About',
+            'lead' => 'Image library (Registry) — sub-page Hero & About background images',
             'items' => [
-                'Hero หัวข้อย่อย: heroBoats, heroPrograms, heroAbout ฯลฯ',
-                'รูป About: about1, about2, about3',
-                'ใช้ URL หรือ path จาก 「อัปโหลดรูป」',
+                'Sub-page Hero: heroBoats, heroPrograms, heroAbout, etc.',
+                'About images: about1, about2, about3',
+                'Use a URL or path from 「Upload image」',
             ],
             'preview' => '../boats.html',
-            'previewLabel' => 'ดู Hero หน้ารอง',
+            'previewLabel' => 'View sub-page Hero',
             'visuals' => [[
-                'caption' => 'Hero หัวข้อย่อย (ตัวอย่างหน้าเรือ)',
+                'caption' => 'Sub-page Hero (boats page example)',
                 'page' => '../boats.html',
                 'selector' => '.hero-sub',
                 'maxHeight' => 180,
             ]],
         ],
         'media' => [
-            'lead' => 'อัปโหลดรูปเข้าเว็บ — ใช้ร่วมกับช่อง URL ในเมนูอื่น',
+            'lead' => 'Upload images to the website — used together with the URL fields in other menus',
             'items' => [
-                'ไม่แสดงเป็นหน้าเว็บแยก — เป็นเครื่องมือเก็บไฟล์',
-                'อัปโหลดแล้ว copy path ไปวางในฟอร์มแก้ไข',
-                'หรือกดปุ่ม 「อัปโหลด」 ข้างช่อง URL โดยตรง',
+                'Not shown as a separate web page — it is a file storage tool',
+                'After uploading, copy the path and paste it into the edit form',
+                'Or click the 「Upload」 button next to the URL field directly',
             ],
             'visuals' => [[
-                'caption' => 'รูปที่อัปโหลดจะไปแสดงในการ์ด/แบนเนอร์แบบนี้',
+                'caption' => 'Uploaded images appear in cards / banners like this',
                 'page' => '../index.html',
                 'selector' => '#home-programs',
                 'scope' => 'section',
@@ -354,11 +354,11 @@ function tt_home_section_help_map(): array
 {
     return [
         'hero' => [
-            'lead' => 'หัวข้อบนแบนเนอร์สไลด์ — หน้าแรก',
-            'items' => ['ข้อความทับรูปสไลด์ด้านบน', 'ไม่รวมปุ่มบริการเลื่อนด้านล่าง'],
+            'lead' => 'Heading on the banner slides — home page',
+            'items' => ['Text over the top slide image', 'Does not include the scrolling service buttons below'],
             'preview' => '../index.html',
             'visual' => [
-                'caption' => 'ตำแหน่งบนหน้าแรก',
+                'caption' => 'Position on the home page',
                 'page' => '../index.html',
                 'selector' => '#hero-slider .overlay-head',
                 'maxHeight' => 200,
@@ -366,8 +366,8 @@ function tt_home_section_help_map(): array
             ],
         ],
         'boats' => [
-            'lead' => 'หัวข้อ Section แพ็กเกจไปเช้าเย็นกลับ — หน้าแรก',
-            'items' => ['อยู่เหนือการ์ดแพ็กเกจ 8 ใบ (4+4)', 'การ์ดและรหัส # แก้ที่เมนูโปรแกรมทัวร์'],
+            'lead' => 'Day trip packages Section heading — home page',
+            'items' => ['Above the 8 package cards (4+4)', 'Cards and # codes are edited in the Tour packages menu'],
             'preview' => '../index.html#boats',
             'visual' => [
                 'page' => '../index.html',
@@ -377,8 +377,8 @@ function tt_home_section_help_map(): array
             ],
         ],
         'programs' => [
-            'lead' => 'หัวข้อ Section โปรแกรมยอดนิยม — หน้าแรก',
-            'items' => ['อยู่เหนือการ์ดโปรแกรม', 'การ์ดโปรแกรมแก้ที่เมนูโปรแกรมทัวร์'],
+            'lead' => 'Popular programs Section heading — home page',
+            'items' => ['Above the program cards', 'Program cards are edited in the Tour packages menu'],
             'preview' => '../index.html',
             'visual' => [
                 'page' => '../index.html',
@@ -388,8 +388,8 @@ function tt_home_section_help_map(): array
             ],
         ],
         'booking' => [
-            'lead' => 'หัวข้อ Section ขั้นตอนจอง — หน้าแรก',
-            'items' => ['อยู่เหนือ 4 ขั้นตอนจอง', 'ขั้นตอนแก้ที่เมนูขั้นตอนจอง'],
+            'lead' => 'Booking steps Section heading — home page',
+            'items' => ['Above the 4 booking steps', 'Steps are edited in the Booking steps menu'],
             'preview' => '../index.html',
             'visual' => [
                 'page' => '../index.html',
@@ -399,8 +399,8 @@ function tt_home_section_help_map(): array
             ],
         ],
         'reviews' => [
-            'lead' => 'หัวข้อ Section รีวิว — หน้าแรก',
-            'items' => ['อยู่เหนือการ์ดรีวิว', 'รีวิวแก้ที่เมนูรีวิว'],
+            'lead' => 'Reviews Section heading — home page',
+            'items' => ['Above the review cards', 'Reviews are edited in the Reviews menu'],
             'preview' => '../index.html',
             'visual' => [
                 'page' => '../index.html',
@@ -410,8 +410,8 @@ function tt_home_section_help_map(): array
             ],
         ],
         'videos' => [
-            'lead' => 'หัวข้อ Section TikTok — หน้าแรก',
-            'items' => ['อยู่เหนือคลิปวิดีโอ', 'คลิปแก้ที่เมนูวิดีโอ'],
+            'lead' => 'TikTok Section heading — home page',
+            'items' => ['Above the video clips', 'Clips are edited in the Videos menu'],
             'preview' => '../index.html',
             'visual' => [
                 'page' => '../index.html',
@@ -421,8 +421,8 @@ function tt_home_section_help_map(): array
             ],
         ],
         'office' => [
-            'lead' => 'หัวข้อ Section ออฟฟิศ — หน้าแรก',
-            'items' => ['หัวข้อด้านบน + กล่องข้อมูลออฟฟิศ', 'แผนที่/เบอร์ดึงจากข้อมูลเว็บ'],
+            'lead' => 'Office Section heading — home page',
+            'items' => ['Top heading + office info box', 'Map / phone are pulled from Site info'],
             'preview' => '../index.html',
             'visual' => [
                 'page' => '../index.html',
@@ -432,8 +432,8 @@ function tt_home_section_help_map(): array
             ],
         ],
         'cta' => [
-            'lead' => 'หัวข้อ Section CTA ท้ายหน้า — หน้าแรก',
-            'items' => ['ข้อความก่อนปุ่มจองท้ายหน้าแรก'],
+            'lead' => 'CTA Section heading at the bottom of the page — home page',
+            'items' => ['Text before the booking button at the bottom of the home page'],
             'preview' => '../index.html',
             'visual' => [
                 'page' => '../index.html',
@@ -466,9 +466,9 @@ function tt_admin_page_help_visual_figure(array $visual): string
         . '<div class="admin-page-help-live">'
         . '<div class="admin-page-help-live-clip">'
         . '<div class="admin-page-help-live-stage">'
-        . '<iframe class="admin-page-help-iframe" title="ตัวอย่างหน้าเว็บ" tabindex="-1" loading="eager"></iframe>'
+        . '<iframe class="admin-page-help-iframe" title="Web page preview" tabindex="-1" loading="eager"></iframe>'
         . '</div></div>'
-        . '<div class="admin-page-help-live-loading">กำลังโหลดตัวอย่าง…</div>'
+        . '<div class="admin-page-help-live-loading">Loading preview…</div>'
         . '</div>';
     if ($caption !== '') {
         $html .= '<figcaption>' . htmlspecialchars($caption, ENT_QUOTES, 'UTF-8') . '</figcaption>';
@@ -506,11 +506,11 @@ function tt_render_admin_section_help(string $sectionKey): string
     if (!empty($help['preview'])) {
         $preview = '<p class="admin-page-help-foot"><a href="'
             . htmlspecialchars($help['preview'], ENT_QUOTES, 'UTF-8')
-            . '" target="_blank" rel="noopener">เปิดดูบนเว็บ ↗</a></p>';
+            . '" target="_blank" rel="noopener">Open on website ↗</a></p>';
     }
 
     return '<span class="admin-page-help admin-page-help--inline">'
-        . '<button type="button" class="admin-page-help-btn" aria-label="ดูว่าแสดงที่ไหนบนเว็บ">?</button>'
+        . '<button type="button" class="admin-page-help-btn" aria-label="See where this appears on the website">?</button>'
         . '<div class="' . $popoverClass . '" role="tooltip">'
         . $visualsHtml
         . '<p class="admin-page-help-lead">' . htmlspecialchars($help['lead'], ENT_QUOTES, 'UTF-8') . '</p>'
@@ -541,7 +541,7 @@ function tt_render_admin_page_help(?string $pageId): string
 
     $preview = '';
     if (!empty($help['preview'])) {
-        $label = $help['previewLabel'] ?? 'เปิดดูบนเว็บ';
+        $label = $help['previewLabel'] ?? 'Open on website';
         $preview = '<p class="admin-page-help-foot"><a href="'
             . htmlspecialchars($help['preview'], ENT_QUOTES, 'UTF-8')
             . '" target="_blank" rel="noopener">'
@@ -550,7 +550,7 @@ function tt_render_admin_page_help(?string $pageId): string
     }
 
     return '<span class="admin-page-help">'
-        . '<button type="button" class="admin-page-help-btn" aria-label="ดูว่าแสดงที่ไหนบนเว็บ">?</button>'
+        . '<button type="button" class="admin-page-help-btn" aria-label="See where this appears on the website">?</button>'
         . '<div class="' . $popoverClass . '" role="tooltip">'
         . $visualsHtml
         . '<p class="admin-page-help-lead">' . htmlspecialchars($help['lead'], ENT_QUOTES, 'UTF-8') . '</p>'

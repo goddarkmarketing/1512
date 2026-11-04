@@ -13,23 +13,23 @@ if (isset($_GET['delete']) && $_GET['delete'] !== '') {
     $articles = array_values(array_filter($articles, fn($a) => ($a['slug'] ?? '') !== $slug));
     $data['articles'] = $articles;
     tt_write_data($data);
-    tt_set_flash('ลบบทความแล้ว');
+    tt_set_flash('Article deleted');
     header('Location: articles.php');
     exit;
 }
 
-tt_admin_header('บทความ', 'articles');
+tt_admin_header('Articles', 'articles');
 $flash = tt_flash();
 if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
 
 <div class="form-actions" style="border:0;margin-bottom:16px;padding:0">
-  <a class="btn btn-primary" href="article-edit.php">+ เขียนบทความใหม่</a>
+  <a class="btn btn-primary" href="article-edit.php">+ Write new article</a>
 </div>
 
 <div class="card">
   <table class="table">
     <thead>
-      <tr><th>หัวข้อ</th><th>หมวด</th><th>วันที่</th><th></th></tr>
+      <tr><th>Title</th><th>Category</th><th>Date</th><th></th></tr>
     </thead>
     <tbody>
       <?php foreach ($articles as $a): ?>
@@ -39,9 +39,9 @@ if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT
           <td><?= htmlspecialchars($a['date'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
           <td class="table-actions">
             <div class="table-actions-row">
-              <a class="btn btn-ghost btn-sm" href="article-edit.php?slug=<?= urlencode($a['slug'] ?? '') ?>">แก้ไข</a>
-              <a class="btn btn-danger btn-sm" href="articles.php?delete=<?= urlencode($a['slug'] ?? '') ?>" onclick="return confirm('ลบบทความนี้?')">ลบ</a>
-              <a class="btn btn-ghost btn-sm" href="../article.html?slug=<?= urlencode($a['slug'] ?? '') ?>" target="_blank">ดู</a>
+              <a class="btn btn-ghost btn-sm" href="article-edit.php?slug=<?= urlencode($a['slug'] ?? '') ?>">Edit</a>
+              <a class="btn btn-danger btn-sm" href="articles.php?delete=<?= urlencode($a['slug'] ?? '') ?>" onclick="return confirm('Delete this article?')">Delete</a>
+              <a class="btn btn-ghost btn-sm" href="../article.html?slug=<?= urlencode($a['slug'] ?? '') ?>" target="_blank">View</a>
             </div>
           </td>
         </tr>

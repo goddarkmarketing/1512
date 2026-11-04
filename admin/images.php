@@ -15,7 +15,7 @@ if (isset($_GET['delete']) && $_GET['delete'] !== '') {
         unset($images[$key]);
         $data['images'] = $images;
         tt_write_data($data);
-        tt_set_flash('ลบรูปภาพแล้ว');
+        tt_set_flash('Image deleted');
     }
     header('Location: images.php');
     exit;
@@ -36,7 +36,7 @@ function tt_image_preview_url(mixed $val): string
 function tt_image_value_summary(mixed $val): string
 {
     if (is_array($val)) {
-        return count($val) . ' รูป';
+        return count($val) . ' images';
     }
     $text = (string)$val;
     if (mb_strlen($text) > 48) {
@@ -45,23 +45,23 @@ function tt_image_value_summary(mixed $val): string
     return $text;
 }
 
-tt_admin_header('รูปภาพ (Registry)', 'images');
+tt_admin_header('Images (Registry)', 'images');
 $flash = tt_flash();
 if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
 
 <div class="form-actions" style="border:0;margin-bottom:16px;padding:0">
-  <a class="btn btn-primary" href="image-edit.php">+ เพิ่มรูปภาพ</a>
-  <a class="btn btn-ghost" href="media.php">อัปโหลดรูป</a>
+  <a class="btn btn-primary" href="image-edit.php">+ Add image</a>
+  <a class="btn btn-ghost" href="media.php">Upload image</a>
 </div>
 
 <div class="card">
   <?php if (!$images): ?>
-    <p class="field-hint">ยังไม่มีรูปใน Registry — กดปุ่มด้านบนเพื่อเพิ่ม key ใหม่</p>
+    <p class="field-hint">No images in the Registry yet — click the button above to add a new key</p>
   <?php else: ?>
-  <p class="field-hint" style="margin-top:0;margin-bottom:16px">คลังรูป IMAGES ที่หน้าเว็บใช้ — URL เต็ม (Pexels) หรือ path ในเว็บ (assets/...) · <a href="media.php">ดูตารางขนาดรูปทั้งหมด</a></p>
+  <p class="field-hint" style="margin-top:0;margin-bottom:16px">IMAGES library used by the website — full URL (Pexels) or a path within the website (assets/...) · <a href="media.php">View all image size tables</a></p>
   <table class="table">
     <thead>
-      <tr><th>ตัวอย่าง</th><th>Key</th><th>ขนาดแนะนำ</th><th>ประเภท</th><th>ค่า</th><th></th></tr>
+      <tr><th>Preview</th><th>Key</th><th>Recommended size</th><th>Type</th><th>Value</th><th></th></tr>
     </thead>
     <tbody>
       <?php foreach ($images as $key => $val):
@@ -77,16 +77,16 @@ if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT
           </td>
           <td><strong><?= htmlspecialchars((string)$key, ENT_QUOTES, 'UTF-8') ?></strong></td>
           <td><small class="field-hint"><?= htmlspecialchars(tt_image_size_hint((string)$key), ENT_QUOTES, 'UTF-8') ?></small></td>
-          <td><?= is_array($val) ? 'หลาย URL' : 'URL เดียว' ?></td>
+          <td><?= is_array($val) ? 'Multiple URLs' : 'Single URL' ?></td>
           <td><small class="field-hint"><?= htmlspecialchars(tt_image_value_summary($val), ENT_QUOTES, 'UTF-8') ?></small></td>
           <td class="table-actions">
             <div class="table-actions-row">
-              <a class="btn btn-ghost btn-sm" href="image-edit.php?key=<?= urlencode((string)$key) ?>">แก้ไข</a>
-              <a class="btn btn-danger btn-sm" href="images.php?delete=<?= urlencode((string)$key) ?>" onclick="return confirm('ลบ key นี้?')">ลบ</a>
+              <a class="btn btn-ghost btn-sm" href="image-edit.php?key=<?= urlencode((string)$key) ?>">Edit</a>
+              <a class="btn btn-danger btn-sm" href="images.php?delete=<?= urlencode((string)$key) ?>" onclick="return confirm('Delete this key?')">Delete</a>
               <?php if ($preview): ?>
-                <a class="btn btn-ghost btn-sm" href="<?= htmlspecialchars($preview, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener">ดู</a>
+              <a class="btn btn-ghost btn-sm" href="<?= htmlspecialchars($preview, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener">View</a>
               <?php else: ?>
-                <span class="btn btn-ghost btn-sm" style="opacity:.4;pointer-events:none">ดู</span>
+              <span class="btn btn-ghost btn-sm" style="opacity:.4;pointer-events:none">View</span>
               <?php endif; ?>
             </div>
           </td>

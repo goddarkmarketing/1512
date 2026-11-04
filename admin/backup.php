@@ -12,15 +12,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = tt_backup_create();
         if ($result['ok']) {
             if (!empty($result['partial'])) {
-                tt_set_flash('สำรองข้อความและข้อมูลแล้ว — โฮสนี้ไม่รองรับ ZIP จึงไม่มีรูปในไฟล์');
+                tt_set_flash('Text and data backed up — this host does not support ZIP, so images are not included in the file');
             } else {
                 $count = (int)($result['uploadCount'] ?? 0);
-                $msg = 'สำรองข้อมูลครบทุกส่วนแล้ว (ข้อความ + รูปที่อัปโหลด';
-                $msg .= $count > 0 ? ' ' . $count . ' ไฟล์)' : ')';
+                $msg = 'Full backup completed (text + uploaded images';
+                $msg .= $count > 0 ? ' ' . $count . ' files)' : ')';
                 tt_set_flash($msg);
             }
         } else {
-            tt_set_flash($result['error'] ?? 'สำรองไม่สำเร็จ ลองอีกครั้ง', 'error');
+            tt_set_flash($result['error'] ?? 'Backup failed, please try again', 'error');
         }
         header('Location: backup.php');
         exit;
@@ -29,16 +29,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'restore') {
         $file = basename(trim($_POST['file'] ?? ''));
         $confirm = trim($_POST['confirm'] ?? '');
-        if ($confirm !== 'กู้คืน') {
-            tt_set_flash('พิมพ์คำว่า กู้คืน (ตามที่แสดง) เพื่อยืนยัน', 'error');
+        if ($confirm !== 'RESTORE') {
+            tt_set_flash('Type the word RESTORE (as shown) to confirm', 'error');
             header('Location: backup.php');
             exit;
         }
         $result = tt_backup_restore($file);
         if ($result['ok']) {
-            tt_set_flash('กู้คืนข้อมูลเรียบร้อยแล้ว — เปิดหน้าเว็บแล้วกดรีเฟรชเพื่อดูผล');
+            tt_set_flash('Data restored successfully — open the website and refresh to see the result');
         } else {
-            tt_set_flash($result['error'] ?? 'กู้คืนไม่สำเร็จ', 'error');
+            tt_set_flash($result['error'] ?? 'Restore failed', 'error');
         }
         header('Location: backup.php');
         exit;
@@ -47,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'delete') {
         $file = basename(trim($_POST['file'] ?? ''));
         if (tt_backup_delete($file)) {
-            tt_set_flash('ลบแบ็คอัพแล้ว');
+            tt_set_flash('Backup deleted');
         } else {
-            tt_set_flash('ลบไม่สำเร็จ', 'error');
+            tt_set_flash('Delete failed', 'error');
         }
         header('Location: backup.php');
         exit;
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $backups = tt_backup_list();
 $autoCount = count(array_filter($backups, fn($b) => $b['type'] === 'auto'));
 
-tt_admin_header('สำรอง & กู้คืนข้อมูล', 'backup');
+tt_admin_header('Backup & restore data', 'backup');
 $flash = tt_flash();
 $flashType = tt_flash_type();
 if ($flash): ?>
@@ -67,64 +67,64 @@ if ($flash): ?>
 <?php endif; ?>
 
 <div class="card backup-guide">
-  <h2>สำรองข้อมูลคืออะไร?</h2>
-  <p>เหมือน<strong>ถ่ายรูปหน้าจอเก็บไว้</strong> — เก็บข้อความ เบอร์โทร ราคา รูปที่อัปโหลด และทุกอย่างที่แก้ในหลังบ้านไว้ชุดหนึ่ง ถ้าแก้ผิดหรือข้อมูลหาย สามารถ<strong>ย้อนกลับ</strong>ได้</p>
+  <h2>What is a backup?</h2>
+  <p>It is like <strong>taking a screenshot to keep</strong> — it stores the text, phone numbers, prices, uploaded images and everything you edit in the admin as one set. If you make a mistake or data goes missing, you can <strong>roll back</strong>.</p>
 
-  <h3 style="margin-top:20px;font-size:1rem">ขั้นตอนใช้งาน (อ่านตามลำดับ)</h3>
+  <h3 style="margin-top:20px;font-size:1rem">How to use (read in order)</h3>
   <ol class="backup-steps">
-    <li><strong>ก่อนแก้เว็บครั้งใหญ่</strong> — กดปุ่มสีน้ำเงิน 「สำรองข้อมูลตอนนี้」 ด้านล่าง</li>
-    <li><strong>เก็บไฟล์ไว้เครื่อง</strong> (แนะนำ) — ในตารางด้านล่าง กด 「ดาวน์โหลด」 เก็บใน Google Drive หรือคอมพิวเตอร์</li>
-    <li><strong>แก้เว็บตามปกติ</strong> — ใช้เมนูอื่นในหลังบ้านได้เลย</li>
-    <li><strong>ถ้าแก้ผิด</strong> — เลือกวันที่ต้องการในตาราง กด 「กู้คืน」 แล้วพิมพ์คำว่า <strong>กู้คืน</strong> เพื่อยืนยัน</li>
+    <li><strong>Before making major website changes</strong> — click the blue 「Back up now」 button below</li>
+    <li><strong>Keep a copy on your own device</strong> (recommended) — in the table below, click 「Download」 and store it in Google Drive or on your computer</li>
+    <li><strong>Edit the website as usual</strong> — you can use the other admin menus right away</li>
+    <li><strong>If you make a mistake</strong> — choose the date you want in the table, click 「Restore」 then type the word <strong>RESTORE</strong> to confirm</li>
   </ol>
-  <p class="field-hint" style="margin-top:12px">💡 สำรองอัตโนมัติเกิดเมื่อกด 「บันทึก」 ในเมนูต่างๆ (ไม่ใช่ทุกนาที) — เก็บล่าสุด <?= (int)TT_BACKUP_MAX_AUTO ?> ชุด · กด 「สำรองข้อมูลตอนนี้」 เมื่อต้องการไฟล์ครบรวมรูป</p>
+  <p class="field-hint" style="margin-top:12px">💡 Automatic backups happen when you click 「Save」 in the various menus (not every minute) — the latest <?= (int)TT_BACKUP_MAX_AUTO ?> sets are kept · Click 「Back up now」 when you need a complete file including images</p>
 </div>
 
 <div class="card backup-create">
   <div class="backup-create__head">
-    <h2>สำรองข้อมูลตอนนี้</h2>
-    <p class="field-hint">บันทึกข้อมูลทั้งหมดบนเว็บ ณ ขณะนี้ — รวมข้อความและรูปที่อัปโหลดในระบบ</p>
+    <h2>Back up now</h2>
+    <p class="field-hint">Saves all data on the website as of now — including text and images uploaded to the system</p>
   </div>
 
   <form method="post" class="backup-create__form">
     <input type="hidden" name="action" value="create"/>
 
     <div class="backup-create__includes">
-      <span class="backup-create__includes-label">ข้อมูลที่จะเก็บ</span>
+      <span class="backup-create__includes-label">Data included</span>
       <ul class="backup-create__tags">
-        <li>เบอร์โทร & ติดต่อ</li>
-        <li>โปรแกรมทัวร์</li>
-        <li>บทความ & รีวิว</li>
-        <li>เมนู & SEO</li>
-        <li>รูปที่อัปโหลด</li>
+        <li>Phone numbers & contact</li>
+        <li>Tour programs</li>
+        <li>Articles & reviews</li>
+        <li>Menu & SEO</li>
+        <li>Uploaded images</li>
       </ul>
     </div>
 
     <div class="backup-create__actions">
-      <button type="submit" class="btn btn-primary">สำรองข้อมูลตอนนี้</button>
+      <button type="submit" class="btn btn-primary">Back up now</button>
     </div>
   </form>
 </div>
 
 <div class="card">
-  <h2>ระบบสำรองให้อัตโนมัติ</h2>
-  <p class="field-hint">ทุกครั้งที่กด 「บันทึก」 ในหลังบ้าน <strong>และเนื้อหาเปลี่ยนจริง</strong> ระบบจะเก็บสำเนาข้อความไว้ให้ (ไม่สำรองซ้ำถ้ากดบันทึกซ้ำโดยไม่ได้แก้) — ไม่ใช่ทุกนาทีอัตโนมัติ (ไม่รวมรูป — ใช้ 「สำรองข้อมูลตอนนี้」 สำหรับไฟล์ครบทุกส่วน)</p>
-  <p>ตอนนี้มีสำเนาอัตโนมัติ: <strong><?= $autoCount ?></strong> ชุด (เก็บได้สูงสุด <?= (int)TT_BACKUP_MAX_AUTO ?> ชุด)</p>
+  <h2>Automatic backup</h2>
+  <p class="field-hint">Every time you click 「Save」 in the admin <strong>and the content has actually changed</strong>, the system keeps a copy of the text for you (no duplicate backup if you save again without changes) — not automatic every minute (images are not included — use 「Back up now」 for a complete file)</p>
+  <p>Automatic copies right now: <strong><?= $autoCount ?></strong> sets (up to <?= (int)TT_BACKUP_MAX_AUTO ?> sets kept)</p>
 </div>
 
 <div class="card">
-  <h2>รายการที่สำรองไว้ (<?= count($backups) ?> ชุด)</h2>
+  <h2>Saved backups (<?= count($backups) ?> sets)</h2>
   <?php if (!$backups): ?>
-    <p class="field-hint">ยังไม่มีรายการ — กดปุ่ม 「สำรองข้อมูลตอนนี้」 ด้านบนก่อน</p>
+    <p class="field-hint">No backups yet — click the 「Back up now」 button above first</p>
   <?php else: ?>
-  <p class="field-hint" style="margin-bottom:16px">เลือกวันที่ใกล้เคียงกับช่วงที่ต้องการย้อนกลับ</p>
+  <p class="field-hint" style="margin-bottom:16px">Choose a date close to the time you want to go back to</p>
   <table class="table">
     <thead>
       <tr>
-        <th>วันเวลา</th>
-        <th>แบบไหน</th>
-        <th>ขนาดไฟล์</th>
-        <th>ทำอะไรได้</th>
+        <th>Date / time</th>
+        <th>Type</th>
+        <th>File size</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -132,18 +132,18 @@ if ($flash): ?>
         <tr>
           <td>
             <strong><?= htmlspecialchars($b['createdDisplay'], ENT_QUOTES, 'UTF-8') ?></strong>
-            <?php if ($b['isZip']): ?><br><span class="field-hint">ข้อความ + รูปที่อัปโหลด</span><?php endif; ?>
+            <?php if ($b['isZip']): ?><br><span class="field-hint">Text + uploaded images</span><?php endif; ?>
           </td>
           <td><?= htmlspecialchars($b['label'], ENT_QUOTES, 'UTF-8') ?></td>
           <td><?= htmlspecialchars(tt_backup_format_bytes($b['size']), ENT_QUOTES, 'UTF-8') ?></td>
           <td class="table-actions">
             <div class="table-actions-row">
-              <a class="btn btn-ghost btn-sm" href="backup-download.php?file=<?= urlencode($b['file']) ?>" title="เก็บไฟล์ไว้คอมหรือ Google Drive">ดาวน์โหลด</a>
-              <button type="button" class="btn btn-ghost btn-sm" data-restore="<?= htmlspecialchars($b['file'], ENT_QUOTES, 'UTF-8') ?>" data-date="<?= htmlspecialchars($b['createdDisplay'], ENT_QUOTES, 'UTF-8') ?>" title="ย้อนเว็บกลับไปตามวันนี้">กู้คืน</button>
-              <form method="post" style="display:inline" onsubmit="return confirm('ลบรายการสำรองนี้? (เว็บปัจจุบันไม่เปลี่ยน)')">
+              <a class="btn btn-ghost btn-sm" href="backup-download.php?file=<?= urlencode($b['file']) ?>" title="Keep the file on your computer or Google Drive">Download</a>
+              <button type="button" class="btn btn-ghost btn-sm" data-restore="<?= htmlspecialchars($b['file'], ENT_QUOTES, 'UTF-8') ?>" data-date="<?= htmlspecialchars($b['createdDisplay'], ENT_QUOTES, 'UTF-8') ?>" title="Roll the website back to this date">Restore</button>
+              <form method="post" style="display:inline" onsubmit="return confirm('Delete this backup? (The current website will not change)')">
                 <input type="hidden" name="action" value="delete"/>
                 <input type="hidden" name="file" value="<?= htmlspecialchars($b['file'], ENT_QUOTES, 'UTF-8') ?>"/>
-                <button type="submit" class="btn btn-danger btn-sm">ลบ</button>
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
               </form>
             </div>
           </td>
@@ -155,25 +155,25 @@ if ($flash): ?>
 </div>
 
 <div class="card" id="restore-panel" hidden>
-  <h2>ยืนยันการกู้คืน (ย้อนกลับ)</h2>
+  <h2>Confirm restore (roll back)</h2>
   <p class="field-hint" style="color:#b45309">
-    ข้อมูลบนเว็บ<strong>ตอนนี้</strong>จะถูกแทนที่ด้วนข้อมูลจากวันที่เลือก<br>
-    ระบบจะสำรองข้อมูลปัจจุบันไว้ให้อีกชุดก่อนกู้คืน — ปลอดภัย
+    The data on the website <strong>right now</strong> will be replaced with the data from the selected date<br>
+    The system will save another backup of the current data before restoring — safe
   </p>
   <form method="post">
     <input type="hidden" name="action" value="restore"/>
     <input type="hidden" name="file" id="restore-file" value=""/>
     <div class="field">
-      <label>ย้อนกลับไปวันที่</label>
+      <label>Roll back to date</label>
       <input id="restore-file-display" readonly/>
     </div>
     <div class="field">
-      <label>พิมพ์คำว่า <strong>กู้คืน</strong> เพื่อยืนยัน (พิมพ์ภาษาไทย)</label>
-      <input name="confirm" required placeholder="กู้คืน" autocomplete="off"/>
+      <label>Type the word <strong>RESTORE</strong> to confirm</label>
+      <input name="confirm" required placeholder="RESTORE" autocomplete="off"/>
     </div>
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">ยืนยัน — กู้คืนข้อมูล</button>
-      <button type="button" class="btn btn-ghost" id="restore-cancel">ยกเลิก</button>
+      <button type="submit" class="btn btn-primary">Confirm — restore data</button>
+      <button type="button" class="btn btn-ghost" id="restore-cancel">Cancel</button>
     </div>
   </form>
 </div>

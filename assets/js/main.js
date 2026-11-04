@@ -6,10 +6,10 @@
 (() => {
   const site = () => window.TT?.SITE || {};
   const navItems = () => window.TT?.NAV_ITEMS || [];
-  const brandEn = () => site().brand || 'Talay Trang';
-  const brandTh = () => site().brandTh || 'เช่าเรือตรัง';
+  const brandEn = () => site().brand || 'Suwan Travel';
+  const brandTh = () => site().brandTh || 'Suwan travel and tour';
   const brandAlt = () => {
-    const tag = site().tagline || 'เช่าเรือเที่ยวทะเลตรัง';
+    const tag = site().tagline || 'Travel & boat tours in Ao Nang, Krabi';
     return `${brandEn()} — ${tag}`;
   };
   const esc = (s) => String(s ?? '')
@@ -62,6 +62,7 @@
     carPick: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/><circle cx="7" cy="18" r="2"/><path d="M9 18h5"/><circle cx="16" cy="18" r="2"/></svg>',
     chatBubble: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>',
     check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>',
+    search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>',
     copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>',
     minus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>',
     plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>',
@@ -84,25 +85,25 @@
 
     const transparent = host.classList.contains('transparent') ? 'is-transparent' : '';
 
-    /* IMPORTANT: drawer ต้องอยู่ "นอก" .site-header เพราะ header มี backdrop-filter
-       ซึ่งสร้าง containing block ใหม่ ทำให้ position: fixed ลูกของ header ถูกขังในกรอบ header (เตี้ยมาก) */
+    /* IMPORTANT: drawer must sit outside .site-header — header backdrop-filter
+       creates a containing block that traps position:fixed children inside a short header box */
     host.outerHTML = `
       <header class="site-header ${transparent}" id="site-header" data-transparent="${transparent ? 1 : 0}">
         <div class="container nav">
-          <a href="index.html" class="brand" aria-label="กลับสู่หน้าแรก ${esc(brandEn())}">
-            <img class="brand-logo" src="assets/logo/logo.png" alt="${esc(brandAlt())}" />
-            <span class="brand-text"><strong>${esc(brandEn())}</strong><small>${esc(brandTh())}</small></span>
+          <a href="index.html" class="brand" aria-label="Back to home ${esc(brandEn())}">
+            <img class="brand-logo" src="assets/logo/logo.png?v=${encodeURIComponent(window.__TT_SCRIPT_V || Date.now())}" alt="${esc(brandAlt())}" />
+            <span class="brand-text"><strong>${esc(brandTh())}</strong><small>Ao Nang, Krabi</small></span>
           </a>
-          <nav class="nav-menu" aria-label="เมนูหลัก">${linksHtml}</nav>
+          <nav class="nav-menu" aria-label="Main menu">${linksHtml}</nav>
           <a class="btn btn-line btn-sm nav-cta" href="${site().lineUrl}" target="_blank" rel="noopener">
-            ${ICONS.line} จองผ่าน LINE
+            ${ICONS.line} Book via LINE
           </a>
-          <button class="nav-toggle" type="button" aria-label="เปิดเมนู" id="nav-toggle">${ICONS.menu}</button>
+          <button class="nav-toggle" type="button" aria-label="Open menu" id="nav-toggle">${ICONS.menu}</button>
         </div>
       </header>
     `;
 
-    // ลบ drawer เก่า (ถ้ามี) แล้ว append ใหม่เป็นลูกตรงของ body — กัน backdrop-filter ของ header ขังกรอบ
+    // Remove old drawer (if any) and append as a direct body child — avoids header backdrop-filter trapping the frame
     const oldDrawer = document.getElementById('nav-drawer');
     if (oldDrawer) oldDrawer.remove();
     const drawerEl = document.createElement('div');
@@ -110,12 +111,12 @@
     drawerEl.id = 'nav-drawer';
     drawerEl.setAttribute('aria-hidden', 'true');
     drawerEl.innerHTML = `
-      <div class="nav-drawer-panel" role="dialog" aria-label="เมนูนำทาง">
-        <button class="nav-drawer-close" type="button" aria-label="ปิดเมนู" id="nav-drawer-close">${ICONS.close}</button>
+      <div class="nav-drawer-panel" role="dialog" aria-label="Navigation menu">
+        <button class="nav-drawer-close" type="button" aria-label="Close menu" id="nav-drawer-close">${ICONS.close}</button>
         <div>${drawerLinksHtml}</div>
         <div class="drawer-foot">
-          <a class="btn btn-line btn-block" href="${site().lineUrl}" target="_blank" rel="noopener">${ICONS.line} จอง LINE</a>
-          <a class="btn btn-call btn-block" href="tel:${phoneTel}">${ICONS.phone} โทรเลย</a>
+          <a class="btn btn-line btn-block" href="${site().lineUrl}" target="_blank" rel="noopener">${ICONS.line} Book on LINE</a>
+          <a class="btn btn-call btn-block" href="tel:${phoneTel}">${ICONS.phone} Call now</a>
         </div>
       </div>
     `;
@@ -127,7 +128,7 @@
     const toggle   = document.getElementById('nav-toggle');
     const closeBtn = document.getElementById('nav-drawer-close');
 
-    // เผื่อค้างจาก state เดิม
+    // Clear leftover overflow lock from previous state
     document.body.style.overflow = '';
 
     const openDrawer = (ev) => {
@@ -145,7 +146,7 @@
       document.body.style.overflow = '';
     };
 
-    // รองรับทั้ง click และ touchend (กันเคส iOS ที่ click delay/ghost click)
+    // Support both click and touchend (avoids iOS click delay / ghost click)
     if (toggle) {
       toggle.addEventListener('click', openDrawer);
       toggle.addEventListener('touchend', openDrawer, { passive: false });
@@ -156,7 +157,7 @@
     }
     drawer?.addEventListener('click', (e) => { if (e.target === drawer) closeDrawer(); });
     drawer?.querySelectorAll('.drawer-link').forEach(a => a.addEventListener('click', closeDrawer));
-    // ESC ปิด drawer
+    // ESC closes drawer
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
 
     // Transparent → solid on scroll
@@ -183,28 +184,22 @@
     const phoneShow = site().phone || site().phoneDisplay || '';
 
     const aboutLinks = [
-      { label: 'วิธีจองเรือ',     href: 'booking.html' },
-      { label: 'ติดต่อเรา',        href: 'contact.html' },
-      { label: `เกี่ยวกับ ${brandEn()}`, href: 'about.html' },
-      { label: 'บทความและคู่มือ',    href: 'articles.html' },
-      { label: 'วิดีโอจาก TikTok', href: 'videos.html' },
+      { label: 'Tour packages', href: 'programs.html' },
+      { label: 'Car rental', href: 'cars.html' },
+      { label: 'Contact us', href: 'contact.html' },
+      { label: `About ${brandEn()}`, href: 'about.html' },
     ];
     const serviceLinks = [
-      { label: 'เช่าเรือหางยาว',       href: 'boats.html#longtail' },
-      { label: 'เช่าเรือ Speed Boat',  href: 'boats.html#speedboat' },
-      { label: 'เช่าเรือใหญ่ / เหมาลำ', href: 'boats.html#bigboat' },
-      { label: 'โปรแกรม 4 เกาะ',        href: 'programs.html#four-islands' },
-      { label: 'ถ้ำมรกต · เกาะกระดาน', href: 'programs.html' },
-      { label: 'สอนดำน้ำ Scuba',        href: 'programs.html#diving' },
-      { label: 'จองห้องพัก / รถเช่า',   href: site().lineUrl, external: true },
-      { label: 'ตั๋วเรือเข้าเกาะ',      href: site().lineUrl, external: true },
+      { label: 'All tour packages', href: 'programs.html' },
+      { label: 'Krabi 4 Islands', href: 'program.html?id=krabi-4islands-speedboat' },
+      { label: 'Phi Phi & Maya Bay', href: 'programs.html' },
+      { label: 'Hong Island tours', href: 'programs.html' },
+      { label: 'Car rental', href: 'cars.html' },
     ];
     const moreLinks = [
-      { label: 'นโยบายความเป็นส่วนตัว', href: '#' },
-      { label: 'ข้อกำหนดและเงื่อนไข',   href: '#' },
-      { label: 'นโยบายการคืนเงิน',      href: '#' },
-      { label: 'คำถามที่พบบ่อย (FAQ)',  href: 'booking.html#faq' },
-      { label: 'ร่วมเป็นพาร์ทเนอร์',     href: site().lineUrl, external: true },
+      { label: 'Contact', href: 'contact.html' },
+      { label: 'LINE @ndpoolvilla', href: site().lineUrl, external: true },
+      { label: 'WhatsApp', href: site().whatsappUrl || site().lineUrl, external: true },
     ];
 
     const renderLinks = (arr) => arr.map(i => {
@@ -236,49 +231,49 @@
           <div class="footer-grid">
             <!-- Col 1: Brand + Trust + Payment -->
             <div class="footer-col footer-col-brand">
-              <a href="index.html" class="brand brand-footer" aria-label="กลับสู่หน้าแรก ${esc(brandEn())}">
-                <img class="brand-logo" src="assets/logo/logo.png" alt="${esc(brandEn())}" />
-                <span class="brand-text brand-text--footer"><strong>${esc(brandEn())}</strong><small>${esc(brandTh())}</small></span>
+              <a href="index.html" class="brand brand-footer" aria-label="Back to home ${esc(brandEn())}">
+                <img class="brand-logo" src="assets/logo/logo.png?v=${encodeURIComponent(window.__TT_SCRIPT_V || Date.now())}" alt="${esc(brandEn())}" />
+                <span class="brand-text brand-text--footer"><strong>${esc(brandTh())}</strong><small>Ao Nang, Krabi</small></span>
               </a>
               <a class="footer-cta" href="${site().lineUrl}" target="_blank" rel="noopener">
-                ลงทะเบียนเป็นคู่ค้ากับ ${esc(brandEn())} ${ICONS.arrow}
+                Register as a partner with ${esc(brandEn())} ${ICONS.arrow}
               </a>
               <div class="pay-block">
-                <h5>ช่องทางชำระเงิน</h5>
+                <h5>Payment methods</h5>
                 <div class="pay-chips">${payChips}</div>
               </div>
             </div>
 
             <!-- Col 2: About + Social -->
             <div class="footer-col">
-              <h4>เกี่ยวกับ ${esc(brandEn())}</h4>
+              <h4>About ${esc(brandEn())}</h4>
               <ul class="footer-links">${renderLinks(aboutLinks)}</ul>
-              <h4 class="mt-block">ติดตามเราได้ทาง</h4>
+              <h4 class="mt-block">Follow us</h4>
               <ul class="footer-social">
                 <li><a href="${site().facebookUrl}" target="_blank" rel="noopener"><span class="ico ico-fb">${ICONS.fb}</span>Facebook</a></li>
                 <li><a href="${site().tiktokUrl}"   target="_blank" rel="noopener"><span class="ico ico-tt">${ICONS.tt}</span>TikTok</a></li>
                 <li><a href="${site().lineUrl}"     target="_blank" rel="noopener"><span class="ico ico-line">${ICONS.line}</span>LINE Official</a></li>
-                <li><a href="tel:${phoneTel}"><span class="ico ico-call">${ICONS.phone}</span>โทร ${phoneShow}</a></li>
+                <li><a href="tel:${phoneTel}"><span class="ico ico-call">${ICONS.phone}</span>Call ${phoneShow}</a></li>
               </ul>
             </div>
 
             <!-- Col 3: Services -->
             <div class="footer-col">
-              <h4>บริการของเรา</h4>
+              <h4>Our services</h4>
               <ul class="footer-links">${renderLinks(serviceLinks)}</ul>
             </div>
 
             <!-- Col 4: Other + Contact card -->
             <div class="footer-col">
-              <h4>อื่น ๆ</h4>
+              <h4>More</h4>
               <ul class="footer-links">${renderLinks(moreLinks)}</ul>
               <div class="footer-contact-card">
-                <h5>จองด่วน 24 ชั่วโมง</h5>
+                <h5>Book anytime, 24 hours</h5>
                 <p>${site().addressFull}</p>
                 <p class="muted-thin">${site().hours}</p>
                 <div class="footer-contact-buttons">
-                  <a class="btn btn-line btn-sm" href="${site().lineUrl}" target="_blank" rel="noopener">${ICONS.line} แอด LINE</a>
-                  <a class="btn btn-ghost btn-sm" href="tel:${phoneTel}">${ICONS.phone} โทร</a>
+                  <a class="btn btn-line btn-sm" href="${site().lineUrl}" target="_blank" rel="noopener">${ICONS.line} Add LINE</a>
+                  <a class="btn btn-ghost btn-sm" href="tel:${phoneTel}">${ICONS.phone} Call</a>
                 </div>
               </div>
             </div>
@@ -286,7 +281,7 @@
 
           <div class="footer-bot">
             <span>© ${new Date().getFullYear()} ${esc(brandEn())}. All rights reserved.</span>
-            <span class="footer-bot-meta">เลขประจำตัวผู้เสียภาษี xxx-xxxx-xxxxx · จ.ตรัง</span>
+            <span class="footer-bot-meta">Ao Nang · Krabi</span>
           </div>
         </div>
       </footer>
@@ -297,7 +292,14 @@
   function hydrateSiteOffices() {
     const s = site();
     const phoneTel = (s.phone || '').replace(/[^\d+]/g, '');
-    const phoneDisplay = s.phone || s.phoneDisplay || '';
+    const phone2Tel = (s.phone2 || '').replace(/[^\d+]/g, '');
+    const phoneDisplay = s.phoneDisplay || [s.phone, s.phone2].filter(Boolean).join(', ');
+    const phoneLinks = [
+      s.phone ? `<a href="tel:${phoneTel}">${esc(s.phone)}</a>` : '',
+      s.phone2 ? `<a href="tel:${phone2Tel}">${esc(s.phone2)}</a>` : '',
+    ].filter(Boolean).join(' · ') || esc(phoneDisplay);
+    const whatsappUrl = s.whatsappUrl || (s.whatsapp ? `https://wa.me/${String(s.whatsapp).replace(/[^\d]/g, '')}` : '');
+    const whatsappLabel = s.whatsapp || '';
     const address = s.addressFull || s.address || '';
     const tiktokLabel = (() => {
       const m = (s.tiktokUrl || '').match(/@([\w.]+)/i);
@@ -316,17 +318,19 @@
         let html = '';
         if (mode === 'basic') {
           html = `
-          <li><span class="ico" data-icon="map"></span><span><strong>ที่ตั้งออฟฟิศ</strong><span>${address}</span></span></li>
-          <li><span class="ico" data-icon="clock"></span><span><strong>เวลาทำการ</strong><span>${s.hours || ''}</span></span></li>
-          <li><span class="ico" data-icon="phone"></span><span><strong>โทรหาเรา</strong><span><a href="tel:${phoneTel}">${phoneDisplay}</a></span></span></li>
+          <li><span class="ico" data-icon="map"></span><span><strong>Office location</strong><span>${address}</span></span></li>
+          <li><span class="ico" data-icon="clock"></span><span><strong>Business hours</strong><span>${s.hours || ''}</span></span></li>
+          <li><span class="ico" data-icon="phone"></span><span><strong>Call us</strong><span>${phoneLinks}</span></span></li>
+          ${whatsappUrl ? `<li><span class="ico" data-icon="phone"></span><span><strong>WhatsApp</strong><span><a href="${esc(whatsappUrl)}" target="_blank" rel="noopener">${esc(whatsappLabel)}</a></span></span></li>` : ''}
           <li><span class="ico" data-icon="line"></span><span><strong>LINE Official</strong><span><a href="${s.lineUrl || '#'}" target="_blank" rel="noopener">${s.lineId || ''}</a></span></span></li>`;
         } else {
           html = `
-          <li><span class="ico" data-icon="line"></span><span><strong>LINE Official Account</strong><span><a href="${s.lineUrl || '#'}" target="_blank" rel="noopener">${s.lineId || ''}</a> · ตอบไวที่สุด</span></span></li>
-          <li><span class="ico" data-icon="phone"></span><span><strong>โทรศัพท์</strong><span><a href="tel:${phoneTel}">${phoneDisplay}</a> · เปิดทุกวัน</span></span></li>
-          <li><span class="ico" data-icon="map"></span><span><strong>ที่ตั้งออฟฟิศ</strong><span>${address}</span></span></li>
-          <li><span class="ico" data-icon="clock"></span><span><strong>เวลาทำการ</strong><span>${s.hours || ''}</span></span></li>
-          <li><span class="ico" data-icon="fb"></span><span><strong>Facebook</strong><span><a href="${s.facebookUrl || '#'}" target="_blank" rel="noopener">เพจ ${esc(brandEn())}</a></span></span></li>
+          <li><span class="ico" data-icon="line"></span><span><strong>LINE Official Account</strong><span><a href="${s.lineUrl || '#'}" target="_blank" rel="noopener">${s.lineId || ''}</a> · Fastest replies</span></span></li>
+          <li><span class="ico" data-icon="phone"></span><span><strong>Phone</strong><span>${phoneLinks} · Open daily</span></span></li>
+          ${whatsappUrl ? `<li><span class="ico" data-icon="phone"></span><span><strong>WhatsApp</strong><span><a href="${esc(whatsappUrl)}" target="_blank" rel="noopener">${esc(whatsappLabel)}</a></span></span></li>` : ''}
+          <li><span class="ico" data-icon="map"></span><span><strong>Office location</strong><span>${address}</span></span></li>
+          <li><span class="ico" data-icon="clock"></span><span><strong>Business hours</strong><span>${s.hours || ''}</span></span></li>
+          <li><span class="ico" data-icon="fb"></span><span><strong>Facebook</strong><span><a href="${s.facebookUrl || '#'}" target="_blank" rel="noopener">${esc(brandEn())} page</a></span></span></li>
           <li><span class="ico" data-icon="tt"></span><span><strong>TikTok</strong><span><a href="${s.tiktokUrl || '#'}" target="_blank" rel="noopener">${tiktokLabel}</a></span></span></li>`;
         }
         list.innerHTML = html;
@@ -356,6 +360,11 @@
 
   /* ---------- Welcome popup (contact on entry) ---------- */
   function initWelcomePopup() {
+    /* Disabled — contact strip removed from site */
+    document.getElementById('welcome-popup')?.remove();
+    window.__TT_POPUP_DONE = true;
+    return;
+
     if (window.__TT_POPUP_DONE) return;
     if (/\/admin(\/|$)/.test(location.pathname)) return;
 
@@ -364,10 +373,12 @@
     if (sessionStorage.getItem('tt-welcome-popup')) return;
 
     const phoneTel = (s.phone || '').replace(/[^\d+]/g, '');
-    const phoneDisplay = s.phoneDisplay || s.phone || '';
-    const lineId = s.lineId || '@talaytrang';
+    const phoneDisplay = s.phoneDisplay || [s.phone, s.phone2].filter(Boolean).join(', ') || '';
+    const lineId = s.lineId || '@ndpoolvilla';
     const lineUrl = s.lineUrl || '#';
-    const hoursWeekday = s.popupHoursWeekday || s.hours || 'จันทร์ - เสาร์ 07:00-21:00 น.';
+    const whatsappUrl = s.whatsappUrl || (s.whatsapp ? `https://wa.me/${String(s.whatsapp).replace(/[^\d]/g, '')}` : '');
+    const whatsappLabel = s.whatsapp || '';
+    const hoursWeekday = s.popupHoursWeekday || s.hours || 'Mon–Sat 07:00–21:00';
     const hoursSunday = s.popupHoursSunday || '';
     const qrSrc = s.lineQrImage
       || `https://api.qrserver.com/v1/create-qr-code/?size=112x112&data=${encodeURIComponent(lineUrl)}`;
@@ -378,29 +389,33 @@
     el.className = 'welcome-popup';
     el.id = 'welcome-popup';
     el.setAttribute('role', 'dialog');
-    el.setAttribute('aria-label', 'ติดต่อเรา');
+    el.setAttribute('aria-label', 'Contact us');
     el.innerHTML = `
       <div class="welcome-popup-backdrop" aria-hidden="true"></div>
-      <button type="button" class="welcome-popup-fab" aria-label="เปิดติดต่อเรา" aria-expanded="false">${ICONS.chat}</button>
+      <button type="button" class="welcome-popup-fab" aria-label="Open contact us" aria-expanded="false">${ICONS.chat}</button>
       <div class="welcome-popup-panel">
         <div class="welcome-popup-head">
-          <span class="welcome-popup-label">ติดต่อเรา</span>
-          <button type="button" class="welcome-popup-close" aria-label="ปิด">${ICONS.close}</button>
+          <span class="welcome-popup-label">Contact us</span>
+          <button type="button" class="welcome-popup-close" aria-label="Close">${ICONS.close}</button>
         </div>
         <div class="welcome-popup-body">
           <a class="welcome-popup-call" href="tel:${phoneTel}">
             <span class="welcome-popup-call-icon">${ICONS.phone}</span>
             <span class="welcome-popup-call-num">${esc(phoneDisplay)}</span>
           </a>
+          ${whatsappUrl ? `<a class="welcome-popup-call" href="${esc(whatsappUrl)}" target="_blank" rel="noopener">
+            <span class="welcome-popup-call-icon">${ICONS.phone}</span>
+            <span class="welcome-popup-call-num">WhatsApp ${esc(whatsappLabel)}</span>
+          </a>` : ''}
           <a class="welcome-popup-line" href="${esc(lineUrl)}" target="_blank" rel="noopener">
             <span class="welcome-popup-line-icon">${ICONS.line}</span>
             <span class="welcome-popup-line-text">
-              <span class="welcome-popup-line-title">แชท LINE</span>
+              <span class="welcome-popup-line-title">Chat on LINE</span>
               <span class="welcome-popup-line-id">${esc(lineId)}</span>
             </span>
           </a>
           <div class="welcome-popup-qr">
-            <p class="welcome-popup-qr-hint">สแกนเพิ่มเพื่อน</p>
+            <p class="welcome-popup-qr-hint">Scan to add friend</p>
             <div class="welcome-popup-qr-frame">
               <img src="${esc(qrSrc)}" width="100" height="100" alt="QR Code ${esc(lineId)}" loading="lazy"/>
             </div>
@@ -468,8 +483,8 @@
     const el = document.createElement('div');
     el.className = 'sticky-cta';
     el.innerHTML = `
-      <a class="btn btn-call" href="tel:${(site().phone || '').replace(/[^\d+]/g,'')}">${ICONS.phone} โทรเลย</a>
-      <a class="btn btn-line" href="${site().lineUrl}" target="_blank" rel="noopener">${ICONS.line} จอง LINE</a>
+      <a class="btn btn-call" href="tel:${(site().phone || '').replace(/[^\d+]/g,'')}">${ICONS.phone} Call now</a>
+      <a class="btn btn-line" href="${site().lineUrl}" target="_blank" rel="noopener">${ICONS.line} Book on LINE</a>
     `;
     document.body.appendChild(el);
     document.body.classList.add('has-sticky');
@@ -557,13 +572,13 @@
     root.setAttribute('data-count', String(slides.length));
 
     track.innerHTML = slides.map((s, i) => `
-      <div class="banner-slide${i === 0 ? ' is-active' : ''}" role="group" aria-roledescription="slide" aria-label="${i + 1} จาก ${slides.length}">
+      <div class="banner-slide${i === 0 ? ' is-active' : ''}" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${slides.length}">
         <img src="${s.src}" alt="${s.alt || ''}" ${i === 0 ? '' : 'loading="lazy"'} decoding="async" />
       </div>
     `).join('');
 
     dotsWrap.innerHTML = slides.map((_, i) => `
-      <button type="button" class="${i === 0 ? 'is-active' : ''}" role="tab" aria-label="ภาพที่ ${i + 1}" data-i="${i}"></button>
+      <button type="button" class="${i === 0 ? 'is-active' : ''}" role="tab" aria-label="Slide ${i + 1}" data-i="${i}"></button>
     `).join('');
 
     const dotEls = dotsWrap.querySelectorAll('button');
@@ -620,13 +635,13 @@
   }
   window.TT.initBannerSlider = initBannerSlider;
 
-  /* Pills marquee ถูกควบคุมด้วย CSS @keyframes ทั้งหมด ไม่ต้องใช้ JS
-     ฟังก์ชันนี้คงไว้เผื่อหน้าอื่นยังเรียกใช้ (no-op) */
+  /* Pills marquee is driven entirely by CSS @keyframes — no JS needed.
+     Kept as a no-op for pages that still call it. */
   window.TT.initAutoScrollPills = function () {};
 
-  /* ---------- Mobile slider (เลื่อนทีละ 1 ใบ + dots) ----------
-     ใช้กับ container ที่มี class `.mobile-slider` คู่กับ `.slider-dots` ที่มี id ตรงกัน+'-dots'
-     เปิดทำงานเฉพาะ ≤767px; resize แล้วปรับให้เอง */
+  /* ---------- Mobile slider (one card at a time + dots) ----------
+     Use on a `.mobile-slider` container paired with `.slider-dots` whose id is containerId + '-dots'.
+     Active only at ≤767px; rebuilds on resize. */
   function initMobileSlider(containerSelector, dotsSelector) {
     const container = typeof containerSelector === 'string'
       ? document.querySelector(containerSelector) : containerSelector;
@@ -652,7 +667,7 @@
       if (!items.length) { clearDots(); return; }
 
       dotsWrap.innerHTML = items.map((_, i) =>
-        `<button type="button" role="tab" data-i="${i}" class="${i === 0 ? 'is-active' : ''}" aria-label="ไปที่รายการที่ ${i + 1}"></button>`
+        `<button type="button" role="tab" data-i="${i}" class="${i === 0 ? 'is-active' : ''}" aria-label="Go to item ${i + 1}"></button>`
       ).join('');
       dotEls = Array.from(dotsWrap.querySelectorAll('button'));
 
@@ -660,12 +675,12 @@
         const i = Number(d.dataset.i);
         const target = items[i];
         if (!target) return;
-        // คำนวณ scroll position ที่ทำให้ item อยู่ที่ตำแหน่งซ้ายของ container (เผื่อ padding)
+        // Scroll so the item sits at the left of the container (accounting for padding)
         const targetLeft = target.offsetLeft - container.offsetLeft - 20;
         container.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
       }));
 
-      // sync ตอน scroll
+      // Sync active dot on scroll
       let raf = null;
       scrollHandler = () => {
         if (raf) return;

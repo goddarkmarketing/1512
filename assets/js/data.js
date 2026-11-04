@@ -1,6 +1,6 @@
 /* =========================================================
    Talay Trang — Data loader
-   โหลดจาก fallback ทันที (ไม่ block หน้า) แล้วอัปเดตจาก api/data.php แบบ async
+   Load from fallback immediately (non-blocking), then refresh from api/data.php async
    ========================================================= */
 (function () {
   const PX = (id, w = 1200) =>
@@ -24,7 +24,7 @@
     if (!d || typeof d !== 'object' || Array.isArray(d)) {
       return false;
     }
-    // Merge — อย่า replace ทั้ง object เพราะ main.js / programs-page.js แนบ ICONS, init* ไว้แล้ว
+    // Merge — do not replace the whole object; main.js / programs-page.js already attach ICONS, init*
     if (!window.TT) window.TT = {};
     Object.assign(window.TT, {
       SITE: d.site || {},
@@ -49,6 +49,7 @@
       SEO: d.seo || {},
       HOME_DEALS: d.homeDeals || {},
       HOME_SECTIONS: d.homeSections || {},
+      CAR_RENTAL: d.carRental || {},
     });
     return true;
   }
@@ -74,6 +75,7 @@
     seo: {},
     homeDeals: {},
     homeSections: {},
+    carRental: {},
   };
 
   if (!apply(window.__TT_FALLBACK)) {

@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($newId !== $oldId) {
             foreach ($list as $j => $p) {
                 if ($j !== $idx && ($p['id'] ?? '') === $newId) {
-                    tt_set_flash('ID นี้มีอยู่แล้ว — ใช้ ID อื่น');
+                    tt_set_flash('This ID already exists — use a different ID');
                     header('Location: program-edit.php?collection=' . urlencode($collection) . '&id=' . urlencode($oldId));
                     exit;
                 }
@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         foreach ($list as $p) {
             if (($p['id'] ?? '') === $newId) {
-                tt_set_flash('ID นี้มีอยู่แล้ว — ใช้ ID อื่น');
+                tt_set_flash('This ID already exists — use a different ID');
                 header('Location: program-edit.php?collection=' . urlencode($collection) . '&id=' . urlencode($newId));
                 exit;
             }
@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data[$collection] = array_values($list);
     tt_write_data($data);
-    tt_set_flash('บันทึกแพ็กเกจแล้ว');
+    tt_set_flash('Package saved');
     header('Location: program-edit.php?collection=' . urlencode($collection) . '&id=' . urlencode($newId));
     exit;
 }
@@ -142,7 +142,7 @@ $hotelsText = tt_hotels_to_text($program['hotels'] ?? []);
 $inclusionsByDayText = tt_inclusions_by_day_to_text($program['inclusionsByDay'] ?? []);
 $showInclusionsByDay = $collection === 'packages4d3n' || !empty($program['inclusionsByDay']);
 
-$pageTitle = $isNew ? 'เพิ่มแพ็กเกจ' : 'แก้ไขหน้ารายละเอียด';
+$pageTitle = $isNew ? 'Add package' : 'Edit detail page';
 tt_admin_header($pageTitle, 'programs');
 $flash = tt_flash();
 if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
@@ -150,10 +150,10 @@ if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT
 <?php if (!$isNew): ?>
 <div class="card admin-preview-bar">
   <div>
-    <strong>แก้ไขหน้า:</strong>
+    <strong>Edit page:</strong>
     <a href="../program.html?id=<?= urlencode($program['id'] ?? '') ?>" target="_blank" rel="noopener">program.html?id=<?= htmlspecialchars($program['id'] ?? '', ENT_QUOTES, 'UTF-8') ?></a>
   </div>
-  <a class="btn btn-ghost btn-sm" href="../program.html?id=<?= urlencode($program['id'] ?? '') ?>" target="_blank" rel="noopener">เปิดดูหน้ารายละเอียด ↗</a>
+  <a class="btn btn-ghost btn-sm" href="../program.html?id=<?= urlencode($program['id'] ?? '') ?>" target="_blank" rel="noopener">View detail page ↗</a>
 </div>
 <?php endif; ?>
 
@@ -162,102 +162,102 @@ if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT
   <input type="hidden" name="old_id" value="<?= htmlspecialchars($program['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/>
 
   <div class="card">
-    <h2>ประเภทแพ็กเกจ</h2>
+    <h2>Package type</h2>
     <div class="field">
-      <label for="collection-select">หมวด</label>
+      <label for="collection-select">Category</label>
       <select id="collection-select" class="input" onchange="location.href='program-edit.php?collection='+encodeURIComponent(this.value)+<?= $isNew ? "''" : "'&id='+encodeURIComponent('" . htmlspecialchars($program['id'] ?? '', ENT_QUOTES, 'UTF-8') . "')" ?>">
         <?php foreach ($collections as $key => $meta): ?>
           <option value="<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>"<?= $key === $collection ? ' selected' : '' ?>><?= htmlspecialchars($meta['label'], ENT_QUOTES, 'UTF-8') ?></option>
         <?php endforeach; ?>
       </select>
-      <p class="field-hint">แพ็กเกจ <?= htmlspecialchars($collectionMeta['label'], ENT_QUOTES, 'UTF-8') ?> แสดงบนหน้าแรกและหน้า programs.html</p>
+      <p class="field-hint">Packages in <?= htmlspecialchars($collectionMeta['label'], ENT_QUOTES, 'UTF-8') ?> are shown on the home page and the programs.html page</p>
     </div>
   </div>
 
   <div class="card">
-    <h2>ภาพปกการ์ด</h2>
-    <p class="field-hint section-lead">รูปหลักบนการ์ดแพ็กเกจ (หน้าแรก · programs.html) — แยกจากแกลเลอรี 6 รูปในหน้ารายละเอียด</p>
-    <?php tt_render_card_image_field('image', $program['image'] ?? '', ['context' => 'program', 'label' => 'ภาพปกการ์ด']); ?>
+    <h2>Card cover image</h2>
+    <p class="field-hint section-lead">Main image on the package card (home page · programs.html) — separate from the 6 gallery images on the detail page</p>
+    <?php tt_render_card_image_field('image', $program['image'] ?? '', ['context' => 'program', 'label' => 'Card cover image']); ?>
   </div>
 
   <div class="card">
-    <h2>ข้อมูลการ์ด</h2>
-    <p class="field-hint section-lead">ชื่อ ราคา และรายละเอียดที่แสดงบนการ์ด</p>
+    <h2>Card details</h2>
+    <p class="field-hint section-lead">Name, price and details shown on the card</p>
     <div class="grid-2">
-      <div class="field"><label>ชื่อแพ็กเกจ</label><input name="name" required value="<?= htmlspecialchars($program['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field"><label>Package name</label><input name="name" required value="<?= htmlspecialchars($program['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
       <div class="field"><label>ID (slug)</label><input name="id" value="<?= htmlspecialchars($program['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="dl001, p1-001"/></div>
-      <div class="field"><label>รหัสแพ็กเกจ</label><input name="packageCode" value="<?= htmlspecialchars((string)($program['packageCode'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="DL001, D-002"/><p class="field-hint">แสดงบนการ์ดและแถบ meta หน้ารายละเอียด</p></div>
-      <div class="field"><label>ป้าย (ribbon)</label><input name="ribbon" value="<?= htmlspecialchars($program['ribbon'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="650 ฿ หรือ ยอดนิยม"/></div>
-      <div class="field"><label>เส้นทาง</label><input name="route" value="<?= htmlspecialchars($program['route'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field"><label>ระยะเวลา</label><input name="duration" value="<?= htmlspecialchars($program['duration'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="ประมาณ 8 ชั่วโมง"/></div>
-      <div class="field"><label>ราคาผู้ใหญ่ (บาท)</label><input name="basePrice" type="number" value="<?= (int)($program['basePrice'] ?? 0) ?>"/></div>
-      <div class="field"><label>เรือที่รองรับ (คั่นด้วย ,)</label><input name="boats" value="<?= htmlspecialchars(implode(', ', $program['boats'] ?? []), ENT_QUOTES, 'UTF-8') ?>" placeholder="longtail, bigboat, speedboat"/></div>
-      <div class="field"><label>คะแนน (0–5)</label><input name="rating" type="number" step="0.1" min="0" max="5" value="<?= htmlspecialchars((string)($program['rating'] ?? 4.8), ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field"><label>จำนวนรีวิว</label><input name="reviewCount" value="<?= htmlspecialchars($program['reviewCount'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field"><label>ดาว (1–5)</label><input name="stars" type="number" min="1" max="5" value="<?= (int)($program['stars'] ?? 5) ?>"/></div>
-      <div class="field"><label>ราคาเดิม (ขีดฆ่า)</label><input name="oldPrice" type="number" value="<?= (int)($program['oldPrice'] ?? 0) ?>" placeholder="0 = ไม่แสดง"/></div>
-      <div class="field" style="grid-column:1/-1"><label>จุดแวะ (บรรทัดละจุด)</label><textarea name="stops" rows="3"><?= htmlspecialchars(implode("\n", $program['stops'] ?? []), ENT_QUOTES, 'UTF-8') ?></textarea></div>
-      <div class="field" style="grid-column:1/-1"><label>รายละเอียดสั้น</label><textarea name="desc" rows="3"><?= htmlspecialchars($program['desc'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea></div>
+      <div class="field"><label>Package code</label><input name="packageCode" value="<?= htmlspecialchars((string)($program['packageCode'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="DL001, D-002"/><p class="field-hint">Shown on the card and the meta bar of the detail page</p></div>
+      <div class="field"><label>Badge (ribbon)</label><input name="ribbon" value="<?= htmlspecialchars($program['ribbon'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="650 ฿ or Popular"/></div>
+      <div class="field"><label>Route</label><input name="route" value="<?= htmlspecialchars($program['route'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field"><label>Duration</label><input name="duration" value="<?= htmlspecialchars($program['duration'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="About 8 hours"/></div>
+      <div class="field"><label>Adult price (THB)</label><input name="basePrice" type="number" value="<?= (int)($program['basePrice'] ?? 0) ?>"/></div>
+      <div class="field"><label>Supported boats (comma-separated)</label><input name="boats" value="<?= htmlspecialchars(implode(', ', $program['boats'] ?? []), ENT_QUOTES, 'UTF-8') ?>" placeholder="longtail, bigboat, speedboat"/></div>
+      <div class="field"><label>Rating (0–5)</label><input name="rating" type="number" step="0.1" min="0" max="5" value="<?= htmlspecialchars((string)($program['rating'] ?? 4.8), ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field"><label>Review count</label><input name="reviewCount" value="<?= htmlspecialchars($program['reviewCount'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field"><label>Stars (1–5)</label><input name="stars" type="number" min="1" max="5" value="<?= (int)($program['stars'] ?? 5) ?>"/></div>
+      <div class="field"><label>Original price (strikethrough)</label><input name="oldPrice" type="number" value="<?= (int)($program['oldPrice'] ?? 0) ?>" placeholder="0 = hide"/></div>
+      <div class="field" style="grid-column:1/-1"><label>Stops (one per line)</label><textarea name="stops" rows="3"><?= htmlspecialchars(implode("\n", $program['stops'] ?? []), ENT_QUOTES, 'UTF-8') ?></textarea></div>
+      <div class="field" style="grid-column:1/-1"><label>Short description</label><textarea name="desc" rows="3"><?= htmlspecialchars($program['desc'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea></div>
     </div>
   </div>
 
   <div class="card">
-    <h2>แกลเลอรี 6 รูป — ด้านบนหน้ารายละเอียด</h2>
-    <p class="field-hint section-lead">จัดเรียงตามหน้า program.html: 3 รูปแถวบน · แถบชื่อกลาง · 3 รูปแถวล่าง · ว่างช่องใดจะใช้รูปปกการ์ดแทน</p>
+    <h2>6-image gallery — top of the detail page</h2>
+    <p class="field-hint section-lead">Arranged as on program.html: 3 images in the top row · center caption bar · 3 images in the bottom row · any empty slot falls back to the card cover image</p>
     <div class="field" style="grid-column:1/-1">
-      <label>รูปแกลเลอรี 6 ช่อง</label>
+      <label>Gallery images (6 slots)</label>
       <?php tt_render_gallery_grid($gallerySlots, ['name' => 'gallery', 'context' => 'program']); ?>
     </div>
     <div class="field" style="margin-top:16px">
-      <label>แถบชื่อทับกลางรูป (galleryCaption)</label>
-      <input name="galleryCaption" value="<?= htmlspecialchars($program['galleryCaption'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="ถ้ำมรกต เกาะกระดาน เกาะแหวน เกาะเชือก"/>
+      <label>Caption bar over the image center (galleryCaption)</label>
+      <input name="galleryCaption" value="<?= htmlspecialchars($program['galleryCaption'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="Emerald Cave, Koh Kradan, Koh Waen, Koh Cheuk"/>
     </div>
     <div class="field">
-      <label>ใบอนุญาตนำเที่ยว</label>
+      <label>Tour license</label>
       <input name="licenseNo" value="<?= htmlspecialchars($program['licenseNo'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="43/00540"/>
     </div>
   </div>
 
   <div class="card">
-    <h2>โปรแกรมทัวร์ — คอลัมน์ซ้าย</h2>
+    <h2>Tour program — left column</h2>
     <div class="field" style="grid-column:1/-1">
-      <label>ตารางเดินทาง (บรรทัดละ 1 รายการ — รูปแบบ เวลา|หัวข้อ|รายละเอียด)</label>
-      <textarea name="itinerary" rows="10" placeholder="07:30|ท่าเรือปากเมง|ลูกค้าเจอกันที่ท่าเรือ&#10;09:30|ถ้ำมรกต|ลงเรือเดินทางสู่เกาะมุก"><?= htmlspecialchars(implode("\n", $itinLines), ENT_QUOTES, 'UTF-8') ?></textarea>
-      <p class="field-hint">ว่างไว้จะสร้างจากจุดแวะอัตโนมัติ · ใช้ 2 ส่วน (เวลา|ข้อความ) หรือ 3 ส่วน (เวลา|หัวข้อ|รายละเอียด)</p>
+      <label>Itinerary (one item per line — format: time|title|details)</label>
+      <textarea name="itinerary" rows="10" placeholder="07:30|Pak Meng Pier|Customers meet at the pier&#10;09:30|Emerald Cave|Board the boat to Koh Mook"><?= htmlspecialchars(implode("\n", $itinLines), ENT_QUOTES, 'UTF-8') ?></textarea>
+      <p class="field-hint">If left blank, it is generated automatically from the stops · use 2 parts (time|text) or 3 parts (time|title|details)</p>
     </div>
   </div>
 
   <div class="card">
-    <h2>การ์ดเลือกซื้อ &amp; ราคา — คอลัมน์ขวา</h2>
+    <h2>Purchase card &amp; pricing — right column</h2>
     <div class="grid-2">
-      <div class="field"><label>ราคาเด็ก (บาท)</label><input name="childPrice" type="number" value="<?= htmlspecialchars((string)($program['childPrice'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="ว่าง = คำนวณ ~74% ของผู้ใหญ่"/></div>
-      <div class="field"><label>ค่ารับในเมือง (บาท/ท่าน)</label><input name="pickupSurcharge" type="number" value="<?= htmlspecialchars((string)($program['pickupSurcharge'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="200"/></div>
-      <div class="field" style="grid-column:1/-1"><label>หมายเหตุราคา / จุดนัดพบ</label><input name="priceMeetingNote" value="<?= htmlspecialchars($program['priceMeetingNote'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="เจอกันที่ท่าเรือปากเมง · ผู้ใหญ่ 650 บาท · เด็ก 550 บาท"/></div>
-      <div class="field" style="grid-column:1/-1"><label>ช่วงเวลาเปิดทัวร์</label><input name="season" value="<?= htmlspecialchars($program['season'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="1 ต.ค. – 31 พ.ค. · ออกเดินทางทุกวัน"/></div>
-      <div class="field" style="grid-column:1/-1"><label>สิ่งที่รวมในแพ็กเกจ (บรรทัดละข้อ)</label><textarea name="inclusions" rows="6"><?= htmlspecialchars(implode("\n", $program['inclusions'] ?? []), ENT_QUOTES, 'UTF-8') ?></textarea></div>
+      <div class="field"><label>Child price (THB)</label><input name="childPrice" type="number" value="<?= htmlspecialchars((string)($program['childPrice'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="Blank = calculated as ~74% of adult"/></div>
+      <div class="field"><label>In-town pickup fee (THB/person)</label><input name="pickupSurcharge" type="number" value="<?= htmlspecialchars((string)($program['pickupSurcharge'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="200"/></div>
+      <div class="field" style="grid-column:1/-1"><label>Price note / meeting point</label><input name="priceMeetingNote" value="<?= htmlspecialchars($program['priceMeetingNote'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="Meet at Pak Meng Pier · Adult 650 THB · Child 550 THB"/></div>
+      <div class="field" style="grid-column:1/-1"><label>Tour season</label><input name="season" value="<?= htmlspecialchars($program['season'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="1 Oct – 31 May · Departs daily"/></div>
+      <div class="field" style="grid-column:1/-1"><label>Included in the package (one per line)</label><textarea name="inclusions" rows="6"><?= htmlspecialchars(implode("\n", $program['inclusions'] ?? []), ENT_QUOTES, 'UTF-8') ?></textarea></div>
       <?php if ($showInclusionsByDay): ?>
       <div class="field" style="grid-column:1/-1">
-        <label>สิ่งที่รวมแยกตามวัน (แพ็ก 4 วัน 3 คืน)</label>
-        <textarea name="inclusionsByDay" rows="12" placeholder="วันที่ 1&#10;ห้องพัก 3 คืน&#10;เช็กอินตามโปรแกรม&#10;&#10;วันที่ 2&#10;เรือนำเที่ยวทะเลตรัง"><?= htmlspecialchars($inclusionsByDayText, ENT_QUOTES, 'UTF-8') ?></textarea>
-        <p class="field-hint">บรรทัดขึ้นต้นด้วย <strong>วันที่ N</strong> แล้วตามด้วยรายการของวันนั้น · เว้นบรรทัดว่างคั่นแต่ละวัน</p>
+        <label>Included by day (4 days 3 nights package)</label>
+        <textarea name="inclusionsByDay" rows="12" placeholder="Day 1&#10;3 nights accommodation&#10;Check-in per program&#10;&#10;Day 2&#10;Trang sea tour boat"><?= htmlspecialchars($inclusionsByDayText, ENT_QUOTES, 'UTF-8') ?></textarea>
+        <p class="field-hint">Start a line with <strong>Day N</strong> followed by that day's items · leave a blank line between days</p>
       </div>
       <?php endif; ?>
       <div class="field" style="grid-column:1/-1">
-        <label>โรงแรม &amp; ประเภทห้อง (แพ็กหลายวัน)</label>
-        <textarea name="hotels" rows="12" placeholder="โรงแรมชมตรัง&#10;ห้องดีลักซ์|2150&#10;ห้องสุพีเรีย|2250&#10;&#10;โรงแรมเมซอง&#10;ห้องสุพีเรีย|2250&#10;ห้องดีลักซ์|จอง"><?= htmlspecialchars($hotelsText, ENT_QUOTES, 'UTF-8') ?></textarea>
-        <p class="field-hint">บรรทัดแรกของแต่ละโรงแรม = ชื่อโรงแรม · บรรทัดถัดไป = ชื่อห้อง|ราคาต่อท่าน (ตัวเลข) หรือ จอง · สูงสุด 5 ห้อง/โรงแรม · เว้นบรรทัดว่างคั่นแต่ละโรงแรม</p>
+        <label>Hotels &amp; room types (multi-day packages)</label>
+        <textarea name="hotels" rows="12" placeholder="Chom Trang Hotel&#10;Deluxe room|2150&#10;Superior room|2250&#10;&#10;Maison Hotel&#10;Superior room|2250&#10;Deluxe room|Book"><?= htmlspecialchars($hotelsText, ENT_QUOTES, 'UTF-8') ?></textarea>
+        <p class="field-hint">First line of each hotel = hotel name · following lines = room name|price per person (number) or Book · up to 5 rooms per hotel · leave a blank line between hotels</p>
       </div>
-      <div class="field" style="grid-column:1/-1"><label>หมายเหตุอายุ / เงื่อนไขราคา (บรรทัดละข้อ)</label><textarea name="priceNotes" rows="4"><?= htmlspecialchars(implode("\n", $program['priceNotes'] ?? []), ENT_QUOTES, 'UTF-8') ?></textarea></div>
-      <div class="field" style="grid-column:1/-1"><label>ข้อความเตือน/เงื่อนไข (แถบล่างสุด)</label><textarea name="warning" rows="3"><?= htmlspecialchars($program['warning'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea></div>
+      <div class="field" style="grid-column:1/-1"><label>Age notes / price conditions (one per line)</label><textarea name="priceNotes" rows="4"><?= htmlspecialchars(implode("\n", $program['priceNotes'] ?? []), ENT_QUOTES, 'UTF-8') ?></textarea></div>
+      <div class="field" style="grid-column:1/-1"><label>Warning / conditions text (bottom bar)</label><textarea name="warning" rows="3"><?= htmlspecialchars($program['warning'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea></div>
     </div>
   </div>
 
   <div class="form-actions">
-    <button type="submit" class="btn btn-primary">บันทึก</button>
-    <a class="btn btn-ghost" href="<?= htmlspecialchars($collectionMeta['listHref'], ENT_QUOTES, 'UTF-8') ?>">กลับรายการ</a>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-ghost" href="<?= htmlspecialchars($collectionMeta['listHref'], ENT_QUOTES, 'UTF-8') ?>">Back to list</a>
     <?php if (!$isNew): ?>
-      <a class="btn btn-ghost" href="../program.html?id=<?= urlencode($program['id'] ?? '') ?>" target="_blank" rel="noopener">ดูหน้ารายละเอียด</a>
-      <a class="btn btn-ghost" href="../program.html?id=<?= urlencode($program['id'] ?? '') ?>#pkg-book" target="_blank" rel="noopener">ทดสอบจอง</a>
+      <a class="btn btn-ghost" href="../program.html?id=<?= urlencode($program['id'] ?? '') ?>" target="_blank" rel="noopener">View detail page</a>
+      <a class="btn btn-ghost" href="../program.html?id=<?= urlencode($program['id'] ?? '') ?>#pkg-book" target="_blank" rel="noopener">Test booking</a>
     <?php endif; ?>
   </div>
 </form>

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-/** ไอคอนเดียวกับที่หน้าเว็บใช้ (Lucide → assets/js/main.js → window.TT.ICONS) */
+/** Same icons as used on the website (Lucide → assets/js/main.js → window.TT.ICONS) */
 function tt_frontend_icons(): array
 {
     return [

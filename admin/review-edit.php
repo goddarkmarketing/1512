@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $postIdx = isset($_POST['idx']) ? (int)$_POST['idx'] : -1;
     $name = trim($_POST['name'] ?? '');
     if ($name === '') {
-        tt_set_flash('กรุณาระบุชื่อลูกค้า');
+        tt_set_flash('Please enter the customer name');
         header('Location: review-edit.php' . ($postIdx >= 0 ? '?i=' . $postIdx : ''));
         exit;
     }
@@ -43,38 +43,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data['reviews'] = $reviews;
     tt_write_data($data);
-    tt_set_flash('บันทึกรีวิวแล้ว');
+    tt_set_flash('Review saved');
     header('Location: review-edit.php?i=' . $postIdx);
     exit;
 }
 
-$pageTitle = $isNew ? 'เพิ่มรีวิว' : 'แก้ไขรีวิว';
+$pageTitle = $isNew ? 'Add review' : 'Edit review';
 tt_admin_header($pageTitle, 'reviews');
 $flash = tt_flash();
 if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
 
 <form method="post">
   <div class="card">
-    <h2>ข้อมูลรีวิว</h2>
+    <h2>Review details</h2>
     <input type="hidden" name="idx" value="<?= $isNew ? -1 : $idx ?>"/>
 
     <div class="grid-2">
-      <div class="field"><label>ชื่อลูกค้า</label><input name="name" required value="<?= htmlspecialchars($review['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="คุณพิม ขจร"/></div>
-      <div class="field"><label>ตัวอักษร (วงกลม)</label><input name="initial" maxlength="2" value="<?= htmlspecialchars($review['initial'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="ว่าง = ใช้ตัวแรกของชื่อ"/></div>
-      <div class="field"><label>ทริป</label><input name="trip" value="<?= htmlspecialchars($review['trip'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="โปรแกรม 4 เกาะ"/></div>
-      <div class="field"><label>จากจังหวัด</label><input name="from" value="<?= htmlspecialchars($review['from'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="กรุงเทพฯ"/></div>
-      <div class="field"><label>คะแนน (1–5)</label><input name="rating" type="number" min="1" max="5" value="<?= (int)($review['rating'] ?? 5) ?>"/></div>
-      <div class="field" style="grid-column:1/-1"><label>ข้อความรีวิว</label><textarea name="text" rows="5"><?= htmlspecialchars($review['text'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea></div>
+      <div class="field"><label>Customer name</label><input name="name" required value="<?= htmlspecialchars($review['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="Ms. Pim Khajorn"/></div>
+      <div class="field"><label>Initial (circle)</label><input name="initial" maxlength="2" value="<?= htmlspecialchars($review['initial'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="Blank = use first letter of name"/></div>
+      <div class="field"><label>Trip</label><input name="trip" value="<?= htmlspecialchars($review['trip'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="4-island program"/></div>
+      <div class="field"><label>From province</label><input name="from" value="<?= htmlspecialchars($review['from'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="Bangkok"/></div>
+      <div class="field"><label>Rating (1–5)</label><input name="rating" type="number" min="1" max="5" value="<?= (int)($review['rating'] ?? 5) ?>"/></div>
+      <div class="field" style="grid-column:1/-1"><label>Review text</label><textarea name="text" rows="5"><?= htmlspecialchars($review['text'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea></div>
     </div>
 
-    <p class="field-hint">รีวิวจะแสดงบนหน้าแรกในส่วนรีวิวลูกค้า</p>
+    <p class="field-hint">Reviews are shown on the home page in the customer reviews section</p>
 
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">บันทึก</button>
-      <a class="btn btn-ghost" href="reviews.php">กลับ</a>
-      <a class="btn btn-ghost" href="../index.html#home-reviews" target="_blank">ดูหน้าแรก</a>
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a class="btn btn-ghost" href="reviews.php">Back</a>
+      <a class="btn btn-ghost" href="../index.html#home-reviews" target="_blank">View home page</a>
       <?php if (!$isNew): ?>
-        <a class="btn btn-danger" href="reviews.php?delete=<?= $idx ?>" onclick="return confirm('ลบรีวิวนี้?')">ลบรีวิวนี้</a>
+        <a class="btn btn-danger" href="reviews.php?delete=<?= $idx ?>" onclick="return confirm('Delete this review?')">Delete this review</a>
       <?php endif; ?>
     </div>
   </div>

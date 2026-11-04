@@ -14,18 +14,18 @@ if (isset($_GET['delete'], $_GET['collection'])) {
     $id = trim((string)$_GET['delete']);
     if ($id !== '') {
         tt_package_delete($collection, $id, $data);
-        tt_set_flash('ลบแพ็กเกจแล้ว');
+        tt_set_flash('Package deleted');
     }
     header('Location: programs.php#' . tt_package_section_hash($collection));
     exit;
 }
 
-tt_admin_header('แพ็กเกจทัวร์', 'programs');
+tt_admin_header('Tour packages', 'programs');
 $flash = tt_flash();
 if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
 
 <div class="card">
-  <p class="field-hint" style="margin:0">จัดการการ์ดหน้าแรกและหน้ารายละเอียด <code>program.html</code> — แก้ไขเนื้อหา + รูปแกลเลอรี 6 ช่องได้ที่ปุ่ม 「แก้หน้ารายละเอียด」</p>
+  <p class="field-hint" style="margin:0">Manage home page cards and the <code>program.html</code> detail page — edit the content + 6 gallery images via the 「Edit」 button</p>
 </div>
 
 <?php
@@ -38,16 +38,16 @@ function tt_render_package_table(string $collection, array $items, string $secti
   <div class="admin-section-head">
     <div>
       <h2><?= htmlspecialchars($meta['label'], ENT_QUOTES, 'UTF-8') ?></h2>
-      <p class="field-hint"><?= count($items) ?> แพ็กเกจ</p>
+      <p class="field-hint"><?= count($items) ?> packages</p>
     </div>
     <a class="btn btn-primary btn-sm" href="program-edit.php?collection=<?= urlencode($collection) ?>">+ <?= htmlspecialchars($addLabel, ENT_QUOTES, 'UTF-8') ?></a>
   </div>
   <?php if (!$items): ?>
-    <p class="field-hint">ยังไม่มีแพ็กเกจในหมวดนี้</p>
+    <p class="field-hint">No packages in this category yet</p>
   <?php else: ?>
   <table class="table">
     <thead>
-      <tr><th>ชื่อแพ็กเกจ</th><th>รหัส</th><th>เส้นทาง</th><th>ราคา</th><th></th></tr>
+      <tr><th>Package name</th><th>Code</th><th>Route</th><th>Price</th><th></th></tr>
     </thead>
     <tbody>
       <?php foreach ($items as $p):
@@ -60,9 +60,9 @@ function tt_render_package_table(string $collection, array $items, string $secti
           <td><?= number_format((int)($p['basePrice'] ?? 0)) ?> ฿</td>
           <td class="table-actions">
             <div class="table-actions-row">
-              <a class="btn btn-primary btn-sm" href="program-edit.php?collection=<?= urlencode($collection) ?>&amp;id=<?= urlencode($pid) ?>" title="แก้หน้ารายละเอียด">แก้ไข</a>
-              <a class="btn btn-ghost btn-sm" href="../program.html?id=<?= urlencode($pid) ?>" target="_blank" rel="noopener">ดู</a>
-              <a class="btn btn-danger btn-sm" href="programs.php?collection=<?= urlencode($collection) ?>&amp;delete=<?= urlencode($pid) ?>" onclick="return confirm('ลบแพ็กเกจนี้?')">ลบ</a>
+              <a class="btn btn-primary btn-sm" href="program-edit.php?collection=<?= urlencode($collection) ?>&amp;id=<?= urlencode($pid) ?>" title="Edit detail page">Edit</a>
+              <a class="btn btn-ghost btn-sm" href="../program.html?id=<?= urlencode($pid) ?>" target="_blank" rel="noopener">View</a>
+              <a class="btn btn-danger btn-sm" href="programs.php?collection=<?= urlencode($collection) ?>&amp;delete=<?= urlencode($pid) ?>" onclick="return confirm('Delete this package?')">Delete</a>
             </div>
           </td>
         </tr>
@@ -74,10 +74,10 @@ function tt_render_package_table(string $collection, array $items, string $secti
 <?php
 }
 
-tt_render_package_table('programs', $data['programs'] ?? [], 'daytrip', 'เพิ่มไปเช้าเย็นกลับ');
-tt_render_package_table('packages2d1n', $data['packages2d1n'] ?? [], 'overnight', 'เพิ่ม 2 วัน 1 คืน');
-tt_render_package_table('packages3d2n', $data['packages3d2n'] ?? [], 'packages3d2n', 'เพิ่ม 3 วัน 2 คืน');
-tt_render_package_table('packages4d3n', $data['packages4d3n'] ?? [], 'packages4d3n', 'เพิ่ม 4 วัน 3 คืน');
+tt_render_package_table('programs', $data['programs'] ?? [], 'daytrip', 'Add day trip');
+tt_render_package_table('packages2d1n', $data['packages2d1n'] ?? [], 'overnight', 'Add 2 days 1 night');
+tt_render_package_table('packages3d2n', $data['packages3d2n'] ?? [], 'packages3d2n', 'Add 3 days 2 nights');
+tt_render_package_table('packages4d3n', $data['packages4d3n'] ?? [], 'packages4d3n', 'Add 4 days 3 nights');
 ?>
 
 <?php tt_admin_footer(); ?>

@@ -15,30 +15,30 @@ if (isset($_GET['delete']) && $_GET['delete'] !== '') {
         array_splice($slides, $idx, 1);
         $data['heroSlides'] = array_values($slides);
         tt_write_data($data);
-        tt_set_flash('ลบสไลด์แล้ว');
+        tt_set_flash('Slide deleted');
     }
     header('Location: hero.php');
     exit;
 }
 
-tt_admin_header('แบนเนอร์หน้าแรก', 'hero');
+tt_admin_header('Home banner', 'hero');
 $flash = tt_flash();
 if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
 
 <div class="form-actions" style="border:0;margin-bottom:16px;padding:0">
-  <a class="btn btn-primary" href="hero-edit.php">+ เพิ่มสไลด์</a>
-  <a class="btn btn-ghost" href="media.php">อัปโหลดรูป</a>
+  <a class="btn btn-primary" href="hero-edit.php">+ Add slide</a>
+  <a class="btn btn-ghost" href="media.php">Upload image</a>
 </div>
 
-<p class="field-hint" style="margin:0 0 16px"><?= htmlspecialchars(tt_image_field_label('สไลด์แบนเนอร์หน้าแรก', null, 'hero_slide'), ENT_QUOTES, 'UTF-8') ?> · <a href="media.php">ดูตารางขนาดทั้งหมด</a></p>
+<p class="field-hint" style="margin:0 0 16px"><?= htmlspecialchars(tt_image_field_label('Home banner slide', null, 'hero_slide'), ENT_QUOTES, 'UTF-8') ?> · <a href="media.php">View all size tables</a></p>
 
 <div class="card">
   <?php if (!$slides): ?>
-    <p class="field-hint">ยังไม่มีสไลด์ — กดปุ่มด้านบนเพื่อเพิ่มรายการแรก</p>
+    <p class="field-hint">No slides yet — click the button above to add the first one</p>
   <?php else: ?>
   <table class="table">
     <thead>
-      <tr><th>ลำดับ</th><th>รูป</th><th>คำอธิบาย (alt)</th><th>ที่อยู่ไฟล์</th><th></th></tr>
+      <tr><th>Order</th><th>Image</th><th>Description (alt)</th><th>File path</th><th></th></tr>
     </thead>
     <tbody>
       <?php foreach ($slides as $i => $s): ?>
@@ -55,9 +55,9 @@ if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT
           <td><small class="field-hint"><?= htmlspecialchars($s['src'] ?? '—', ENT_QUOTES, 'UTF-8') ?></small></td>
           <td class="table-actions">
             <div class="table-actions-row">
-              <a class="btn btn-ghost btn-sm" href="hero-edit.php?i=<?= $i ?>">แก้ไข</a>
-              <a class="btn btn-danger btn-sm" href="hero.php?delete=<?= $i ?>" onclick="return confirm('ลบสไลด์นี้?')">ลบ</a>
-              <a class="btn btn-ghost btn-sm" href="../index.html" target="_blank">ดู</a>
+              <a class="btn btn-ghost btn-sm" href="hero-edit.php?i=<?= $i ?>">Edit</a>
+              <a class="btn btn-danger btn-sm" href="hero.php?delete=<?= $i ?>" onclick="return confirm('Delete this slide?')">Delete</a>
+              <a class="btn btn-ghost btn-sm" href="../index.html" target="_blank">View</a>
             </div>
           </td>
         </tr>

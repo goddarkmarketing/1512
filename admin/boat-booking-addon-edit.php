@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $item = tt_bb_parse_addon_post($row);
     if ($item === null) {
-        tt_set_flash('กรุณากรอก ID และชื่อที่แสดง', 'error');
+        tt_set_flash('Please enter an ID and a display name', 'error');
         $redirectId = $originalId !== '' ? '?id=' . urlencode($originalId) : '';
         header('Location: boat-booking-addon-edit.php' . $redirectId);
         exit;
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($newId !== $originalId) {
             $addons = array_values(array_filter($addons, static fn($a) => ($a['id'] ?? '') !== $originalId));
             if (tt_bb_find_addon_index($addons, $newId) >= 0) {
-                tt_set_flash('มี ID นี้อยู่แล้ว — ใช้ชื่ออื่น', 'error');
+                tt_set_flash('This ID already exists — use a different name', 'error');
                 header('Location: boat-booking-addon-edit.php?id=' . urlencode($originalId));
                 exit;
             }
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         if (tt_bb_find_addon_index($addons, $newId) >= 0) {
-            tt_set_flash('มี ID นี้อยู่แล้ว', 'error');
+            tt_set_flash('This ID already exists', 'error');
             header('Location: boat-booking-addon-edit.php');
             exit;
         }
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $bb['addons'] = array_values($addons);
     tt_bb_save($bb);
-    tt_set_flash('บันทึกบริการเสริมแล้ว');
+    tt_set_flash('Add-on saved');
     header('Location: boat-booking-addon-edit.php?id=' . urlencode($newId));
     exit;
 }
@@ -86,61 +86,61 @@ $addon = $addon ?? [
     'priceLabel' => '',
 ];
 
-$pageTitle = $isNew ? 'เพิ่มบริการเสริม' : 'แก้ไขบริการเสริม';
+$pageTitle = $isNew ? 'Add add-on' : 'Edit add-on';
 tt_bb_page_start($pageTitle, 'addons');
 ?>
 
 <div class="card admin-preview-bar adm-bb-profile-bar">
-  <a class="btn btn-ghost btn-sm" href="boat-booking-addons.php">← รายการบริการเสริม</a>
-  <a class="btn btn-ghost btn-sm" href="../boat-book.html" target="_blank" rel="noopener">ทดสอบหน้าจอง ↗</a>
+  <a class="btn btn-ghost btn-sm" href="boat-booking-addons.php">← Add-on list</a>
+  <a class="btn btn-ghost btn-sm" href="../boat-book.html" target="_blank" rel="noopener">Test booking page ↗</a>
 </div>
 
 <form method="post">
   <input type="hidden" name="original_id" value="<?= htmlspecialchars($isNew ? '' : (string) ($addon['id'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"/>
 
   <div class="card">
-    <h2>ข้อมูลบริการเสริม</h2>
+    <h2>Add-on details</h2>
     <div class="grid-2">
       <div class="field">
-        <label>ชื่อที่แสดง</label>
-        <input name="label" required value="<?= htmlspecialchars((string) ($addon['label'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="อาหารกลางวัน"/>
+        <label>Display name</label>
+        <input name="label" required value="<?= htmlspecialchars((string) ($addon['label'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="Lunch"/>
       </div>
       <div class="field">
         <label>ID</label>
         <input name="id" value="<?= htmlspecialchars((string) ($addon['id'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="menu-food"/>
-        <p class="field-hint">ว่างไว้จะสร้างจากชื่ออัตโนมัติ เช่น menu-food</p>
+        <p class="field-hint">Leave blank to auto-generate from the name, e.g. menu-food</p>
       </div>
       <div class="field">
-        <label>ไอคอน</label>
+        <label>Icon</label>
         <?php tt_icon_select('icon', $iconOptions, (string) ($addon['icon'] ?? 'plus')); ?>
       </div>
       <div class="field">
-        <label>ราคา (บาท)</label>
+        <label>Price (THB)</label>
         <input name="price" type="number" min="0" value="<?= (int) ($addon['price'] ?? 0) ?>"/>
       </div>
       <div class="field">
-        <label>หน่วย</label>
+        <label>Unit</label>
         <?php tt_bb_render_addon_unit_select('unit', (string) ($addon['unit'] ?? 'flat')); ?>
       </div>
       <div class="field">
-        <label>ข้อความราคา</label>
-        <input name="priceLabel" value="<?= htmlspecialchars((string) ($addon['priceLabel'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="100 บาท/ท่าน"/>
-        <p class="field-hint">แสดงบนการ์ดจอง — ว่างได้ ระบบจะใช้ตัวเลขราคา</p>
+        <label>Price text</label>
+        <input name="priceLabel" value="<?= htmlspecialchars((string) ($addon['priceLabel'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="100 THB/person"/>
+        <p class="field-hint">Shown on the booking card — can be left blank, the numeric price will be used</p>
       </div>
       <div class="field">
-        <label>ป้ายจำนวน (perQty/perVan)</label>
-        <input name="qtyLabel" value="<?= htmlspecialchars((string) ($addon['qtyLabel'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="คน / ชุด"/>
+        <label>Quantity label (perQty/perVan)</label>
+        <input name="qtyLabel" value="<?= htmlspecialchars((string) ($addon['qtyLabel'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="person / set"/>
       </div>
       <div class="field" style="grid-column:1/-1">
-        <label>คำอธิบาย</label>
-        <input name="desc" value="<?= htmlspecialchars((string) ($addon['desc'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="อาหารกลางวัน 1 ชุด/ท่าน"/>
+        <label>Description</label>
+        <input name="desc" value="<?= htmlspecialchars((string) ($addon['desc'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" placeholder="1 lunch set per person"/>
       </div>
     </div>
   </div>
 
   <div class="form-actions">
-    <button type="submit" class="btn btn-primary">บันทึกบริการเสริม</button>
-    <a class="btn btn-ghost" href="boat-booking-addons.php">กลับ</a>
+    <button type="submit" class="btn btn-primary">Save add-on</button>
+    <a class="btn btn-ghost" href="boat-booking-addons.php">Back</a>
   </div>
 </form>
 

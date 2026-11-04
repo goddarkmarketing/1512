@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bb = tt_bb_get($data);
     $bb['insurancePerPerson'] = (int) ($_POST['insurancePerPerson'] ?? 50);
     tt_bb_save($bb);
-    tt_set_flash('บันทึกประกันแล้ว');
+    tt_set_flash('Insurance saved');
     header('Location: boat-booking-insurance.php');
     exit;
 }
@@ -20,21 +20,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $data = tt_read_data();
 $bb = tt_bb_get($data);
 
-tt_bb_page_start('⑤ ประกัน & ค่าบังคับ', 'insurance');
+tt_bb_page_start('⑤ Insurance & mandatory fees', 'insurance');
 ?>
 
 <div class="card">
-  <h2><span class="adm-step-badge adm-step-badge--lg">5</span> ประกัน &amp; ค่าบังคับ</h2>
-  <p class="field-hint">ขั้นตอนบนเว็บ: <strong>ค่าประกันอุบัติเหตุ</strong> — ค่าเริ่มต้นทุกเรือ (โปรไฟล์แต่ละเรือ override ได้) · มัคคุเทศก์/สต๊าฟแก้ใน <a href="boat-booking-profiles.php">โปรไฟล์เรือ</a></p>
+  <h2><span class="adm-step-badge adm-step-badge--lg">5</span> Insurance &amp; mandatory fees</h2>
+  <p class="field-hint">Step on the website: <strong>Accident insurance fee</strong> — default for all boats (each boat profile can override it) · Guide/staff are edited in <a href="boat-booking-profiles.php">Boat profiles</a></p>
   <form method="post">
     <div class="grid-2">
       <div class="field">
-        <label>ประกันอุบัติเหตุ (บาท/ท่าน)</label>
+        <label>Accident insurance (THB/person)</label>
         <input name="insurancePerPerson" type="number" min="0" value="<?= (int) ($bb['insurancePerPerson'] ?? 50) ?>"/>
-        <p class="field-hint">คำนวณ × จำนวนผู้โดยสารจริง</p>
+        <p class="field-hint">Calculated × actual number of passengers</p>
       </div>
     </div>
-    <?php tt_bb_form_actions('บันทึกประกัน'); ?>
+    <?php tt_bb_form_actions('Save insurance'); ?>
   </form>
 </div>
 

@@ -1,188 +1,210 @@
 <!doctype html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Talay Trang — เช่าเรือเที่ยวทะเลตรัง เลือกเรือได้ตามสไตล์คุณ</title>
-  <meta name="description" content="บริการเช่าเรือเที่ยวทะเลตรัง โดยทีมงานเจ้าถิ่น เลือกได้ทั้งเรือหางยาว Speed Boat และเรือใหญ่ พร้อมโปรแกรม 4 เกาะ ถ้ำมรกต เกาะกระดาน จองง่ายผ่าน LINE @talaytrang" />
+  <title>Suwan Travel — Krabi &amp; Phi Phi Day Trips + Car Rental</title>
+  <meta name="description" content="Krabi day trips to Phi Phi, Maya Bay, Hong Island, and 4 Islands, plus car rental in Ao Nang. Book via LINE @ndpoolvilla." />
   <meta name="theme-color" content="#0277bd" />
-  <meta property="og:title" content="Talay Trang — เช่าเรือเที่ยวทะเลตรัง" />
-  <meta property="og:description" content="เช่าเรือทะเลตรัง 3 ประเภท หางยาว / Speed Boat / เรือใหญ่ พร้อมโปรแกรมเที่ยวยอดนิยม" />
-  <meta property="og:image" content="https://images.pexels.com/photos/14573822/pexels-photo-14573822.jpeg?auto=compress&w=1200" />
+  <link rel="icon" type="image/png" href="assets/logo/logo.png" />
+  <link rel="apple-touch-icon" href="assets/logo/logo.png" />
+  <meta property="og:title" content="Suwan Travel — Krabi day trips &amp; car rental" />
+  <meta property="og:description" content="Phi Phi, Hong Island, Krabi 4 Islands, sunset tours, and daily car rental from Ao Nang." />
+  <meta property="og:image" content="assets/uploads/tours/krabi-4islands/img-0.jpg" />
   <meta property="og:type" content="website" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230277bd'/%3E%3Ctext x='50%25' y='58%25' font-family='Inter,Arial' font-size='34' font-weight='700' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://images.pexels.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/fonts.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/home.css" />
 </head>
 <body data-tt-page="index">
   <div id="site-header" class="transparent"></div>
 
-  <!-- =================== HERO BANNER SLIDER + SERVICES OVERLAY =================== -->
-  <section class="banner-slider has-overlay" id="hero-slider" aria-roledescription="carousel" aria-label="แบนเนอร์ Talay Trang">
+  <!-- 1. HERO -->
+  <section class="banner-slider has-overlay home-hero" id="hero-slider" aria-roledescription="carousel" aria-label="Suwan Travel banner">
     <div class="banner-track" id="banner-track" aria-live="polite"></div>
-    <button class="banner-arrow prev" type="button" aria-label="ภาพก่อนหน้า">
+    <button class="banner-arrow prev" type="button" aria-label="Previous image">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
     </button>
-    <button class="banner-arrow next" type="button" aria-label="ภาพถัดไป">
+    <button class="banner-arrow next" type="button" aria-label="Next image">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
     </button>
-    <div class="banner-dots" id="banner-dots" role="tablist" aria-label="เลือกภาพแบนเนอร์"></div>
+    <div class="banner-dots" id="banner-dots" role="tablist" aria-label="Select banner image"></div>
 
     <div class="banner-overlay">
-      <div class="container">
-        <div class="overlay-head" data-tt-home-section="hero">
-          <img class="overlay-logo" src="assets/logo/logo-hero.png" alt="Talay Trang — เช่าเรือเที่ยวทะเลตรัง" />
-          <h2>แพ็คเกจทัวร์ตรัง</h2>
-          <p>รวมแพ็คเกจทัวร์เที่ยวเมืองตรัง หลากหลายบริการครบในที่เดียว ตั้งแต่เรือ ที่พัก รถ ตั๋วเรือ ไปจนถึงสัมมนาและสถานที่ถ่ายทำ</p>
-        </div>
-        <div class="service-pills service-pills--overlay" id="home-services"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== DAY TRIP PACKAGES =================== -->
-  <section class="section" id="boats">
-    <div class="container">
-      <div class="section-head section-head-wide" data-reveal data-tt-home-section="boats">
-        <span class="eyebrow">One-day trips</span>
-        <h2>แพ็กเกจไปเช้า เย็นกลับ</h2>
-        <p class="lead">ไปเช้าเย็นกลับ ถ้ำมรกต เกาะกระดาน เกาะแหวน เกาะเชือก และเกาะรอก — เริ่มต้น 650 บาท ครบเรือ ไกด์ อาหาร และประกัน</p>
-      </div>
-      <div class="grid grid-4 programs-category-grid" id="home-boats"></div>
-      <div class="btn-row center mt-4" data-reveal>
-        <a class="btn btn-outline" href="programs.html#daytrip">ดูแพ็กเกจไปเช้าเย็นกลับทั้งหมด</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== 2D1N PACKAGES =================== -->
-  <section class="section section-soft" id="home-section-programs">
-    <div class="container">
-      <div class="section-head section-head-wide" data-reveal data-tt-home-section="programs">
-        <span class="eyebrow">พักค้างคืน</span>
-        <h2>แพ็กเกจ 2 วัน 1 คืน</h2>
-        <p class="lead">เที่ยวทะเลเต็มอิ่ม 2 วัน 1 คืน รวมเรือ ที่พัก อาหาร และทีมงานดูแลตลอดทริป — ราคาเริ่มต้น 1,275 บาทต่อท่าน</p>
-      </div>
-      <div class="grid grid-4 programs-category-grid" id="home-programs"></div>
-      <div class="btn-row center mt-4" data-reveal>
-        <a class="btn btn-primary" href="programs.html#overnight">ดูแพ็กเกจ 2 วัน 1 คืนทั้งหมด</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== 3D2N PACKAGES =================== -->
-  <section class="section" id="home-section-packages3d2n">
-    <div class="container">
-      <div class="section-head section-head-wide" data-reveal data-tt-home-section="packages3d2n">
-        <span class="eyebrow">พักยาวขึ้น</span>
-        <h2>แพ็กเกจ 3 วัน 2 คืน</h2>
-        <p class="lead">เที่ยวทะเลตรังแบบสบาย ๆ 3 วัน 2 คืน ครบเรือ ที่พัก อาหาร กิจกรรมทะเล — ราคาเริ่มต้น 1,300 บาทต่อท่าน</p>
-      </div>
-      <div class="grid grid-4 programs-category-grid" id="home-packages-3d2n"></div>
-      <div class="btn-row center mt-4" data-reveal>
-        <a class="btn btn-outline" href="programs.html#packages3d2n">ดูแพ็กเกจ 3 วัน 2 คืนทั้งหมด</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== 4D3N PACKAGES =================== -->
-  <section class="section section-soft" id="home-section-packages4d3n">
-    <div class="container">
-      <div class="section-head section-head-wide" data-reveal data-tt-home-section="packages4d3n">
-        <span class="eyebrow">ทริปยาวพิเศษ</span>
-        <h2>แพ็กเกจ 4 วัน 3 คืน</h2>
-        <p class="lead">เที่ยวทะเลตรังครบจบ 4 วัน 3 คืน รวมทริปทะเล ที่พัก ทัวร์เมือง — ราคาเริ่มต้น 1,850 บาทต่อท่าน</p>
-      </div>
-      <div class="grid grid-4 programs-category-grid" id="home-packages-4d3n"></div>
-      <div class="btn-row center mt-4" data-reveal>
-        <a class="btn btn-primary" href="programs.html#packages4d3n">ดูแพ็กเกจ 4 วัน 3 คืนทั้งหมด</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== HOW TO BOOK =================== -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head section-head-wide" data-reveal data-tt-home-section="booking">
-        <span class="eyebrow">จองง่ายใน 4 ขั้นตอน</span>
-        <h2>จองเรือเที่ยวทะเลตรังใช้เวลาไม่ถึง 2 นาที</h2>
-        <p class="lead">ระบบคำนวณราคาให้อัตโนมัติ จากนั้นกดปุ่มเดียวเปิด LINE @talaytrang ติดต่อแอดมินได้ทันที</p>
-      </div>
-      <div class="steps" id="home-steps"></div>
-      <div class="btn-row center mt-4" data-reveal>
-        <a class="btn btn-line btn-lg" href="booking.html"><span data-icon="line"></span>เริ่มจองตอนนี้</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== REVIEWS =================== -->
-  <section class="section section-soft">
-    <div class="container">
-      <div class="section-head" data-reveal data-tt-home-section="reviews">
-        <span class="eyebrow">รีวิวลูกค้า</span>
-        <h2>เสียงจริงจากทริปจริง</h2>
-        <p class="lead">ลูกค้าหลายร้อยทริปบอกต่อ ทั้งครอบครัว คู่รัก เพื่อนกลุ่ม และบริษัท</p>
-      </div>
-      <div class="grid grid-3 mobile-slider" id="home-reviews"></div>
-      <div class="slider-dots" id="home-reviews-dots" role="tablist" aria-label="เลือกรีวิว"></div>
-      <div class="btn-row center mt-4" data-reveal>
-        <a class="btn btn-outline" href="articles.html">อ่านบทความและคู่มือเที่ยวตรัง</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== TIKTOK =================== -->
-  <section class="section section-deep">
-    <div class="container">
-      <div class="section-head" data-reveal data-tt-home-section="videos">
-        <span class="eyebrow" style="color:#9bdcfb;">TikTok ล่าสุด</span>
-        <h2>ทะเลตรังในมุมที่คุณยังไม่เคยเห็น</h2>
-        <p class="lead" id="home-videos-lead">อัปเดตทุกสัปดาห์ที่ <a id="home-tiktok-link" href="#" target="_blank" rel="noopener" style="color:#9bdcfb; text-decoration:underline;">@talaytrang</a></p>
-      </div>
-      <div class="video-grid" id="home-videos"></div>
-      <div class="btn-row center mt-4" data-reveal>
-        <a class="btn btn-ghost" href="videos.html">ดูคลิป TikTok & Facebook</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== OFFICE / TRUST =================== -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head left" data-reveal data-tt-home-section="office">
-        <span class="eyebrow">ออฟฟิศมีตัวตนจริง</span>
-        <h2>มาเจอเราได้จริงที่กันตัง จังหวัดตรัง</h2>
-      </div>
-      <div class="office" data-reveal data-tt-site-office="basic">
-        <div class="office-map">
-          <iframe src="" loading="lazy" title="ที่ตั้งออฟฟิศ Talay Trang อ.กันตัง จ.ตรัง"></iframe>
-        </div>
-        <div class="office-info" data-tt-home-section="office-info">
-          <h2>มั่นใจได้ทุกทริป</h2>
-          <p class="lead">เรามีออฟฟิศตั้งอยู่จริงที่อำเภอกันตัง เปิดบริการทุกวัน คุณสามารถนัดเข้ามาดูเรือก่อนตกลงจองได้</p>
-          <ul class="contact-list"></ul>
-          <div class="btn-row">
-            <a class="btn btn-line" data-tt-line-btn href="#" target="_blank" rel="noopener"><span data-icon="line"></span>แอด LINE</a>
-            <a class="btn btn-outline" href="contact.html">ดูข้อมูลติดต่อ</a>
+      <div class="container home-hero-inner">
+        <div class="home-hero-copy" data-tt-home-section="hero" data-reveal>
+          <p class="home-hero-brand">Suwan Travel</p>
+          <h1>Krabi tours &amp; car rental</h1>
+          <p class="home-hero-lead">Day trips to Phi Phi, Hong Island, and Krabi 4 Islands — plus daily car rental from Ao Nang.</p>
+          <ul class="home-hero-checks">
+            <li><span class="home-check" aria-hidden="true"></span>Local Ao Nang team</li>
+            <li><span class="home-check" aria-hidden="true"></span>Clear inclusions</li>
+            <li><span class="home-check" aria-hidden="true"></span>Hotel transfers</li>
+            <li><span class="home-check" aria-hidden="true"></span>Fair package prices</li>
+          </ul>
+          <div class="btn-row home-hero-cta">
+            <a class="btn btn-call btn-lg" href="programs.html">Book a tour</a>
+            <a class="btn btn-ghost btn-lg" href="cars.html">View car rental</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- =================== FINAL CTA =================== -->
-  <section class="section section-deep">
-    <div class="container text-center" data-reveal data-tt-home-section="cta">
-      <span class="eyebrow" style="color:#9bdcfb;">พร้อมออกทะเลแล้วใช่ไหม</span>
-      <h2 class="cta-headline-nowrap" style="margin: 0 auto 1rem;">เลือกเรือ คำนวณราคา และจองผ่าน LINE ได้เลย</h2>
-      <p class="lead cta-headline-nowrap" style="margin: 0 auto 2rem;">ทีมงานแอดมินตอบกลับใน LINE รวดเร็ว ดูแลคุณตั้งแต่ก่อนเที่ยวจนจบทริป</p>
+  <!-- Service chips (overlap hero) -->
+  <section class="home-services" aria-label="Main services">
+    <div class="container">
+      <div class="home-services-grid" data-reveal>
+        <a class="home-svc" href="programs.html">
+          <span class="home-svc-ico" data-icon="speedboat"></span>
+          <strong>Tour packages</strong>
+          <span>Phi Phi · Hong · 4 Islands</span>
+        </a>
+        <a class="home-svc" href="program.html?id=pp-maya-bamboo-day">
+          <span class="home-svc-ico" data-icon="anchor"></span>
+          <strong>Phi Phi &amp; Maya</strong>
+          <span>Day &amp; sunset trips</span>
+        </a>
+        <a class="home-svc" href="program.html?id=hong-kayak-sunset">
+          <span class="home-svc-ico" data-icon="compass"></span>
+          <strong>Hong Island</strong>
+          <span>Kayak &amp; lagoon</span>
+        </a>
+        <a class="home-svc" href="program.html?id=krabi-4islands-speedboat">
+          <span class="home-svc-ico" data-icon="sun"></span>
+          <strong>Krabi 4 Islands</strong>
+          <span>From 1,350 THB</span>
+        </a>
+        <a class="home-svc" href="cars.html">
+          <span class="home-svc-ico" data-icon="car"></span>
+          <strong>Car rental</strong>
+          <span>From 900 THB/day</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. POPULAR PACKAGES -->
+  <section class="section home-packages" id="tours">
+    <div class="container">
+      <div class="home-sec-row" data-reveal>
+        <div>
+          <span class="eyebrow">Popular packages</span>
+          <h2>Popular tour packages in Krabi</h2>
+        </div>
+        <a class="home-view-all" href="programs.html">View all <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="home-pkg-grid" id="home-packages"></div>
+    </div>
+  </section>
+
+  <!-- 3. STYLE CATEGORIES -->
+  <section class="section section-soft home-styles" id="styles">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Explore Krabi</span>
+        <h2>Choose a trip that fits your style</h2>
+      </div>
+      <div class="home-style-grid" id="home-styles"></div>
+    </div>
+  </section>
+
+  <!-- 4. CAR RENTAL FEATURE -->
+  <section class="section home-transfer" id="cars-teaser">
+    <div class="container home-transfer-grid">
+      <div class="home-transfer-visual" data-reveal>
+        <img src="assets/uploads/tours/car-rental/img-0.jpg" alt="Car rental in Krabi" loading="lazy" />
+      </div>
+      <div class="home-transfer-copy" data-reveal>
+        <span class="eyebrow">Car rental</span>
+        <h2>Drive Krabi your way</h2>
+        <p class="lead">Daily automatic cars from 900 THB — March, Swift, Yaris, Vios, Jazz, Veloz, and Xpander. Airport return available.</p>
+        <ul class="home-chip-list">
+          <li>Airport</li>
+          <li>Hotel</li>
+          <li>Ao Nang</li>
+          <li>Around Krabi</li>
+        </ul>
+        <ul class="home-checks">
+          <li><span class="home-check" aria-hidden="true"></span>All automatic transmission</li>
+          <li><span class="home-check" aria-hidden="true"></span>Cash deposit 3,000 THB or card hold 5,000 THB</li>
+          <li><span class="home-check" aria-hidden="true"></span>Easy booking on LINE</li>
+          <li><span class="home-check" aria-hidden="true"></span>Krabi Airport return +300 THB</li>
+        </ul>
+        <div class="btn-row">
+          <a class="btn btn-line" href="cars.html">Book car rental</a>
+          <a class="btn btn-outline" href="cars.html">See details</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. TRUST BAR -->
+  <section class="home-trust" aria-label="Why book with Suwan Travel">
+    <div class="container">
+      <div class="home-trust-grid" id="home-trust"></div>
+    </div>
+  </section>
+
+  <!-- 6. HOW TO BOOK -->
+  <section class="section home-how" id="how">
+    <div class="container">
+      <div class="section-head" data-reveal data-tt-home-section="booking">
+        <span class="eyebrow">Easy booking</span>
+        <h2>How to book</h2>
+        <p class="lead">Pick a package, confirm on LINE @ndpoolvilla or WhatsApp, then receive your pickup time.</p>
+      </div>
+      <div class="home-steps" id="home-steps"></div>
+    </div>
+  </section>
+
+  <!-- 7. SERVICE AREAS -->
+  <section class="section section-soft home-areas" id="areas">
+    <div class="container home-areas-grid">
+      <div class="home-areas-photo" data-reveal>
+        <img src="assets/uploads/tours/krabi-4islands/img-1.jpg" alt="Ao Nang and Krabi coastline" loading="lazy" />
+      </div>
+      <div class="home-areas-copy" data-reveal>
+        <span class="eyebrow">Service area</span>
+        <h2>We operate around Krabi</h2>
+        <p class="lead">Hotel pickup for most tours from Ao Nang and nearby areas. Message us your hotel for exact transfer details.</p>
+        <ul class="home-area-list">
+          <li>Ao Nang &amp; Nopparat Thara</li>
+          <li>Krabi Town</li>
+          <li>Krabi Airport area</li>
+          <li>Railay / Phra Nang (tour day trips)</li>
+          <li>Phi Phi, Hong Island, 4 Islands</li>
+        </ul>
+      </div>
+      <div class="home-areas-map" data-reveal data-tt-site-office="map-only">
+        <iframe src="" loading="lazy" title="Suwan Travel — Ao Nang, Krabi map"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. REVIEWS -->
+  <section class="section home-reviews" id="reviews">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Guest feedback</span>
+        <h2>Reviews from our customers</h2>
+      </div>
+      <div class="home-review-grid" id="home-reviews"></div>
+    </div>
+  </section>
+
+  <!-- 9. FINAL CTA -->
+  <section class="home-cta" id="cta" style="--cta-bg: url('assets/uploads/tours/phi-phi-sunset/img-0.jpg')">
+    <div class="container home-cta-inner" data-reveal data-tt-home-section="cta">
+      <span class="eyebrow">Ready when you are</span>
+      <h2>Ready for Krabi? Book with Suwan Travel</h2>
+      <p>Tours from 1,350 THB · Car rental from 900 THB · LINE @ndpoolvilla</p>
       <div class="btn-row center">
-        <a class="btn btn-line btn-lg" href="booking.html"><span data-icon="line"></span>เริ่มจองเลย</a>
-        <a class="btn btn-ghost btn-lg" href="programs.html">ดูโปรแกรมก่อน</a>
+        <a class="btn btn-call btn-lg" data-tt-line-btn href="#" target="_blank" rel="noopener">Book now</a>
+        <a class="btn btn-ghost btn-lg" href="contact.html">Inquire</a>
       </div>
     </div>
   </section>
@@ -194,166 +216,128 @@
   <script>document.write('<script src="assets/js/data.js?v='+(encodeURIComponent(window.__TT_SCRIPT_V||Date.now()))+'"><\/script>');</script>
   <script>document.write('<script src="assets/js/main.js?v='+(encodeURIComponent(window.__TT_SCRIPT_V||Date.now()))+'"><\/script>');</script>
   <script>
-    function applyHomeSections(sections, site) {
+    function applyHomeSections(sections) {
       if (!sections || typeof sections !== 'object') return;
-      const hasData = Object.keys(sections).some((k) => sections[k] && Object.keys(sections[k]).length);
-      if (!hasData) return;
-
       document.querySelectorAll('[data-tt-home-section]').forEach((root) => {
         const key = root.getAttribute('data-tt-home-section');
-        if (key === 'office-info') {
-          const office = sections.office;
-          if (!office) return;
-          const h2 = root.querySelector('h2');
-          const lead = root.querySelector('.lead');
-          if (h2 && office.infoTitle) h2.textContent = office.infoTitle;
-          if (lead && office.infoLead) lead.textContent = office.infoLead;
-          return;
-        }
         const s = sections[key];
         if (!s) return;
         const eyebrow = root.querySelector('.eyebrow');
-        const h2 = root.querySelector('h2');
-        const lead = root.querySelector('.lead');
+        const h = root.querySelector('h1, h2');
+        const lead = root.querySelector('.home-hero-lead, .lead, p:not(.home-hero-brand)');
         if (eyebrow && s.eyebrow) eyebrow.textContent = s.eyebrow;
-        if (h2 && s.title) h2.textContent = s.title;
-        if (key === 'hero') {
-          const p = root.querySelector('p:not(.lead)');
-          if (p && s.lead) p.textContent = s.lead;
-        } else if (lead && s.lead && key !== 'videos') {
-          lead.textContent = s.lead;
-        }
+        if (h && s.title) h.textContent = s.title;
+        if (lead && s.lead) lead.textContent = s.lead;
       });
-
-      const videos = sections.videos;
-      if (videos) {
-        const leadEl = document.getElementById('home-videos-lead');
-        const link = document.getElementById('home-tiktok-link');
-        if (leadEl && videos.lead) {
-          const handle = videos.tiktokHandle || '@talaytrang';
-          const href = site?.tiktokUrl || '#';
-          leadEl.innerHTML = `${videos.lead} <a id="home-tiktok-link" href="${href}" target="_blank" rel="noopener" style="color:#9bdcfb; text-decoration:underline;">${handle}</a>`;
-        } else if (link && site?.tiktokUrl) {
-          link.href = site.tiktokUrl;
-          if (videos.tiktokHandle) link.textContent = videos.tiktokHandle;
-        }
-      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      const { BOATS, PROGRAMS, PACKAGES_2D1N, PACKAGES_3D2N, PACKAGES_4D3N, REVIEWS, VIDEOS, STEPS, SERVICES, ICONS, IMAGES, HOME_DEALS, HOME_SECTIONS, SITE } = window.TT;
-      applyHomeSections(HOME_SECTIONS, SITE);
-      const fmt = new Intl.NumberFormat('th-TH');
+      const { PROGRAMS, STEPS, ICONS, SITE, HOME_SECTIONS, CAR_RENTAL } = window.TT;
+      applyHomeSections(HOME_SECTIONS);
+      const fmt = new Intl.NumberFormat('en-US');
+      const lineUrl = SITE.lineUrl || '#';
+      document.querySelectorAll('[data-tt-line-btn]').forEach((a) => { a.href = lineUrl; });
 
-      // Services — pill buttons (แพ็คเกจทัวร์ตรัง)
-      const renderPill = (s) => {
-        const ext = s.external ? ' target="_blank" rel="noopener"' : '';
-        const icon = ICONS[s.icon] || ICONS.arrow;
-        return `<a class="service-pill" href="${s.href}"${ext}>${icon}<span>${s.title}</span></a>`;
+      /* Office map only (areas section) */
+      const mapFrame = document.querySelector('.home-areas-map iframe');
+      if (mapFrame && SITE.mapEmbed) mapFrame.src = SITE.mapEmbed;
+
+      const carsVisual = document.querySelector('.home-transfer-visual img');
+      const firstCar = CAR_RENTAL?.vehicles?.[0];
+      if (carsVisual && firstCar?.image) carsVisual.src = firstCar.image;
+
+      /* Package cards — mockup style */
+      const packages = (PROGRAMS || []).slice(0, 6);
+      const tagFor = (p, i) => {
+        if (i === 0) return 'Recommended';
+        if (/kayak/i.test(p.name || '')) return 'Kayak';
+        if (/early/i.test(p.name || '')) return 'Early bird';
+        if (/sunset/i.test(p.name || '')) return 'Sunset';
+        if (/4 islands/i.test(p.name || '')) return 'Day trip';
+        return '';
       };
-      // Duplicate set ที่สองให้ aria-hidden + tabindex=-1 (ซ่อนจาก a11y) สำหรับ marquee loop
-      const dupHidden = (html) => html.replace(/<a class="service-pill"/g, '<a class="service-pill" aria-hidden="true" tabindex="-1"');
-      // แบ่งครึ่ง: 6 รายการแรก = แถวบน (เลื่อนซ้าย), ที่เหลือ = แถวล่าง (เลื่อนขวา)
-      const halfIdx = Math.ceil(SERVICES.length / 2);
-      const rowTopHtml = SERVICES.slice(0, halfIdx).map(renderPill).join('');
-      const rowBotHtml = SERVICES.slice(halfIdx).map(renderPill).join('');
-      document.getElementById('home-services').innerHTML = `
-        <div class="pills-row pills-row--top">
-          <div class="pills-track">${rowTopHtml}${dupHidden(rowTopHtml)}</div>
-        </div>
-        <div class="pills-row pills-row--bot">
-          <div class="pills-track">${rowBotHtml}${dupHidden(rowBotHtml)}</div>
-        </div>
-      `;
-
-      const starsSvg = (n) => Array.from({length: n}).map(() => ICONS.star).join('');
-
-      function renderProgramDealCard(p, { badgeTL, index = 0 }) {
-        const r = {
-          rating: p.rating ?? 4.8,
-          reviews: p.reviewCount || '500',
-          oldPrice: p.oldPrice ?? 0,
-          stars: p.stars ?? 5,
-        };
-        const discount = r.oldPrice ? Math.round((1 - p.basePrice / r.oldPrice) * 100) : 0;
-        const tr = p.ribbon ? `<span class="deal-badge-tr ${p.ribbon === 'ยอดนิยม' ? 'is-hot' : 'is-info'}">${p.ribbon}</span>`
-                 : discount > 0 ? `<span class="deal-badge-tr">ประหยัด ${discount}%</span>` : '';
-        const tl = badgeTL ?? `รหัส #${p.packageCode ?? (index + 1)}`;
+      document.getElementById('home-packages').innerHTML = packages.map((p, i) => {
+        const boat = (p.boats && p.boats[0]) ? String(p.boats[0]) : 'speedboat';
+        const tag = tagFor(p, i);
         return `
-        <a class="deal-card" href="program.html?id=${p.id}" data-reveal>
-          <div class="deal-media">
-            <img src="${p.image}" alt="ภาพประกอบ ${p.name}" loading="lazy"/>
-            <span class="deal-badge-tl">${tl}</span>
-            ${tr}
+        <a class="home-pkg" href="program.html?id=${encodeURIComponent(p.id)}" data-reveal style="--rd:${i * 0.05}s">
+          <div class="home-pkg-media">
+            <img src="${p.image}" alt="${p.name}" loading="lazy" />
+            ${tag ? `<span class="home-pkg-tag">${tag}</span>` : ''}
           </div>
-          <div class="deal-body">
+          <div class="home-pkg-body">
             <h3>${p.name}</h3>
-            <p class="deal-sub">${p.route}</p>
-            <div class="deal-stars" aria-label="${r.stars} ดาว">${starsSvg(r.stars)}</div>
-            <div class="deal-rate"><strong>${Number(r.rating).toFixed(1)}</strong>/5 <span class="dot"></span> <span>${r.reviews} รีวิว</span></div>
-            <div class="deal-price">
-              <small>เริ่มต้น · ${p.duration}</small>
-              ${r.oldPrice && r.oldPrice > p.basePrice ? `<s>THB ${fmt.format(r.oldPrice)}</s>` : ''}
-              <strong>THB ${fmt.format(p.basePrice)}</strong>
+            <div class="home-pkg-meta">
+              <span>${p.duration || 'Day trip'}</span>
+              <span class="dot"></span>
+              <span>${boat}</span>
+            </div>
+            <div class="home-pkg-foot">
+              <strong>From ${fmt.format(p.basePrice)} THB</strong>
+              <span class="home-pkg-go" aria-hidden="true">→</span>
             </div>
           </div>
         </a>`;
-      }
+      }).join('');
 
-      const homePackageSections = [
-        { hostId: 'home-boats', items: PROGRAMS || [] },
-        { hostId: 'home-programs', items: PACKAGES_2D1N || [] },
-        { hostId: 'home-packages-3d2n', items: PACKAGES_3D2N || [] },
-        { hostId: 'home-packages-4d3n', items: PACKAGES_4D3N || [] },
+      /* Style categories */
+      const styles = [
+        { name: 'Island tours', img: 'assets/uploads/tours/krabi-4islands/img-0.jpg', href: 'program.html?id=krabi-4islands-speedboat' },
+        { name: 'Phi Phi & Maya', img: 'assets/uploads/tours/phi-phi-maya-bamboo/img-0.jpg', href: 'program.html?id=pp-maya-bamboo-day' },
+        { name: 'Kayak & nature', img: 'assets/uploads/tours/hong-kayak-sunset/img-0.jpg', href: 'program.html?id=hong-kayak-sunset' },
+        { name: 'Sunset trips', img: 'assets/uploads/tours/phi-phi-sunset/img-0.jpg', href: 'program.html?id=pp-islands-sunset' },
+        { name: 'Car rental', img: 'assets/uploads/tours/car-rental/img-1.jpg', href: 'cars.html' },
       ];
-      homePackageSections.forEach(({ hostId, items }) => {
-        const host = document.getElementById(hostId);
-        if (!host) return;
-        host.innerHTML = items
-          .map((p, i) => renderProgramDealCard(p, { index: i }))
-          .join('');
-      });
+      document.getElementById('home-styles').innerHTML = styles.map((s, i) => `
+        <a class="home-style" href="${s.href}" data-reveal style="--rd:${i * 0.05}s">
+          <span class="home-style-img"><img src="${s.img}" alt="${s.name}" loading="lazy" /></span>
+          <strong>${s.name}</strong>
+        </a>
+      `).join('');
 
-      // Steps
-      document.getElementById('home-steps').innerHTML = STEPS.map((s, i) => `
-        <div class="step-card" style="--rd:${i * .07}s" data-reveal>
-          <span class="num">0${s.n}</span>
-          <span class="badge">${ICONS[s.icon] || s.n}</span>
+      /* Trust bar */
+      const trust = [
+        { icon: 'shield', title: 'Clear trip details' },
+        { icon: 'users', title: 'Local Krabi team' },
+        { icon: 'starOutline', title: 'Popular routes' },
+        { icon: 'clock', title: 'On-time pickups' },
+        { icon: 'chat', title: 'LINE booking' },
+      ];
+      document.getElementById('home-trust').innerHTML = trust.map((t) => `
+        <div class="home-trust-item">
+          <span class="home-trust-ico">${ICONS[t.icon] || ''}</span>
+          <span>${t.title}</span>
+        </div>
+      `).join('');
+
+      /* Steps */
+      document.getElementById('home-steps').innerHTML = (STEPS || []).map((s, i) => `
+        <div class="home-step" data-reveal style="--rd:${i * 0.06}s">
+          <div class="home-step-ico">${ICONS[s.icon] || s.n}</div>
+          <span class="home-step-n">0${s.n}</span>
           <h3>${s.title}</h3>
           <p>${s.desc}</p>
         </div>
       `).join('');
 
-      // Reviews — 6 cards
-      const starsHtml = (n) => Array.from({length: n}).map(() => ICONS.star).join('');
-      const r6 = REVIEWS.slice(0, 6);
-      document.getElementById('home-reviews').innerHTML = r6.map((r, i) => `
-        <article class="review" style="--rd:${i * .06}s" data-reveal>
-          <div class="stars" aria-label="${r.rating} ดาว">${starsHtml(r.rating)}</div>
-          <p class="review-text">“${r.text}”</p>
-          <div class="review-foot">
-            <span class="avatar" aria-hidden="true">${ICONS.user}</span>
-            <div><strong>${r.name}</strong><span>${r.trip}</span></div>
+      /* Reviews (static samples for homepage layout) */
+      const reviews = [
+        { name: 'Sarah M.', text: 'Early Bird Phi Phi was smooth from hotel pickup to Maya Bay. Clear info before booking on LINE.', img: 'assets/uploads/tours/phi-phi-early-bird/img-0.jpg' },
+        { name: 'Kenji T.', text: 'Hong Island kayak sunset was the highlight of our Krabi trip. Easy to confirm with the team.', img: 'assets/uploads/tours/hong-kayak-sunset/img-0.jpg' },
+        { name: 'Emma L.', text: 'Rented a Yaris for three days — fair price and simple airport return. Would book tours again.', img: 'assets/uploads/tours/car-rental/img-2.jpg' },
+      ];
+      const stars = Array.from({ length: 5 }).map(() => ICONS.star).join('');
+      document.getElementById('home-reviews').innerHTML = reviews.map((r, i) => `
+        <article class="home-review" data-reveal style="--rd:${i * 0.06}s">
+          <div class="home-review-top">
+            <img src="${r.img}" alt="" loading="lazy" />
+            <div>
+              <strong>${r.name}</strong>
+              <div class="home-review-stars" aria-label="5 stars">${stars}</div>
+            </div>
           </div>
+          <p>${r.text}</p>
         </article>
-      `).join('');
-      // มือถือ: เปลี่ยน reviews เป็น slider ทีละ 1 ใบ + dots
-      if (window.TT && window.TT.initMobileSlider) {
-        window.TT.initMobileSlider('#home-reviews', '#home-reviews-dots');
-      }
-
-      // Videos — 8
-      const ttLink = document.getElementById('home-tiktok-link');
-      if (ttLink && SITE.tiktokUrl && !ttLink.getAttribute('href')?.startsWith('http')) {
-        ttLink.href = SITE.tiktokUrl;
-      }
-
-      document.getElementById('home-videos').innerHTML = VIDEOS.slice(0, 8).map((v, i) => `
-        <a class="video-thumb" href="${v.url}" target="_blank" rel="noopener" style="--rd:${i * .05}s" data-reveal>
-          <img src="${v.thumb}" alt="วิดีโอ TikTok: ${v.title}" loading="lazy"/>
-          <div class="play"><span>${ICONS.play}</span></div>
-          <div class="meta"><strong>${v.title}</strong><span class="views">${ICONS.tt} ${v.views}</span></div>
-        </a>
       `).join('');
 
       window.TT.injectIcons();
@@ -361,7 +345,7 @@
     });
 
     document.addEventListener('tt:data-updated', () => {
-      applyHomeSections(window.TT?.HOME_SECTIONS, window.TT?.SITE);
+      applyHomeSections(window.TT?.HOME_SECTIONS);
     });
   </script>
 </body>

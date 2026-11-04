@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $oldKey = trim($_POST['old_key'] ?? '');
     $newKey = trim($_POST['key'] ?? '');
     if ($newKey === '') {
-        tt_set_flash('กรุณาระบุ Key');
+        tt_set_flash('Please enter a Key');
         header('Location: image-edit.php' . ($oldKey !== '' ? '?key=' . urlencode($oldKey) : ''));
         exit;
     }
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if ($oldKey === '' || $oldKey !== $newKey) {
         if (array_key_exists($newKey, $images) && $oldKey !== $newKey) {
-            tt_set_flash('Key นี้มีอยู่แล้ว — ใช้ชื่ออื่น');
+            tt_set_flash('This Key already exists — use a different name');
             header('Location: image-edit.php?key=' . urlencode($oldKey !== '' ? $oldKey : $newKey));
             exit;
         }
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $images[$newKey] = $value;
     $data['images'] = $images;
     tt_write_data($data);
-    tt_set_flash('บันทึกรูปภาพแล้ว');
+    tt_set_flash('Image saved');
     header('Location: image-edit.php?key=' . urlencode($newKey));
     exit;
 }
@@ -73,14 +73,14 @@ if (is_array($entry)) {
     $valueText = (string)$entry;
 }
 
-$pageTitle = $isNew ? 'เพิ่มรูปภาพ' : 'แก้ไขรูปภาพ';
+$pageTitle = $isNew ? 'Add image' : 'Edit image';
 tt_admin_header($pageTitle, 'images');
 $flash = tt_flash();
 if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
 
 <form method="post">
   <div class="card">
-    <h2>รูปภาพ (IMAGES Registry)</h2>
+    <h2>Images (IMAGES Registry)</h2>
     <input type="hidden" name="old_key" value="<?= htmlspecialchars($isNew ? '' : $key, ENT_QUOTES, 'UTF-8') ?>"/>
 
     <?php
@@ -91,15 +91,15 @@ if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT
 
     <div class="grid-2">
       <div class="field"><label>Key</label><input name="key" id="image-key" required value="<?= htmlspecialchars($isNew ? '' : $key, ENT_QUOTES, 'UTF-8') ?>" placeholder="heroHome, boatLongtail, videoThumbs"/></div>
-      <div class="field"><label>ประเภท</label>
+      <div class="field"><label>Type</label>
         <select name="type" id="image-type">
-          <option value="single"<?= !$isArray ? ' selected' : '' ?>>URL เดียว</option>
-          <option value="array"<?= $isArray ? ' selected' : '' ?>>หลาย URL (array)</option>
+          <option value="single"<?= !$isArray ? ' selected' : '' ?>>Single URL</option>
+          <option value="array"<?= $isArray ? ' selected' : '' ?>>Multiple URLs (array)</option>
         </select>
       </div>
       <div id="image-value-wrap" style="grid-column:1/-1">
         <?php if ($isArray): ?>
-          <?php tt_render_image_url_field('URL แต่ละบรรทัด', 'value', $valueText, [
+          <?php tt_render_image_url_field('One URL per line', 'value', $valueText, [
               'id' => 'image-value',
               'multiline' => true,
               'append' => true,
@@ -114,17 +114,17 @@ if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT
       </div>
     </div>
 
-    <p class="field-hint">ใช้ URL จาก Pexels หรือ path ในเว็บ — กดปุ่มอัปโหลดเพื่อใส่ path อัตโนมัติ</p>
+    <p class="field-hint">Use a URL from Pexels or a path within the website — click the upload button to fill in the path automatically</p>
 
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">บันทึก</button>
-      <a class="btn btn-ghost" href="images.php">กลับ</a>
-      <a class="btn btn-ghost" href="media.php">อัปโหลดรูป</a>
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a class="btn btn-ghost" href="images.php">Back</a>
+      <a class="btn btn-ghost" href="media.php">Upload image</a>
       <?php if ($preview): ?>
-        <a class="btn btn-ghost" href="<?= htmlspecialchars($preview, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener">ดูรูป</a>
+        <a class="btn btn-ghost" href="<?= htmlspecialchars($preview, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener">View image</a>
       <?php endif; ?>
       <?php if (!$isNew): ?>
-        <a class="btn btn-danger" href="images.php?delete=<?= urlencode($key) ?>" onclick="return confirm('ลบ key นี้?')">ลบรายการนี้</a>
+        <a class="btn btn-danger" href="images.php?delete=<?= urlencode($key) ?>" onclick="return confirm('Delete this key?')">Delete this entry</a>
       <?php endif; ?>
     </div>
   </div>
@@ -149,11 +149,11 @@ if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT
     if (!hint && key.startsWith('svc')) hint = hints.servicePill || '';
     if (!hint && key.startsWith('about')) hint = hints[key] || hints.about2 || '';
     const m = hint.match(/^(\d+×\d+ px)/);
-    return m ? 'แนะนำ ' + m[1] : '';
+    return m ? 'Recommended ' + m[1] : '';
   }
 
   function baseLabel(isArray) {
-    return isArray ? 'URL แต่ละบรรทัด' : 'URL / path';
+    return isArray ? 'One URL per line' : 'URL / path';
   }
 
   function fullLabel(isArray) {

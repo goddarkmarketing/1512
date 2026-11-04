@@ -1,11 +1,13 @@
 <!doctype html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>ประเภทเรือ — เรือหางยาว Speed Boat เรือใหญ่ | Talay Trang</title>
-  <meta name="description" content="เลือกเช่าเรือเที่ยวทะเลตรังให้เหมาะกับทริปคุณ มี 3 ประเภท: เรือหางยาว Speed Boat และเรือใหญ่ พร้อมราคาและจำนวนคนรองรับชัดเจน" />
+  <title>Boat Types — Long-tail, Speed Boat, Large Vessel | Talay Trang</title>
+  <meta name="description" content="Choose the right boat for your Trang sea trip. Three types: long-tail, Speed Boat, and large vessel — with clear prices and capacity." />
   <meta name="theme-color" content="#0277bd" />
+  <link rel="icon" type="image/png" href="assets/logo/logo.png" />
+  <link rel="apple-touch-icon" href="assets/logo/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.pexels.com" crossorigin />
@@ -17,11 +19,11 @@
   <div id="site-header"></div>
 
   <section class="hero-sub">
-    <div class="hero-media"><img id="hero-img" alt="เรือเที่ยวทะเลตรังหลายลำจอดริมทะเลใส" /></div>
+    <div class="hero-media"><img id="hero-img" alt="Trang tour boats moored by clear water" /></div>
     <div class="container hero-inner" data-reveal>
-      <span class="crumb">ประเภทเรือ</span>
-      <h1>เลือกเรือที่ใช่สำหรับคุณ</h1>
-      <p class="lead">มีให้เลือก 3 ประเภท ตั้งแต่บรรยากาศโลคอลเรือหางยาว ความเร็ว Speed Boat ไปจนถึงเรือใหญ่สำหรับกรุ๊ปบริษัทและครอบครัวขยาย</p>
+      <span class="crumb">Boat types</span>
+      <h1>Find the right boat for you</h1>
+      <p class="lead">Three options — from a local long-tail feel and Speed Boat pace to a large vessel for company groups and extended families.</p>
     </div>
   </section>
 
@@ -33,12 +35,12 @@
 
   <section class="section section-deep">
     <div class="container text-center" data-reveal>
-      <span class="eyebrow" style="color:#9bdcfb;">ยังเลือกไม่ออก?</span>
-      <h2>ปรึกษาแอดมินก่อนได้ ฟรี ไม่มีค่าใช้จ่าย</h2>
-      <p class="lead" style="max-width:540px; margin: 0 auto 1.6rem;">บอกแค่จำนวนคน วันที่ และงบประมาณ ทีมงานจะแนะนำเรือและโปรแกรมที่เหมาะกับคุณที่สุด</p>
+      <span class="eyebrow" style="color:#9bdcfb;">Not sure which to pick?</span>
+      <h2>Ask our team first — free, no obligation</h2>
+      <p class="lead" style="max-width:540px; margin: 0 auto 1.6rem;">Just tell us your group size, date, and budget — we’ll recommend the best boat and program for you.</p>
       <div class="btn-row center">
-        <a class="btn btn-line btn-lg" href="https://line.me/R/ti/p/%40talaytrang" target="_blank" rel="noopener"><span data-icon="line"></span>สอบถาม LINE</a>
-        <a class="btn btn-ghost btn-lg" href="programs.html">ดูโปรแกรม</a>
+        <a class="btn btn-line btn-lg" href="https://line.me/R/ti/p/%40talaytrang" target="_blank" rel="noopener"><span data-icon="line"></span>Ask on LINE</a>
+        <a class="btn btn-ghost btn-lg" href="programs.html">View programs</a>
       </div>
     </div>
   </section>
@@ -52,25 +54,25 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const { BOATS, IMAGES, ICONS } = window.TT;
-      const fmt = new Intl.NumberFormat('th-TH');
+      const fmt = new Intl.NumberFormat('en-US');
       document.getElementById('hero-img').src = IMAGES.heroBoats;
 
       const html = BOATS.map((b, i) => `
         <div class="boat-row ${i % 2 ? 'reverse' : ''}" id="${b.id}" data-reveal>
           <div class="boat-media">
             <span class="boat-tag">${b.tag}</span>
-            <img src="${b.image}" alt="${b.name} — เรือสำหรับเช่าเที่ยวทะเลตรัง" loading="lazy"/>
+            <img src="${b.image}" alt="${b.name} — charter boat for Trang sea trips" loading="lazy"/>
           </div>
           <div class="boat-info">
-            <span class="eyebrow">เรือประเภท ${i + 1} / ${BOATS.length}</span>
+            <span class="eyebrow">Boat type ${i + 1} / ${BOATS.length}</span>
             <h2>${b.name}</h2>
             <p class="lead" style="margin-bottom:.8rem;">${b.description}</p>
-            <p class="price">เริ่มต้น <strong>฿${fmt.format(b.basePrice)}</strong> / ทริป · รองรับ ${b.capacity}</p>
+            <p class="price">From <strong>฿${fmt.format(b.basePrice)}</strong> / trip · Capacity ${b.capacity}</p>
             <ul>${b.highlights.map(h => `<li>${h}</li>`).join('')}</ul>
-            <p style="margin: 0 0 1.2rem;"><strong>เหมาะกับ:</strong> <span class="muted">${b.suitable}</span></p>
+            <p style="margin: 0 0 1.2rem;"><strong>Best for:</strong> <span class="muted">${b.suitable}</span></p>
             <div class="btn-row">
-              <a class="btn btn-primary" href="boat-book.html?boat=${b.id}">เลือกเรือลำนี้</a>
-              <a class="btn btn-line" href="https://line.me/R/ti/p/%40talaytrang" target="_blank" rel="noopener"><span data-icon="line"></span>สอบถามผ่าน LINE</a>
+              <a class="btn btn-primary" href="boat-book.html?boat=${b.id}">Choose this boat</a>
+              <a class="btn btn-line" href="https://line.me/R/ti/p/%40talaytrang" target="_blank" rel="noopener"><span data-icon="line"></span>Ask via LINE</a>
             </div>
           </div>
         </div>

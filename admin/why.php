@@ -14,7 +14,7 @@ if (isset($_GET['delete']) && $_GET['delete'] !== '') {
         array_splice($items, $idx, 1);
         $data['whyUs'] = array_values($items);
         tt_write_data($data);
-        tt_set_flash('ลบจุดเด่นแล้ว');
+        tt_set_flash('Highlight deleted');
     }
     header('Location: why.php');
     exit;
@@ -29,21 +29,21 @@ function tt_why_excerpt(string $text, int $len = 50): string
     return mb_substr($text, 0, $len) . '…';
 }
 
-tt_admin_header('จุดเด่นบริการ', 'why');
+tt_admin_header('Service highlights', 'why');
 $flash = tt_flash();
 if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
 
 <div class="form-actions" style="border:0;margin-bottom:16px;padding:0">
-  <a class="btn btn-primary" href="why-edit.php">+ เพิ่มจุดเด่น</a>
+  <a class="btn btn-primary" href="why-edit.php">+ Add highlight</a>
 </div>
 
 <div class="card">
   <?php if (!$items): ?>
-    <p class="field-hint">ยังไม่มีจุดเด่น — กดปุ่มด้านบนเพื่อเพิ่มรายการแรก</p>
+    <p class="field-hint">No highlights yet — click the button above to add the first one</p>
   <?php else: ?>
   <table class="table">
     <thead>
-      <tr><th>หัวข้อ</th><th>ไอคอน</th><th>คำอธิบาย</th><th></th></tr>
+      <tr><th>Title</th><th>Icon</th><th>Description</th><th></th></tr>
     </thead>
     <tbody>
       <?php foreach ($items as $i => $w): ?>
@@ -53,9 +53,9 @@ if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT
           <td><?= htmlspecialchars(tt_why_excerpt($w['desc'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
           <td class="table-actions">
             <div class="table-actions-row">
-              <a class="btn btn-ghost btn-sm" href="why-edit.php?i=<?= $i ?>">แก้ไข</a>
-              <a class="btn btn-danger btn-sm" href="why.php?delete=<?= $i ?>" onclick="return confirm('ลบจุดเด่นนี้?')">ลบ</a>
-              <a class="btn btn-ghost btn-sm" href="../about.html" target="_blank">ดู</a>
+              <a class="btn btn-ghost btn-sm" href="why-edit.php?i=<?= $i ?>">Edit</a>
+              <a class="btn btn-danger btn-sm" href="why.php?delete=<?= $i ?>" onclick="return confirm('Delete this highlight?')">Delete</a>
+              <a class="btn btn-ghost btn-sm" href="../about.html" target="_blank">View</a>
             </div>
           </td>
         </tr>

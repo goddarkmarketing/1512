@@ -8,28 +8,28 @@ require_once __DIR__ . '/boat-booking-layout.php';
 function tt_admin_nav(): array
 {
     $nav = [
-        ['id' => 'dashboard', 'label' => 'ภาพรวม', 'href' => 'index.php'],
-        ['id' => 'site', 'label' => 'ข้อมูลเว็บ', 'href' => 'site.php'],
-        ['id' => 'nav', 'label' => 'เมนูนำทาง', 'href' => 'nav.php'],
-        ['id' => 'hero', 'label' => 'แบนเนอร์หน้าแรก', 'href' => 'hero.php'],
-        ['id' => 'services', 'label' => 'บริการ (Pills)', 'href' => 'services.php'],
-        ['id' => 'boats', 'label' => 'ประเภทเรือ', 'href' => 'boats.php'],
-        ['id' => 'boat-booking', 'label' => 'จองเรือเหมาลำ', 'href' => 'boat-booking-profiles.php', 'children' => tt_bb_sidebar_children()],
-        ['id' => 'programs', 'label' => 'แพ็กเกจทัวร์', 'href' => 'programs.php'],
-        ['id' => 'options', 'label' => 'ตัวเลือกจอง', 'href' => 'options.php'],
-        ['id' => 'reviews', 'label' => 'รีวิว', 'href' => 'reviews.php'],
-        ['id' => 'videos', 'label' => 'วิดีโอ', 'href' => 'videos.php'],
-        ['id' => 'why', 'label' => 'จุดเด่น', 'href' => 'why.php'],
-        ['id' => 'steps', 'label' => 'ขั้นตอนจอง', 'href' => 'steps.php'],
-        ['id' => 'articles', 'label' => 'บทความ', 'href' => 'articles.php'],
-        ['id' => 'about', 'label' => 'หน้าเกี่ยวกับเรา', 'href' => 'about.php'],
-        ['id' => 'section-headings', 'label' => 'หัวข้อ Section', 'href' => 'section-headings.php'],
-        ['id' => 'deals', 'label' => 'การ์ดหน้าแรก', 'href' => 'deals.php'],
+        ['id' => 'dashboard', 'label' => 'Overview', 'href' => 'index.php'],
+        ['id' => 'site', 'label' => 'Site info', 'href' => 'site.php'],
+        ['id' => 'nav', 'label' => 'Navigation menu', 'href' => 'nav.php'],
+        ['id' => 'hero', 'label' => 'Home banner', 'href' => 'hero.php'],
+        ['id' => 'services', 'label' => 'Services (Pills)', 'href' => 'services.php'],
+        ['id' => 'boats', 'label' => 'Boat types', 'href' => 'boats.php'],
+        ['id' => 'boat-booking', 'label' => 'Charter boat booking', 'href' => 'boat-booking-profiles.php', 'children' => tt_bb_sidebar_children()],
+        ['id' => 'programs', 'label' => 'Tour packages', 'href' => 'programs.php'],
+        ['id' => 'options', 'label' => 'Booking options', 'href' => 'options.php'],
+        ['id' => 'reviews', 'label' => 'Reviews', 'href' => 'reviews.php'],
+        ['id' => 'videos', 'label' => 'Videos', 'href' => 'videos.php'],
+        ['id' => 'why', 'label' => 'Highlights', 'href' => 'why.php'],
+        ['id' => 'steps', 'label' => 'Booking steps', 'href' => 'steps.php'],
+        ['id' => 'articles', 'label' => 'Articles', 'href' => 'articles.php'],
+        ['id' => 'about', 'label' => 'About page', 'href' => 'about.php'],
+        ['id' => 'section-headings', 'label' => 'Section headings', 'href' => 'section-headings.php'],
+        ['id' => 'deals', 'label' => 'Home cards', 'href' => 'deals.php'],
         ['id' => 'seo', 'label' => 'SEO / Meta', 'href' => 'seo.php'],
-        ['id' => 'images', 'label' => 'รูปภาพ (Registry)', 'href' => 'images.php'],
-        ['id' => 'media', 'label' => 'อัปโหลดรูป', 'href' => 'media.php'],
-        ['id' => 'backup', 'label' => 'สำรอง & กู้คืน', 'href' => 'backup.php'],
-        ['id' => 'password', 'label' => 'เปลี่ยนรหัสผ่าน', 'href' => 'password.php'],
+        ['id' => 'images', 'label' => 'Images (Registry)', 'href' => 'images.php'],
+        ['id' => 'media', 'label' => 'Upload image', 'href' => 'media.php'],
+        ['id' => 'backup', 'label' => 'Backup & restore', 'href' => 'backup.php'],
+        ['id' => 'password', 'label' => 'Change password', 'href' => 'password.php'],
     ];
 
     return $nav;
@@ -61,7 +61,7 @@ function tt_admin_header(string $title, string $active = ''): void
 </head>
 <body class="admin-body">
   <aside class="admin-sidebar">
-    <a class="admin-brand" href="index.php">Talay Trang<br><small>ระบบหลังบ้าน</small></a>
+    <a class="admin-brand" href="index.php">Talay Trang<br><small>Admin panel</small></a>
     <nav class="admin-nav">
       <?php foreach ($nav as $item):
         $children = $item['children'] ?? [];
@@ -91,8 +91,8 @@ function tt_admin_header(string $title, string $active = ''): void
       endforeach; ?>
     </nav>
     <div class="admin-sidebar-foot">
-      <a href="../index.html" target="_blank" rel="noopener"><span class="admin-foot-icon"><?= tt_admin_icon('external') ?></span>ดูเว็บไซต์</a>
-      <a href="logout.php"><span class="admin-foot-icon"><?= tt_admin_icon('logout') ?></span>ออกจากระบบ</a>
+      <a href="../index.html" target="_blank" rel="noopener"><span class="admin-foot-icon"><?= tt_admin_icon('external') ?></span>View website</a>
+      <a href="logout.php"><span class="admin-foot-icon"><?= tt_admin_icon('logout') ?></span>Log out</a>
     </div>
   </aside>
   <div class="admin-main">

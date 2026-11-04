@@ -7,22 +7,22 @@ function tt_package_collections(): array
     return [
         'programs' => [
             'key' => 'programs',
-            'label' => 'ไปเช้าเย็นกลับ',
+            'label' => 'Day trip',
             'listHref' => 'programs.php#daytrip',
         ],
         'packages2d1n' => [
             'key' => 'packages2d1n',
-            'label' => '2 วัน 1 คืน',
+            'label' => '2 days 1 night',
             'listHref' => 'programs.php#overnight',
         ],
         'packages3d2n' => [
             'key' => 'packages3d2n',
-            'label' => '3 วัน 2 คืน',
+            'label' => '3 days 2 nights',
             'listHref' => 'programs.php#packages3d2n',
         ],
         'packages4d3n' => [
             'key' => 'packages4d3n',
-            'label' => '4 วัน 3 คืน',
+            'label' => '4 days 3 nights',
             'listHref' => 'programs.php#packages4d3n',
         ],
     ];

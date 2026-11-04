@@ -14,13 +14,13 @@
   const arrowBack = () => svgSize(icons().arrowLeft || icons().arrow || '');
 
   const STEPS = [
-    { id: 'boat', label: 'เรือ' },
-    { id: 'route', label: 'เส้นทาง' },
-    { id: 'tier', label: 'จำนวนคน' },
-    { id: 'insurance', label: 'ประกัน' },
-    { id: 'addons', label: 'เสริม' },
-    { id: 'summary', label: 'สรุป' },
-    { id: 'contact', label: 'จอง' },
+    { id: 'boat', label: 'Boat' },
+    { id: 'route', label: 'Route' },
+    { id: 'tier', label: 'Guests' },
+    { id: 'insurance', label: 'Insurance' },
+    { id: 'addons', label: 'Extras' },
+    { id: 'summary', label: 'Summary' },
+    { id: 'contact', label: 'Book' },
   ];
 
   ready(() => {
@@ -150,8 +150,8 @@
     }
 
     document.getElementById('hero-img').src = window.TT?.IMAGES?.heroBooking || '';
-    document.getElementById('bb-page-title').textContent = 'จองเรือเหมาลำ';
-    document.getElementById('bb-page-lead').textContent = 'เลือกเรือ เส้นทาง และบริการเสริม ทีละขั้นตอน';
+    document.getElementById('bb-page-title').textContent = 'Book a private charter';
+    document.getElementById('bb-page-lead').textContent = 'Choose boat, route, and extras step by step';
 
     function getBoat(boatId) {
       return BOATS.find((b) => b.id === boatId) || BOATS[0];
@@ -165,10 +165,10 @@
           : peopleTiers;
         return {
           selectionMode: custom.selectionMode || 'people',
-          tierProgressLabel: custom.tierProgressLabel || 'จำนวนคน',
-          tierStepTitle: custom.tierStepTitle || 'เลือกจำนวนคน',
+          tierProgressLabel: custom.tierProgressLabel || 'Guests',
+          tierStepTitle: custom.tierStepTitle || 'Select guest count',
           tierStepDesc: custom.tierStepDesc || '',
-          charterLabel: custom.charterLabel || 'ราคาค่าเรือ (เหมาลำ)',
+          charterLabel: custom.charterLabel || 'Boat charter price (private)',
           insurancePerPerson: Number(custom.insurancePerPerson ?? cfg.insurancePerPerson) || 50,
           guideFee: Number(custom.guideFee) || 0,
           guideCountByTier: custom.guideCountByTier || {},
@@ -199,10 +199,10 @@
       }
       return {
         selectionMode: 'people',
-        tierProgressLabel: 'จำนวนคน',
-        tierStepTitle: 'เลือกจำนวนคน',
-        tierStepDesc: 'เลือกช่วงจำนวนคน แล้วกรอกจำนวนผู้โดยสารจริง (ใช้คำนวณประกันและบริการต่อท่าน)',
-        charterLabel: 'ราคาค่าเรือ (เหมาลำ)',
+        tierProgressLabel: 'Guests',
+        tierStepTitle: 'Select guest count',
+        tierStepDesc: 'Select a guest range, then enter actual passengers (used for insurance and per-person services)',
+        charterLabel: 'Boat charter price (private)',
         insurancePerPerson: Number(cfg.insurancePerPerson) || 50,
         guideFee: 0,
         guideCountByTier: {},
@@ -391,7 +391,7 @@
       if (finalize && adults < min) {
         adults = min;
         adultsEl.value = String(min);
-        if (toast) window.TT?.toast?.(`ผู้ใหญ่ขั้นต่ำ ${min} คน`);
+        if (toast) window.TT?.toast?.(`Minimum ${min} adults`);
       }
       if (finalize && children < 0) {
         children = 0;
@@ -439,10 +439,10 @@
       }
       if (val > max) {
         paxInput.value = String(max);
-        if (toast) window.TT?.toast?.(`จำนวนผู้โดยสารสูงสุด ${max} คน (ตามช่วงที่เลือก)`);
+        if (toast) window.TT?.toast?.(`Maximum ${max} passengers (for the selected range)`);
       } else if (finalize && val < min) {
         paxInput.value = String(min);
-        if (toast) window.TT?.toast?.(`จำนวนผู้โดยสารขั้นต่ำ ${min} คน (ตามช่วงที่เลือก)`);
+        if (toast) window.TT?.toast?.(`Minimum ${min} passengers (for the selected range)`);
       }
     }
 
@@ -482,8 +482,8 @@
         const items = [];
         const ap = Number(addon.adultPrice ?? price);
         const cp = Number(addon.childPrice ?? 0);
-        const adultLabel = addon.adultLabel || `${addon.label} (ผู้ใหญ่)`;
-        const childLabel = addon.childLabel || `${addon.label} (เด็ก)`;
+        const adultLabel = addon.adultLabel || `${addon.label} (adult)`;
+        const childLabel = addon.childLabel || `${addon.label} (child)`;
         const adultQty = addonQty[addon.id] || 0;
         const childQty = addonQty[addonQtyChildKey(addon.id)] || 0;
         if (adultQty > 0) items.push(qtyLine(adultLabel, adultQty, ap));
@@ -619,8 +619,8 @@
       if (!d) return '-';
       try {
         const dt = new Date(d + 'T12:00:00');
-        const be = (dt.getFullYear() + 543) % 100;
-        return `${dt.getDate()}/${dt.getMonth() + 1}/${be}`;
+        const yy = String(dt.getFullYear()).slice(-2);
+        return `${dt.getDate()}/${dt.getMonth() + 1}/${yy}`;
       } catch { return d; }
     }
 
@@ -636,8 +636,8 @@
       if (!d) return '-';
       try {
         const dt = new Date(d + 'T12:00:00');
-        const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
-        return `${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear() + 543}`;
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return `${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()}`;
       } catch { return d; }
     }
 
@@ -654,9 +654,9 @@
       return `
         <div class="wizard-nav${forwardOnly ? ' is-forward-only' : ''}">
           ${back
-            ? `<button type="button" class="btn btn-ghost wizard-back" data-back="${back}">${arrowBack()} ย้อนกลับ</button>`
+            ? `<button type="button" class="btn btn-ghost wizard-back" data-back="${back}">${arrowBack()} Back</button>`
             : ''}
-          ${extra || `<button type="button" class="btn btn-primary wizard-next" data-next="${next}">${nextLabel || 'ถัดไป'} ${arrowNext()}</button>`}
+          ${extra || `<button type="button" class="btn btn-primary wizard-next" data-next="${next}">${nextLabel || 'Next'} ${arrowNext()}</button>`}
         </div>`;
     }
 
@@ -666,7 +666,7 @@
         if (max !== option.max) return `${option.min}–${max}`;
         return `${option.min}–${option.max}`;
       }
-      return (option.label || '').replace(/\s*คน\s*$/, '').trim();
+      return (option.label || '').replace(/\s*(คน|people|pax)\s*$/i, '').trim();
     }
 
     function tierOptionsHtml(profile, selectedId, routeId, boatId) {
@@ -679,11 +679,11 @@
             ${opts.map((s) => {
               const priceTxt = tierPriceLabel(boatId, profile, routeId, s.id);
               const sizeTitle = profile.itemizedQuote && s.capacity
-                ? `${s.capacity} ที่นั่ง`
+                ? `${s.capacity} seats`
                 : s.label;
               const sizeSub = profile.itemizedQuote
                 ? s.label
-                : (s.capacityLabel || `จุ ${s.capacity} คน`);
+                : (s.capacityLabel || `Holds ${s.capacity} people`);
               return `
               <label class="bb-size-card${s.id === sel ? ' is-selected' : ''}">
                 <input type="radio" name="tier" value="${s.id}"${s.id === sel ? ' checked' : ''}/>
@@ -704,7 +704,7 @@
               <input type="radio" name="tier" value="${t.id}"${t.id === sel ? ' checked' : ''}/>
               <span class="bb-tier-card-body">
                 <span class="bb-tier-range">${tierRangeText(t, profile, routeId)}</span>
-                <span class="bb-tier-unit">คน</span>
+                <span class="bb-tier-unit">pax</span>
                 ${priceTxt ? `<span class="bb-tier-price">${priceTxt}</span>` : ''}
               </span>
             </label>`;
@@ -716,18 +716,18 @@
       if (!profile.includedBoxTitle) return '';
       const fixedItems = [
         profile.guideFee && Object.keys(profile.guideCountByTier || {}).length
-          ? `<li>ค่ามัคคุเทศก์ <strong>฿${fmt.format(profile.guideFee)}/คน</strong> (ขนาดที่ 1 = 1 คน · ขนาดที่ 2–4 = 2–4 คน)</li>`
+          ? `<li>Guide fee <strong>฿${fmt.format(profile.guideFee)}/person</strong> (size 1 = 1 guide · sizes 2–4 = 2–4 guides)</li>`
           : profile.guideFee
-            ? `<li>ค่ามัคคุเทศก์ <strong>฿${fmt.format(profile.guideFee)}</strong></li>`
+            ? `<li>Guide fee <strong>฿${fmt.format(profile.guideFee)}</strong></li>`
             : '',
-        profile.safetyStaffRate ? `<li>สต๊าฟดูแลความปลอดภัย คนละ <strong>฿${fmt.format(profile.safetyStaffRate)}</strong> (คำนวณจากลูกค้า ${profile.safetyStaffRatio || 20} คน ต่อสต๊าฟ 1 คน)</li>` : '',
-        `<li>ประกันอุบัติเหตุ คนละ <strong>฿${fmt.format(profile.insurancePerPerson)}</strong></li>`,
+        profile.safetyStaffRate ? `<li>Safety staff <strong>฿${fmt.format(profile.safetyStaffRate)}</strong> each (based on ${profile.safetyStaffRatio || 20} guests per staff)</li>` : '',
+        `<li>Accident insurance <strong>฿${fmt.format(profile.insurancePerPerson)}</strong> per person</li>`,
       ].filter(Boolean);
       const customItems = (profile.includedItems || []).map((item) => `<li>${item}</li>`);
       const items = customItems.length ? customItems : fixedItems;
       const footnote = customItems.length || profile.askPax !== false
-        ? '<p class="muted-sm">(ประกันอุบัติเหตุและบริการต่อท่าน คำนวณจากจำนวนผู้โดยสารจริง)</p>'
-        : '<p class="muted-sm">(คำนวณอัตโนมัติตามจำนวนคน)</p>';
+        ? '<p class="muted-sm">(Accident insurance and per-person services are based on actual passengers)</p>'
+        : '<p class="muted-sm">(Calculated automatically from guest count)</p>';
       return `
         <div class="bb-included-box">
           <strong>${profile.includedBoxTitle}</strong>
@@ -746,37 +746,37 @@
         const boats = resolveBoatCount(profile, adults + children, option, routeId);
         return `
         <div class="bb-pax-field bb-pax-split" id="bb-pax-wrap">
-          <p class="bb-field-label">จำนวนผู้โดยสารจริง <span class="req">*</span></p>
-          <p class="field-hint">แยกผู้ใหญ่/เด็ก — ใช้คำนวณประกัน (${fmt.format(profile.insurancePerPerson)} × จำนวนคน) และบริการต่อท่าน</p>
+          <p class="bb-field-label">Actual passengers <span class="req">*</span></p>
+          <p class="field-hint">Split adults/children — used for insurance (${fmt.format(profile.insurancePerPerson)} × guests) and per-person services</p>
           <div class="bb-pax-split-grid">
             <div class="field">
-              <label for="bb-adults">ผู้ใหญ่</label>
+              <label for="bb-adults">Adults</label>
               <input class="input bb-pax-input" type="text" id="bb-adults" name="adults" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${adults}" required/>
             </div>
             <div class="field">
-              <label for="bb-children">เด็ก</label>
+              <label for="bb-children">Children</label>
               <input class="input bb-pax-input" type="text" id="bb-children" name="children" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${children}"/>
             </div>
           </div>
-          <p class="field-hint bb-pax-split-hint">รวม <strong id="bb-pax-total">${adults + children}</strong> ท่าน · เรือ <strong id="bb-boat-count">${boats}</strong> ลำ</p>
+          <p class="field-hint bb-pax-split-hint">Total <strong id="bb-pax-total">${adults + children}</strong> guests · <strong id="bb-boat-count">${boats}</strong> boat(s)</p>
         </div>`;
       }
       const { max } = paxBounds(option, profile, routeId);
       const val = profile.multiBoat
         ? Math.max(min, Number(paxValue) || min)
         : Math.min(max, Math.max(min, Number(paxValue) || min));
-      const maxHint = profile.multiBoat ? 'ขึ้นไป' : `${min}–${max} คน`;
+      const maxHint = profile.multiBoat ? 'or more' : `${min}–${max} people`;
       return `
         <div class="bb-pax-field" id="bb-pax-wrap">
-          <label class="bb-field-label" for="bb-pax">จำนวนผู้โดยสารจริง <span class="req">*</span></label>
-          <p class="field-hint">กรอกจำนวนคนที่มาจริง (${maxHint}) — ใช้คำนวณประกันอุบัติเหตุ (${fmt.format(profile.insurancePerPerson)} × จำนวนคน) · อาหาร/อุทยานกรอกจำนวนในขั้นบริการเสริม</p>
+          <label class="bb-field-label" for="bb-pax">Actual passengers <span class="req">*</span></label>
+          <p class="field-hint">Enter actual guest count (${maxHint}) — used for accident insurance (${fmt.format(profile.insurancePerPerson)} × guests) · enter food/park fees in the extras step</p>
           <input class="input bb-pax-input" type="text" id="bb-pax" name="pax" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${val}" data-min="${min}" data-max="${max}" required/>
         </div>`;
     }
 
     function tierStepBody(profile, routeId, tierId, pax, boatId, splitValues = {}) {
       const option = profile.options.find((o) => o.id === tierId) || profile.options.find((o) => isTierAvailable(profile, routeId, o.id));
-      const fieldLabel = profile.selectionMode === 'size' ? 'เลือกขนาดเรือ' : 'เลือกจำนวนคน';
+      const fieldLabel = profile.selectionMode === 'size' ? 'Select boat size' : 'Select guest count';
       return `
         <div class="bb-tier-step">
           <div class="bb-tier-main">
@@ -798,10 +798,10 @@
       const fieldId = `${a.id}${suffix}`;
       const hintText = hint
         || a.qtyLabel
-        || ({ perVan: 'คัน', perQty: 'คน', perPerson: 'ท่าน' }[a.unit || ''] || 'จำนวน');
+        || ({ perVan: 'vans', perQty: 'people', perPerson: 'guests' }[a.unit || ''] || 'qty');
       return `
           <div class="bb-addon-qty-wrap">
-            <label class="sr-only" for="addon_qty_${fieldId}">จำนวน${hintText} ${a.label}</label>
+            <label class="sr-only" for="addon_qty_${fieldId}">Qty ${hintText} ${a.label}</label>
             <input type="text" class="input bb-addon-qty" id="addon_qty_${fieldId}" name="addon_qty_${fieldId}" inputmode="numeric" pattern="[0-9]*" value="0" autocomplete="off"/>
             <span class="field-hint">${hintText}</span>
           </div>`;
@@ -813,7 +813,7 @@
         const isQty = addonUsesQty(unit);
         let qtyField = '';
         if (unit === 'perPersonSplit') {
-          qtyField = `<div class="bb-addon-qty-split">${addonQtyFieldHtml(a, { hint: 'ผู้ใหญ่' })}${addonQtyFieldHtml(a, { suffix: '__child', hint: 'เด็ก' })}</div>`;
+          qtyField = `<div class="bb-addon-qty-split">${addonQtyFieldHtml(a, { hint: 'Adults' })}${addonQtyFieldHtml(a, { suffix: '__child', hint: 'Children' })}</div>`;
         } else if (isQty) {
           qtyField = addonQtyFieldHtml(a);
         }
@@ -824,8 +824,8 @@
               <span>${a.desc || ''}</span>
             </span>
             <span class="bb-addon-meta">
-              <span class="bb-addon-price">${a.priceLabel || fmt.format(a.price) + ' บาท'}</span>
-              ${isQty ? qtyField : `<span class="bb-addon-check"><span class="bb-addon-check-txt">เพิ่ม</span>${checkSvg()}</span>`}
+              <span class="bb-addon-price">${a.priceLabel || fmt.format(a.price) + ' baht'}</span>
+              ${isQty ? qtyField : `<span class="bb-addon-check"><span class="bb-addon-check-txt">Add</span>${checkSvg()}</span>`}
             </span>`;
         if (isQty) {
           return `<div class="bb-addon bb-addon--${unit} bb-addon--has-qty" data-addon-id="${a.id}">${body}</div>`;
@@ -841,16 +841,16 @@
       const guideBlock = profile.guideFee ? `
         <div class="bb-guide-fee">
           <div class="bb-safety-staff-text">
-            <span>ค่ามัคคุเทศก์ (บังคับ)</span>
-            <small id="bb-guide-formula" class="muted-sm">${Object.keys(profile.guideCountByTier || {}).length ? `${fmt.format(profile.guideFee)} บาท × จำนวนมัคคุเทศก์` : `${fmt.format(profile.guideFee)} บาท`}</small>
+            <span>Guide fee (required)</span>
+            <small id="bb-guide-formula" class="muted-sm">${Object.keys(profile.guideCountByTier || {}).length ? `${fmt.format(profile.guideFee)} baht × number of guides` : `${fmt.format(profile.guideFee)} baht`}</small>
           </div>
           <strong id="bb-guide-amount">฿${fmt.format(profile.guideFee)}</strong>
         </div>` : '';
       const safetyBlock = profile.safetyStaffRate ? `
         <div class="bb-guide-fee bb-safety-staff">
           <div class="bb-safety-staff-text">
-            <span>สต๊าฟดูแลความปลอดภัย (บังคับ)</span>
-            <small id="bb-safety-staff-formula" class="muted-sm">คำนวณจากจำนวนคนบนเรือ</small>
+            <span>Safety staff (required)</span>
+            <small id="bb-safety-staff-formula" class="muted-sm">Based on guests on board</small>
           </div>
           <strong id="bb-safety-staff-amount">฿0</strong>
         </div>` : '';
@@ -860,8 +860,8 @@
         <div class="bb-insurance" aria-live="polite">
           <span class="bb-insurance-icon" aria-hidden="true">${shieldSvg()}</span>
           <div class="bb-insurance-text">
-            <strong>ค่าประกันอุบัติเหตุ (บังคับ)</strong>
-            <span id="bb-insurance-formula">${profile.insurancePerPerson} บาท × จำนวนคน</span>
+            <strong>Accident insurance (required)</strong>
+            <span id="bb-insurance-formula">${profile.insurancePerPerson} baht × guests</span>
           </div>
           <strong class="bb-insurance-amount" id="bb-insurance-amount">฿0</strong>
         </div>`;
@@ -874,16 +874,16 @@
       const defaultTierId = resolveDefaultTierId(profile, defaultRouteId);
       const boatAddons = getAddonsForBoat(activeBoatId);
       const tierNextLabel = profile.selectionMode === 'size'
-        ? 'ถัดไป<span class="wizard-next-detail">: ค่าบังคับ</span>'
-        : 'ถัดไป<span class="wizard-next-detail">: ค่าประกัน</span>';
+        ? 'Next<span class="wizard-next-detail">: required fees</span>'
+        : 'Next<span class="wizard-next-detail">: insurance</span>';
       const routeNextLabel = profile.selectionMode === 'size'
-        ? 'ถัดไป<span class="wizard-next-detail">: เลือกขนาดเรือ</span>'
-        : 'ถัดไป<span class="wizard-next-detail">: เลือกจำนวนคน</span>';
+        ? 'Next<span class="wizard-next-detail">: select boat size</span>'
+        : 'Next<span class="wizard-next-detail">: select guest count</span>';
 
       wizardEl.innerHTML = `
         <div class="wizard-step is-active" data-step="boat">
           <div class="form-card bb-form-card">
-            ${stepHead(1, 'เลือกประเภทเรือ', 'เมื่อลูกค้าเลือกเมนูเรือแล้ว กดถัดไป')}
+            ${stepHead(1, 'Select boat type', 'After choosing a boat, tap Next')}
             <div class="bb-boat-pick-grid">
               ${BOATS.map((b) => `
                 <label class="bb-boat-pick${b.id === activeBoatId ? ' is-selected' : ''}">
@@ -897,13 +897,13 @@
                 </label>`).join('')}
             </div>
           </div>
-          ${wizardNav('', 'route', 'ถัดไป<span class="wizard-next-detail">: เลือกเส้นทาง</span>')}
+          ${wizardNav('', 'route', 'Next<span class="wizard-next-detail">: select route</span>')}
         </div>
 
         <div class="wizard-step" data-step="route">
           <div class="form-card bb-form-card">
-            ${stepHead(2, 'เลือกเส้นทาง', 'ลูกค้าจะต้องเลือกเส้นทาง ซึ่งมี 6 เส้นทางให้เลือก')}
-            <p class="bb-field-label">เลือกเส้นทาง <span class="req">*</span> <span class="field-hint">(เลือก 1 เส้นทาง)</span></p>
+            ${stepHead(2, 'Select route', 'Choose one of the available routes')}
+            <p class="bb-field-label">Select route <span class="req">*</span> <span class="field-hint">(choose 1 route)</span></p>
             <div class="bb-route-grid">
               ${routeList.map((r, i) => `
                 <label class="bb-route${i === 0 ? ' is-selected' : ''}">
@@ -930,73 +930,73 @@
 
         <div class="wizard-step" data-step="insurance">
           <div class="form-card bb-form-card">
-            ${stepHead(4, 'ค่าประกันอุบัติเหตุ', `ค่าประกันอุบัติเหตุบังคับ ${profile.insurancePerPerson} บาทต่อคน`)}
+            ${stepHead(4, 'Accident insurance', `Required accident insurance ${profile.insurancePerPerson} baht per person`)}
             <div id="bb-insurance-step">${insuranceStepBody(profile)}</div>
           </div>
-          ${wizardNav('tier', 'addons', 'ถัดไป<span class="wizard-next-detail">: บริการเสริม</span>')}
+          ${wizardNav('tier', 'addons', 'Next<span class="wizard-next-detail">: extras</span>')}
         </div>
 
         <div class="wizard-step" data-step="addons">
           <div class="form-card bb-form-card">
-            ${stepHead(5, 'เลือกเมนูเพิ่มเติม', 'ลูกค้าจะต้องเลือกเมนูเพิ่มเติมที่มีให้ (สามารถเลือกเพิ่มได้มากกว่า 1 เมนู)')}
+            ${stepHead(5, 'Choose extras', 'Select any additional services (you can pick more than one)')}
             <div class="bb-addon-grid">
               ${addonsGridHtml(boatAddons)}
             </div>
           </div>
-          ${wizardNav('insurance', 'summary', 'ถัดไป<span class="wizard-next-detail">: สรุปยอด</span>')}
+          ${wizardNav('insurance', 'summary', 'Next<span class="wizard-next-detail">: summary</span>')}
         </div>
 
         <div class="wizard-step" data-step="summary">
           <div class="form-card bb-form-card">
-            ${stepHead(6, 'สรุปรายการทั้งหมด', 'หลังจากเลือกครบแล้ว ระบบจะสรุปรายการให้ลูกค้าตรวจสอบ')}
+            ${stepHead(6, 'Review your booking', 'After everything is selected, review the summary before booking')}
             <div class="bb-inline-summary-wrap">
               <div class="bb-inline-summary-head">
                 <span class="bb-cart-head-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
                 </span>
-                <strong>สรุปยอดรวม</strong>
+                <strong>Total summary</strong>
               </div>
               <div class="bb-inline-summary bb-summary-card" id="bb-inline-summary" aria-live="polite"></div>
             </div>
             <p class="bb-footer-note" id="bb-footer-note"${profile.footerNote ? '' : ' hidden'}>${profile.footerNote || ''}</p>
           </div>
-          ${wizardNav('addons', 'contact', 'ถัดไป<span class="wizard-next-detail">: กรอกข้อมูลจอง</span>')}
+          ${wizardNav('addons', 'contact', 'Next<span class="wizard-next-detail">: booking details</span>')}
         </div>
 
         <div class="wizard-step" data-step="contact">
           <div class="form-card bb-form-card">
-            ${stepHead(7, 'กรอกรายละเอียด &amp; จอง', 'กรอกข้อมูลแล้วกดจอง / ชำระเงินผ่าน LINE')}
+            ${stepHead(7, 'Details &amp; book', 'Enter your details, then book / pay via LINE')}
             <div class="field-row two">
               <div class="field" data-bb-field="date">
-                <label for="bb-date">วันที่เดินทาง <span class="req">*</span></label>
+                <label for="bb-date">Travel date <span class="req">*</span></label>
                 <input class="input" type="date" id="bb-date" name="date" required/>
                 <div class="field-error"></div>
               </div>
               <div class="field" data-bb-field="name">
-                <label for="bb-name">ชื่อ-นามสกุล <span class="req">*</span></label>
+                <label for="bb-name">Full name <span class="req">*</span></label>
                 <input class="input" type="text" id="bb-name" name="name" autocomplete="name" required/>
                 <div class="field-error"></div>
               </div>
             </div>
             <div class="field-row two">
               <div class="field" data-bb-field="phone">
-                <label for="bb-phone">เบอร์โทร <span class="req">*</span></label>
+                <label for="bb-phone">Phone <span class="req">*</span></label>
                 <input class="input" type="tel" id="bb-phone" name="phone" autocomplete="tel" inputmode="tel" required/>
                 <div class="field-error"></div>
               </div>
               <div class="field">
-                <label for="bb-note">หมายเหตุ <span class="field-hint">(ถ้ามี)</span></label>
+                <label for="bb-note">Notes <span class="field-hint">(optional)</span></label>
                 <input class="input" type="text" id="bb-note" name="note"/>
               </div>
             </div>
             <div class="bb-contact-total">
-              <span>ยอดชำระสุทธิ</span>
+              <span>Net total due</span>
               <strong id="bb-contact-total">฿0</strong>
             </div>
           </div>
           ${wizardNav('summary', '', '', `
             <button type="button" class="btn btn-line btn-lg wizard-next" id="bb-submit-line">
-              <span data-icon="line"></span> จอง / ชำระเงินผ่าน LINE
+              <span data-icon="line"></span> Book / pay via LINE
             </button>`)}
         </div>`;
 
@@ -1005,8 +1005,8 @@
       const noteInput = form.querySelector('#bb-note');
       if (noteInput && profile.itemizedQuote) {
         noteInput.placeholder = profile.quoteTitlePrefix
-          ? 'เช่น เจอท่าเรือ'
-          : 'เช่น รับโรงเรือรัษฏา';
+          ? 'e.g. Meet at the pier'
+          : 'e.g. Pickup at Ratsada pier';
       }
 
       steps = [...form.querySelectorAll('.wizard-step')];
@@ -1074,18 +1074,18 @@
     function charterSummaryLabel(calc) {
       if (!calc.route || !calc.option) return '';
       if (calc.profile.itemizedQuote && calc.profile.quoteBoatName && calc.option.capacity) {
-        return `${calc.profile.quoteBoatName} ${calc.option.capacity} ที่นั่ง`;
+        return `${calc.profile.quoteBoatName} ${calc.option.capacity} seats`;
       }
       if (calc.profile.charterSummaryPrefix) {
-        return `${calc.profile.charterSummaryPrefix} (${calc.route.name} / ${calc.option.label} จุ ${calc.people} คน)`;
+        return `${calc.profile.charterSummaryPrefix} (${calc.route.name} / ${calc.option.label} holds ${calc.people} people)`;
       }
       if (calc.profile.selectionMode === 'size') {
-        return `ค่าเรือสปีดโบ๊ท (${calc.route.name} / ${calc.option.label} / ${calc.people} คน)`;
+        return `Speed boat charter (${calc.route.name} / ${calc.option.label} / ${calc.people} people)`;
       }
       if (calc.profile.multiBoat && calc.boatCount > 1) {
-        return `${calc.boat?.name || 'ค่าเรือ'} (${calc.route.name} / ${calc.boatCount} ลำ / ${calc.people} ท่าน)`;
+        return `${calc.boat?.name || 'Boat fee'} (${calc.route.name} / ${calc.boatCount} boat(s) / ${calc.people} guests)`;
       }
-      return `ค่าเรือ (${calc.route.name} / ${calc.option.label}${calc.profile.askPax !== false ? ` / ${calc.people} ท่าน` : ''})`;
+      return `Boat fee (${calc.route.name} / ${calc.option.label}${calc.profile.askPax !== false ? ` / ${calc.people} guests` : ''})`;
     }
 
     function summaryLines(calc) {
@@ -1097,7 +1097,7 @@
         } else if (calc.profile.itemizedQuote && calc.profile.quoteBoatName) {
           label = `${calc.profile.quoteBoatName} (${fmt.format(calc.charterPerBoat)} × ${calc.boatCount || 1})`;
         } else if (calc.boatCount > 1 && calc.charterPerBoat) {
-          label = `${calc.boat?.name || 'ค่าเรือ'} (${fmt.format(calc.charterPerBoat)} × ${calc.boatCount} ลำ)`;
+          label = `${calc.boat?.name || 'Boat fee'} (${fmt.format(calc.charterPerBoat)} × ${calc.boatCount} boat(s))`;
         } else {
           label = charterSummaryLabel(calc);
         }
@@ -1105,21 +1105,21 @@
       }
       if (calc.guideFee) {
         const guideLabel = calc.guideCount > 1
-          ? `ค่ามัคคุเทศก์ (${fmt.format(calc.guideRate)} × ${calc.guideCount} คน)`
-          : 'ค่ามัคคุเทศก์';
+          ? `Guide fee (${fmt.format(calc.guideRate)} × ${calc.guideCount} people)`
+          : 'Guide fee';
         lines.push(`<div class="bb-summary-row"><span>${guideLabel}</span><strong>฿${fmt.format(calc.guideFee)}</strong></div>`);
       }
       if (calc.safetyStaffTotal) {
-        lines.push(`<div class="bb-summary-row"><span>สต๊าฟดูแลความปลอดภัย (${calc.people} คน ÷ ${calc.safetyStaffRatio} = ${calc.safetyStaffCount} คน)</span><strong>฿${fmt.format(calc.safetyStaffTotal)}</strong></div>`);
+        lines.push(`<div class="bb-summary-row"><span>Safety staff (${calc.people} guests ÷ ${calc.safetyStaffRatio} = ${calc.safetyStaffCount} staff)</span><strong>฿${fmt.format(calc.safetyStaffTotal)}</strong></div>`);
       }
       if (calc.insurance) {
         let insLabel;
         if (calc.profile.itemizedQuote) {
-          insLabel = `ค่าประกัน (${calc.people} × ${calc.insuranceRate})`;
+          insLabel = `Insurance (${calc.people} × ${calc.insuranceRate})`;
         } else if (calc.profile.multiBoat) {
-          insLabel = `ประกัน (${calc.insuranceRate} × ${calc.people} คน)`;
+          insLabel = `Insurance (${calc.insuranceRate} × ${calc.people} people)`;
         } else {
-          insLabel = `ประกันอุบัติเหตุ (${calc.insuranceRate} × ${calc.people} คน)`;
+          insLabel = `Accident insurance (${calc.insuranceRate} × ${calc.people} people)`;
         }
         lines.push(`<div class="bb-summary-row"><span>${insLabel}</span><strong>฿${fmt.format(calc.insurance)}</strong></div>`);
       }
@@ -1189,7 +1189,7 @@
       syncPickStyles();
 
       if (calc.boat) {
-        document.getElementById('bb-page-title').textContent = `จอง${calc.boat.name}`;
+        document.getElementById('bb-page-title').textContent = `Book ${calc.boat.name}`;
       }
 
       const charterEl = document.getElementById('bb-charter-amount');
@@ -1205,9 +1205,9 @@
       const guideAmount = document.getElementById('bb-guide-amount');
       if (guideFormula) {
         guideFormula.textContent = calc.guideCount > 1
-          ? `${fmt.format(calc.guideRate)} บาท × ${calc.guideCount} คน`
+          ? `${fmt.format(calc.guideRate)} baht × ${calc.guideCount} people`
           : calc.guideRate
-            ? `${fmt.format(calc.guideRate)} บาท`
+            ? `${fmt.format(calc.guideRate)} baht`
             : '';
       }
       if (guideAmount) {
@@ -1218,12 +1218,12 @@
       const insAmount = document.getElementById('bb-insurance-amount');
       if (insFormula) {
         insFormula.textContent = calc.people
-          ? `${calc.insuranceRate} บาท × ${calc.people} คน`
-          : `${calc.insuranceRate} บาท × จำนวนคน`;
+          ? `${calc.insuranceRate} baht × ${calc.people} people`
+          : `${calc.insuranceRate} baht × guests`;
       }
       if (insAmount) {
         insAmount.innerHTML = calc.insurance
-          ? `฿${fmt.format(calc.insurance)} <small>(${calc.people} คน)</small>`
+          ? `฿${fmt.format(calc.insurance)} <small>(${calc.people} people)</small>`
           : '฿0';
       }
 
@@ -1231,8 +1231,8 @@
       const safetyAmount = document.getElementById('bb-safety-staff-amount');
       if (safetyFormula) {
         safetyFormula.textContent = calc.people
-          ? `${calc.people} คน ÷ ${calc.safetyStaffRatio} = ${calc.safetyStaffCount} คน`
-          : 'คำนวณจากจำนวนคนบนเรือ';
+          ? `${calc.people} guests ÷ ${calc.safetyStaffRatio} = ${calc.safetyStaffCount} staff`
+          : 'Based on guests on board';
       }
       if (safetyAmount) {
         safetyAmount.textContent = calc.safetyStaffTotal
@@ -1248,8 +1248,8 @@
 
       const lines = summaryLines(calc);
       const summaryHtml = lines.length
-        ? lines.join('') + `<div class="bb-summary-total"><span>ยอดชำระสุทธิ</span><strong>฿${fmt.format(calc.total)}</strong></div>`
-        : '<p class="bb-cart-empty muted-sm">เลือกเส้นทางและตัวเลือกเพื่อดูสรุป</p>';
+        ? lines.join('') + `<div class="bb-summary-total"><span>Net total due</span><strong>฿${fmt.format(calc.total)}</strong></div>`
+        : '<p class="bb-cart-empty muted-sm">Select a route and options to see the summary</p>';
 
       const inline = document.getElementById('bb-inline-summary');
       if (inline) inline.innerHTML = summaryHtml;
@@ -1260,7 +1260,7 @@
       if (cartLines) {
         cartLines.innerHTML = lines.length
           ? lines.join('')
-          : '<p class="bb-cart-empty muted-sm">ทำตามขั้นตอนเพื่อดูราคา</p>';
+          : '<p class="bb-cart-empty muted-sm">Follow the steps to see pricing</p>';
       }
       if (totalEl) totalEl.textContent = fmt.format(calc.total);
       if (contactTotal) contactTotal.textContent = `฿${fmt.format(calc.total)}`;
@@ -1285,12 +1285,12 @@
         showedToast = true;
       };
       if (stepKey === 'boat' && !state.boatId) {
-        toastOnce('กรุณาเลือกประเภทเรือ'); ok = false;
+        toastOnce('Please select a boat type'); ok = false;
       } else if (stepKey === 'route' && !state.routeId) {
-        toastOnce('กรุณาเลือกเส้นทาง'); ok = false;
+        toastOnce('Please select a route'); ok = false;
       } else if (stepKey === 'tier' && !state.tierId) {
         const p = getProfile(state.boatId);
-        toastOnce(p.selectionMode === 'size' ? 'กรุณาเลือกขนาดเรือ' : 'กรุณาเลือกจำนวนคน');
+        toastOnce(p.selectionMode === 'size' ? 'Please select a boat size' : 'Please select guest count');
         ok = false;
       } else if (stepKey === 'tier' && getProfile(state.boatId).askPax !== false) {
         const profile = getProfile(state.boatId);
@@ -1304,10 +1304,10 @@
           const option = getSelectedOption(state);
           const { min } = paxBounds(option, profile, state.routeId);
           if (!state.adults || state.adults < min) {
-            toastOnce(`กรุณากรอกผู้ใหญ่อย่างน้อย ${min} คน`);
+            toastOnce(`Please enter at least ${min} adults`);
             ok = false;
           } else if (!state.pax || state.pax < 1) {
-            toastOnce('กรุณากรอกจำนวนผู้โดยสาร');
+            toastOnce('Please enter passenger count');
             ok = false;
           }
         } else {
@@ -1322,28 +1322,28 @@
           const { min, max } = paxBounds(option, profile2, state.routeId);
           const pax = readPaxValue();
           if (!pax || pax < min) {
-            toastOnce(`กรุณากรอกจำนวนผู้โดยสารอย่างน้อย ${min} คน`);
+            toastOnce(`Please enter at least ${min} passengers`);
             ok = false;
           } else if (profile2.selectionMode === 'size' && option?.capacity && pax > option.capacity) {
-            toastOnce(`จำนวนผู้โดยสารเกินความจุเรือ (${option.capacity} ที่นั่ง) — เลือกเรือขนาดใหญ่ขึ้น`);
+            toastOnce(`Passengers exceed boat capacity (${option.capacity} seats) — choose a larger boat`);
             ok = false;
           } else if (!profile2.multiBoat && profile2.selectionMode !== 'size' && pax > max) {
-            toastOnce(`จำนวนผู้โดยสารสูงสุด ${max} คน (ตามช่วงที่เลือก)`);
+            toastOnce(`Maximum ${max} passengers (for the selected range)`);
             ok = false;
           }
         }
       } else if (stepKey === 'contact') {
-        if (!state.date) { setError('date', 'กรุณาเลือกวันที่'); ok = false; }
+        if (!state.date) { setError('date', 'Please select a date'); ok = false; }
         else setError('date', '');
-        if (!state.name) { setError('name', 'กรุณากรอกชื่อ'); ok = false; }
+        if (!state.name) { setError('name', 'Please enter your name'); ok = false; }
         else setError('name', '');
         const phoneClean = state.phone.replace(/\D/g, '');
         if (!state.phone || phoneClean.length < 9) {
-          setError('phone', state.phone ? 'เบอร์ไม่ถูกต้อง' : 'กรุณากรอกเบอร์');
+          setError('phone', state.phone ? 'Invalid phone number' : 'Please enter your phone number');
           ok = false;
         } else setError('phone', '');
       }
-      if (!ok && stepKey !== 'contact' && !showedToast) toastOnce('กรุณาเลือกข้อมูลให้ครบ');
+      if (!ok && stepKey !== 'contact' && !showedToast) toastOnce('Please complete the required selections');
       return ok;
     }
 
@@ -1354,39 +1354,39 @@
 
     function pickupNoteLine(state) {
       if (state.note?.trim()) return state.note.trim();
-      if (hasShuttleService(state)) return 'รับส่งในเมือง';
+      if (hasShuttleService(state)) return 'In-town transfer';
       return '';
     }
 
     function quoteBoatCapacityLabel(calc) {
       const cap = calc.option?.capacity;
       if (calc.profile.quoteTitlePrefix && cap) {
-        return `${calc.profile.quoteTitlePrefix}ขนาด ${cap} ที่นั่ง`;
+        return `${calc.profile.quoteTitlePrefix}size ${cap} seats`;
       }
       if (cap && calc.profile.quoteBoatName) {
-        return `${calc.profile.quoteBoatName} ${cap} ที่นั่ง`;
+        return `${calc.profile.quoteBoatName} ${cap} seats`;
       }
-      return calc.boat?.name || 'เรือ';
+      return calc.boat?.name || 'Boat';
     }
 
     function buildItemizedQuoteMessage(state, calc) {
       const routeName = calc.route?.name || '';
       const cap = calc.option?.capacity;
       const titleLine = calc.profile.quoteTitlePrefix && cap
-        ? `จอง${calc.profile.quoteTitlePrefix}ขนาด ${cap} ที่นั่ง`
-        : `จองเรือ ${quoteBoatCapacityLabel(calc)}`;
-      const charterName = calc.profile.quoteCharterName || calc.profile.quoteBoatName || 'เรือ';
-      const insLabel = calc.profile.insuranceQuoteLabel || 'ค่าประกัน';
+        ? `Book ${calc.profile.quoteTitlePrefix}size ${cap} seats`
+        : `Book boat ${quoteBoatCapacityLabel(calc)}`;
+      const charterName = calc.profile.quoteCharterName || calc.profile.quoteBoatName || 'Boat';
+      const insLabel = calc.profile.insuranceQuoteLabel || 'Insurance fee';
       const pickup = pickupNoteLine(state);
       const L = [
         titleLine,
         routeName,
         formatShortThaiDate(state.date),
-        `คุณ${state.name} ${formatPhone(state.phone)}`,
-        `${calc.people} ท่าน`,
+        `${state.name} ${formatPhone(state.phone)}`,
+        `${calc.people} guests`,
       ];
       if (pickup) L.push(pickup);
-      L.push('', 'ราคา');
+      L.push('', 'Price');
       if (calc.charter) {
         const boats = calc.boatCount || 1;
         L.push(`${charterName} ${fmt.format(calc.charterPerBoat)} x ${boats} = ${fmt.format(calc.charter)}`);
@@ -1396,21 +1396,21 @@
       }
       calc.addonLines.forEach((item) => L.push(priceLineText(item)));
       if (calc.safetyStaffTotal) {
-        L.push(`สต๊าฟดูแลความปลอดภัย ${calc.safetyStaffCount} x ${fmt.format(calc.safetyStaffRate)} = ${fmt.format(calc.safetyStaffTotal)}`);
+        L.push(`Safety staff ${calc.safetyStaffCount} x ${fmt.format(calc.safetyStaffRate)} = ${fmt.format(calc.safetyStaffTotal)}`);
       }
-      L.push(`ยอดรวม ${fmt.format(calc.total)} บาท`);
+      L.push(`Total ${fmt.format(calc.total)} baht`);
       return L.join('\n');
     }
 
     function buildGroupQuoteMessage(state, calc) {
       const routeName = calc.route?.name || '';
-      const boatLabel = calc.boat?.name || 'เรือ';
-      const shuttleNote = hasShuttleService(state) ? ' · รับส่งในเมือง' : '';
+      const boatLabel = calc.boat?.name || 'Boat';
+      const shuttleNote = hasShuttleService(state) ? ' · In-town transfer' : '';
       const L = [
-        `จอง${boatLabel}ส่วนตัว / ${routeName} / ${formatShortThaiDate(state.date)} / คุณ${state.name} ${formatPhone(state.phone)}`,
-        `จำนวน ${calc.people} ท่าน · ผู้ใหญ่ ${calc.adults} · เด็ก ${calc.children}${shuttleNote}`,
+        `Book private ${boatLabel} / ${routeName} / ${formatShortThaiDate(state.date)} / ${state.name} ${formatPhone(state.phone)}`,
+        `Guests ${calc.people} · Adults ${calc.adults} · Children ${calc.children}${shuttleNote}`,
         '',
-        'ราคา:',
+        'Price:',
       ];
       if (calc.charter) {
         if (calc.boatCount > 1) {
@@ -1420,17 +1420,17 @@
         }
       }
       if (calc.insurance) {
-        L.push(`ค่าประกัน ${calc.insuranceRate} × ${calc.people} = ${fmt.format(calc.insurance)} (บังคับ)`);
+        L.push(`Insurance ${calc.insuranceRate} × ${calc.people} = ${fmt.format(calc.insurance)} (required)`);
       }
       calc.addonLines.forEach((item) => L.push(priceLineText(item)));
       if (calc.guideFee) {
-        L.push(`มัคคุเทศก์ ${fmt.format(calc.guideFee)}`);
+        L.push(`Guide ${fmt.format(calc.guideFee)}`);
       }
       if (calc.safetyStaffTotal) {
-        L.push(`สต๊าฟดูแลความปลอดภัย ${fmt.format(calc.safetyStaffTotal)}`);
+        L.push(`Safety staff ${fmt.format(calc.safetyStaffTotal)}`);
       }
-      L.push(`ยอดรวม ${fmt.format(calc.total)} บาท`);
-      if (state.note) L.push('', `หมายเหตุ: ${state.note}`);
+      L.push(`Total ${fmt.format(calc.total)} baht`);
+      if (state.note) L.push('', `Notes: ${state.note}`);
       return L.join('\n');
     }
 
@@ -1442,30 +1442,30 @@
         return buildGroupQuoteMessage(state, calc);
       }
       const L = [
-        'สวัสดีครับ/ค่ะ สนใจจองเรือเหมาลำ',
+        'Hello, I would like to book a private boat charter',
         '',
-        '— เรือ —',
+        '— Boat —',
         calc.boat?.name || '',
-        calc.route ? `เส้นทาง: ${calc.route.name}${calc.route.subtitle ? ' · ' + calc.route.subtitle : ''}` : '',
-        calc.option ? `${calc.profile.selectionMode === 'size' ? 'ขนาดเรือ' : 'ช่วงจำนวนคน'}: ${calc.option.label} · ผู้โดยสารจริง ${calc.people} ท่าน` : '',
+        calc.route ? `Route: ${calc.route.name}${calc.route.subtitle ? ' · ' + calc.route.subtitle : ''}` : '',
+        calc.option ? `${calc.profile.selectionMode === 'size' ? 'Boat size' : 'Guest range'}: ${calc.option.label} · Actual passengers ${calc.people} guests` : '',
         '',
-        '— ข้อมูลผู้จอง —',
-        `ชื่อ: ${state.name}`,
-        `เบอร์: ${state.phone}`,
-        `วันที่: ${formatThaiDate(state.date)}`,
+        '— Booking contact —',
+        `Name: ${state.name}`,
+        `Phone: ${state.phone}`,
+        `Date: ${formatThaiDate(state.date)}`,
         '',
-        '— สรุปราคา —',
+        '— Price summary —',
         calc.charter ? `${charterSummaryLabel(calc)}: ฿${fmt.format(calc.charter)}` : '',
         calc.guideFee
-          ? `ค่ามัคคุเทศก์: ฿${fmt.format(calc.guideFee)}${calc.guideCount > 1 ? ` (${fmt.format(calc.guideRate)}×${calc.guideCount})` : ''}`
+          ? `Guide fee: ฿${fmt.format(calc.guideFee)}${calc.guideCount > 1 ? ` (${fmt.format(calc.guideRate)}×${calc.guideCount})` : ''}`
           : '',
-        calc.safetyStaffTotal ? `สต๊าฟดูแลความปลอดภัย: ฿${fmt.format(calc.safetyStaffTotal)} (${calc.people}÷${calc.safetyStaffRatio}=${calc.safetyStaffCount} คน)` : '',
-        calc.insurance ? `ประกันอุบัติเหตุ: ฿${fmt.format(calc.insurance)} (${calc.insuranceRate}×${calc.people})` : '',
+        calc.safetyStaffTotal ? `Safety staff: ฿${fmt.format(calc.safetyStaffTotal)} (${calc.people}÷${calc.safetyStaffRatio}=${calc.safetyStaffCount} staff)` : '',
+        calc.insurance ? `Accident insurance: ฿${fmt.format(calc.insurance)} (${calc.insuranceRate}×${calc.people})` : '',
       ];
       calc.addonLines.forEach((item) => L.push(`${addonSummaryLabel(item)}: ฿${fmt.format(item.lineTotal)}`));
-      L.push('', `>>> ยอดชำระสุทธิ: ฿${fmt.format(calc.total)} <<<`);
-      if (state.note) L.push('', `หมายเหตุ: ${state.note}`);
-      L.push('', 'รบกวนแอดมินติดต่อกลับเพื่อยืนยันการจองครับ/ค่ะ');
+      L.push('', `>>> Net total due: ฿${fmt.format(calc.total)} <<<`);
+      if (state.note) L.push('', `Notes: ${state.note}`);
+      L.push('', 'Please have an admin contact me to confirm the booking');
       return L.filter(Boolean).join('\n');
     }
 
@@ -1607,7 +1607,7 @@
       if (!validateStep('contact')) return;
       const msg = buildMessage(state, calc);
       try { navigator.clipboard?.writeText(msg); } catch {}
-      window.TT?.toast?.('คัดลอกข้อความแล้ว กำลังเปิด LINE…');
+      window.TT?.toast?.('Message copied — opening LINE…');
       window.open(lineUrl, '_blank', 'noopener');
     }
 

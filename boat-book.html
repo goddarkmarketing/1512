@@ -1,11 +1,13 @@
 <!doctype html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>จองเรือเหมาลำ — คำนวณราคา | Talay Trang</title>
-  <meta name="description" content="เลือกเส้นทาง จำนวนคน บริการเสริม ระบบคำนวณราคาเรือเหมาลำและประกันอัตโนมัติ พร้อมส่งจองผ่าน LINE" />
+  <title>Private Boat Charter — Price Calculator | Talay Trang</title>
+  <meta name="description" content="Choose your route, group size, and extras. Automatic private-boat and insurance pricing, then send your booking via LINE." />
   <meta name="theme-color" content="#0277bd" />
+  <link rel="icon" type="image/png" href="assets/logo/logo.png" />
+  <link rel="apple-touch-icon" href="assets/logo/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,17 +18,17 @@
   <div id="site-header"></div>
 
   <section class="hero-sub hero-sub-compact">
-    <div class="hero-media"><img id="hero-img" alt="จองเรือเหมาลำทะเลตรัง" /></div>
+    <div class="hero-media"><img id="hero-img" alt="Book a private boat charter in Trang" /></div>
     <div class="container hero-inner" data-reveal>
-      <span class="crumb"><a href="boats.html">ประเภทเรือ</a> / จองเหมาลำ</span>
-      <h1 id="bb-page-title">จองเรือเหมาลำ</h1>
-      <p class="lead" id="bb-page-lead">ทำตามขั้นตอนทีละสเต็ป ระบบคำนวณราคาให้อัตโนมัติ</p>
+      <span class="crumb"><a href="boats.html">Boat types</a> / Private charter</span>
+      <h1 id="bb-page-title">Book a private boat</h1>
+      <p class="lead" id="bb-page-lead">Follow the steps — the system calculates the price automatically</p>
     </div>
   </section>
 
   <section class="section bb-section booking-section">
     <div class="container bb-container">
-      <ol class="booking-progress bb-progress" id="bb-progress" aria-label="ขั้นตอนการจองเรือ"></ol>
+      <ol class="booking-progress bb-progress" id="bb-progress" aria-label="Boat booking steps"></ol>
 
       <div class="booking-grid bb-grid">
         <form id="bb-form" class="bb-form" novalidate>
@@ -39,14 +41,14 @@
               <span class="bb-cart-head-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
               </span>
-              <h3>สรุปยอดรวม</h3>
+              <h3>Order summary</h3>
             </header>
             <div class="bb-cart-body">
               <div class="bb-cart-lines" id="bb-cart-lines">
-                <p class="bb-cart-empty muted-sm">ทำตามขั้นตอนเพื่อดูราคา</p>
+                <p class="bb-cart-empty muted-sm">Complete the steps to see pricing</p>
               </div>
               <div class="cart-total bb-cart-total">
-                <span class="cart-total-label">ยอดชำระสุทธิ</span>
+                <span class="cart-total-label">Net total</span>
                 <strong class="cart-total-amount bb-total-amount">
                   <small>฿</small><span class="amount" id="bb-total">0</span>
                 </strong>

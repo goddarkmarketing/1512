@@ -11,7 +11,7 @@ const fallbackPath = path.join(root, 'assets/js/data-fallback.js');
 
 const data = JSON.parse(fs.readFileSync(sitePath, 'utf8'));
 const js =
-  '/* Auto-generated — อัปเดตจากระบบหลังบ้าน */\n' +
+  '/* Auto-generated — updated from the admin backend */\n' +
   'window.__TT_FALLBACK = ' +
   JSON.stringify(data) +
   ';\n';

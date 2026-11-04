@@ -22,26 +22,26 @@
     };
     const discount = r.oldPrice ? Math.round((1 - p.basePrice / r.oldPrice) * 100) : 0;
     const tr = p.ribbon
-      ? `<span class="deal-badge-tr ${p.ribbon === 'ยอดนิยม' ? 'is-hot' : 'is-info'}">${esc(p.ribbon)}</span>`
-      : discount > 0 ? `<span class="deal-badge-tr">ประหยัด ${discount}%</span>` : '';
+      ? `<span class="deal-badge-tr ${/popular|hot/i.test(p.ribbon) ? 'is-hot' : 'is-info'}">${esc(p.ribbon)}</span>`
+      : discount > 0 ? `<span class="deal-badge-tr">Save ${discount}%</span>` : '';
     const code = p.packageCode ?? String(index + 1);
-    const tl = `รหัส #${esc(code)}`;
+    const tl = `Code #${esc(code)}`;
     const starIcon = ICONS.star || '★';
     const starsSvg = (n) => Array.from({ length: n }).map(() => starIcon).join('');
     return `
       <a class="deal-card" href="program.html?id=${encodeURIComponent(p.id)}" data-reveal>
         <div class="deal-media">
-          <img src="${esc(p.image)}" alt="ภาพประกอบ ${esc(p.name)}" loading="lazy"/>
+          <img src="${esc(p.image)}" alt="Photo of ${esc(p.name)}" loading="lazy"/>
           <span class="deal-badge-tl">${tl}</span>
           ${tr}
         </div>
         <div class="deal-body">
           <h3>${esc(p.name)}</h3>
           <p class="deal-sub">${esc(p.route)}</p>
-          <div class="deal-stars" aria-label="${r.stars} ดาว">${starsSvg(r.stars)}</div>
-          <div class="deal-rate"><strong>${Number(r.rating).toFixed(1)}</strong>/5 <span class="dot"></span> <span>${esc(r.reviews)} รีวิว</span></div>
+          <div class="deal-stars" aria-label="${r.stars} stars">${starsSvg(r.stars)}</div>
+          <div class="deal-rate"><strong>${Number(r.rating).toFixed(1)}</strong>/5 <span class="dot"></span> <span>${esc(r.reviews)} reviews</span></div>
           <div class="deal-price">
-            <small>เริ่มต้น · ${esc(p.duration)}</small>
+            <small>From · ${esc(p.duration)}</small>
             ${r.oldPrice && r.oldPrice > p.basePrice ? `<s>THB ${fmt.format(r.oldPrice)}</s>` : ''}
             <strong>THB ${fmt.format(p.basePrice)}</strong>
           </div>
@@ -105,36 +105,36 @@
         {
           id: 'daytrip',
           eyebrow: hs.boats?.eyebrow || 'One-day trips',
-          title: hs.boats?.title || 'แพ็กเกจไปเช้า เย็นกลับ',
+          title: hs.boats?.title || 'Morning–evening day packages',
           lead: hs.boats?.lead || '',
           items: window.TT?.PROGRAMS || [],
-          navLabel: 'ไปเช้าเย็นกลับ',
+          navLabel: 'Day trip',
         },
         {
           id: 'overnight',
-          eyebrow: hs.programs?.eyebrow || 'พักค้างคืน',
-          title: hs.programs?.title || 'แพ็กเกจ 2 วัน 1 คืน',
+          eyebrow: hs.programs?.eyebrow || 'Overnight stays',
+          title: hs.programs?.title || '2 days 1 night packages',
           lead: hs.programs?.lead || '',
           items: window.TT?.PACKAGES_2D1N || [],
-          navLabel: '2 วัน 1 คืน',
+          navLabel: '2D1N',
         },
         {
           id: 'packages3d2n',
-          eyebrow: hs.packages3d2n?.eyebrow || 'พักยาวขึ้น',
-          title: hs.packages3d2n?.title || 'แพ็กเกจ 3 วัน 2 คืน',
+          eyebrow: hs.packages3d2n?.eyebrow || 'Longer stays',
+          title: hs.packages3d2n?.title || '3 days 2 nights packages',
           lead: hs.packages3d2n?.lead || '',
           items: window.TT?.PACKAGES_3D2N || [],
-          navLabel: '3 วัน 2 คืน',
+          navLabel: '3D2N',
         },
         {
           id: 'packages4d3n',
-          eyebrow: hs.packages4d3n?.eyebrow || 'ทริปยาวพิเศษ',
-          title: hs.packages4d3n?.title || 'แพ็กเกจ 4 วัน 3 คืน',
-          lead: hs.packages4d3n?.lead || 'เที่ยวทะเลตรังครบจบ 4 วัน 3 คืน รวมทริปทะเล ที่พัก ทัวร์เมือง — ราคาเริ่มต้น 1,850 บาทต่อท่าน',
+          eyebrow: hs.packages4d3n?.eyebrow || 'Extended trips',
+          title: hs.packages4d3n?.title || '4 days 3 nights packages',
+          lead: hs.packages4d3n?.lead || '',
           items: window.TT?.PACKAGES_4D3N || [],
-          navLabel: '4 วัน 3 คืน',
+          navLabel: '4D3N',
         },
-      ];
+      ].filter((s) => Array.isArray(s.items) && s.items.length > 0);
     }
 
     const visible = {};
@@ -218,7 +218,7 @@
             ${hasMore ? `
               <div class="btn-row center mt-4" data-reveal>
                 <button type="button" class="btn btn-outline programs-load-more" data-section="${section.id}" data-remaining="${items.length - showN}">
-                  ดูแพ็กเกจเพิ่มเติม (${items.length - showN} รายการ)
+                  See more packages (${items.length - showN} items)
                 </button>
               </div>` : ''}
           </section>`;
@@ -228,8 +228,8 @@
       if (emptyEl) emptyEl.hidden = totalMatch > 0;
       if (countEl) {
         countEl.textContent = filters.q || filters.category !== 'all' || filters.price !== 'all' || filters.boat !== 'all'
-          ? `พบ ${totalMatch} แพ็กเกจ · แสดง ${totalShown} การ์ด`
-          : `ทั้งหมด ${totalMatch} แพ็กเกจ`;
+          ? `Found ${totalMatch} packages · showing ${totalShown} cards`
+          : `All ${totalMatch} packages`;
       }
 
       sectionsHost.querySelectorAll('.programs-load-more').forEach((btn) => {
@@ -251,7 +251,7 @@
       const BOATS = window.TT?.BOATS || [];
       if (!boatSelect || !BOATS.length) return;
       const current = boatSelect.value || 'all';
-      boatSelect.innerHTML = '<option value="all">เรือทุกประเภท</option>'
+      boatSelect.innerHTML = '<option value="all">All boat types</option>'
         + BOATS.map((b) => `<option value="${esc(b.id)}">${esc(b.name)}</option>`).join('');
       if ([...boatSelect.options].some((o) => o.value === current)) {
         boatSelect.value = current;

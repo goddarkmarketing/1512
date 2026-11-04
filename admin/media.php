@@ -8,15 +8,15 @@ tt_require_admin();
 
 $uploads = tt_list_uploads();
 
-tt_admin_header('อัปโหลดรูป', 'media');
+tt_admin_header('Upload image', 'media');
 ?>
 
 <div class="card">
-  <h2>ขนาดรูปที่แนะนำ (ให้พอดีกับหน้าเว็บ)</h2>
-  <p class="field-hint" style="margin-top:0">อัปโหลดแล้วกด <strong>คัดลอก path</strong> ไปวางในช่อง URL ของเมนูที่เกี่ยวข้อง · รูปจะถูก crop กลางอัตโนมัติ (object-fit: cover)</p>
+  <h2>Recommended image sizes (to fit the website)</h2>
+  <p class="field-hint" style="margin-top:0">After uploading, click <strong>Copy path</strong> and paste it into the URL field of the relevant menu · Images are automatically center-cropped (object-fit: cover)</p>
   <table class="table" style="margin-top:12px">
     <thead>
-      <tr><th>ใช้กับ</th><th>ขนาดแนะนำ</th><th>อัตราส่วน</th><th>แก้ที่เมนู</th></tr>
+      <tr><th>Used for</th><th>Recommended size</th><th>Aspect ratio</th><th>Edit in menu</th></tr>
     </thead>
     <tbody>
       <?php foreach (tt_image_size_guide_rows() as $row): ?>
@@ -32,28 +32,28 @@ tt_admin_header('อัปโหลดรูป', 'media');
 </div>
 
 <div class="card">
-  <h2>อัปโหลดรูปใหม่</h2>
-  <p class="field-hint">JPG, PNG, WebP, GIF — สูงสุด 5MB · ถ้าไม่แน่ใจ ใช้ขนาดตามตารางด้านบน</p>
+  <h2>Upload new image</h2>
+  <p class="field-hint">JPG, PNG, WebP, GIF — max 5MB · If unsure, use the sizes in the table above</p>
   <form id="upload-form" enctype="multipart/form-data">
     <div class="field">
       <input type="file" name="file" id="file" accept="image/*" required/>
     </div>
-    <button type="submit" class="btn btn-primary">อัปโหลด</button>
+    <button type="submit" class="btn btn-primary">Upload</button>
   </form>
   <div id="upload-result" class="field-hint" style="margin-top:12px"></div>
 </div>
 
 <div class="card">
-  <h2>รูปที่อัปโหลดแล้ว (<?= count($uploads) ?>)</h2>
+  <h2>Uploaded images (<?= count($uploads) ?>)</h2>
   <?php if (!$uploads): ?>
-    <p class="field-hint">ยังไม่มีรูป — อัปโหลดรูปแรกได้ด้านบน</p>
+    <p class="field-hint">No images yet — upload the first one above</p>
   <?php else: ?>
     <div class="media-grid">
       <?php foreach ($uploads as $u): ?>
         <div class="media-item">
           <img src="../<?= htmlspecialchars($u['url'], ENT_QUOTES, 'UTF-8') ?>" alt=""/>
           <code><?= htmlspecialchars($u['url'], ENT_QUOTES, 'UTF-8') ?></code>
-          <button type="button" class="btn btn-ghost btn-sm" style="margin:8px;width:calc(100% - 16px)" data-copy="<?= htmlspecialchars($u['url'], ENT_QUOTES, 'UTF-8') ?>">คัดลอก path</button>
+          <button type="button" class="btn btn-ghost btn-sm" style="margin:8px;width:calc(100% - 16px)" data-copy="<?= htmlspecialchars($u['url'], ENT_QUOTES, 'UTF-8') ?>">Copy path</button>
         </div>
       <?php endforeach; ?>
     </div>
@@ -69,11 +69,11 @@ document.getElementById('upload-form').addEventListener('submit', async (e) => {
   const json = await res.json();
   const el = document.getElementById('upload-result');
   if (json.ok) {
-    el.innerHTML = 'สำเร็จ: <code>' + json.url + '</code> — <a href="media.php">รีเฟรช</a>';
-    ttToast('อัปโหลดสำเร็จ');
+    el.innerHTML = 'Success: <code>' + json.url + '</code> — <a href="media.php">Refresh</a>';
+    ttToast('Upload successful');
   } else {
-    el.textContent = json.error || 'ผิดพลาด';
-    ttToast(json.error || 'ผิดพลาด', true);
+    el.textContent = json.error || 'Error';
+    ttToast(json.error || 'Error', true);
   }
 });
 </script>

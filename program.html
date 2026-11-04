@@ -1,11 +1,13 @@
 <!doctype html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title id="page-title">แพ็กเกจ | Talay Trang</title>
-  <meta name="description" id="page-desc" content="รายละเอียดแพ็กเกจเที่ยวทะเลตรัง ไปเช้าเย็นกลับ" />
+  <title id="page-title">Package | Talay Trang</title>
+  <meta name="description" id="page-desc" content="Trang sea package details — day trips and overnight" />
   <meta name="theme-color" content="#0277bd" />
+  <link rel="icon" type="image/png" href="assets/logo/logo.png" />
+  <link rel="apple-touch-icon" href="assets/logo/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.pexels.com" crossorigin />
@@ -20,7 +22,7 @@
     <div class="container">
       <a href="programs.html" class="pkg-back" id="pkg-back">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
-        กลับสู่โปรแกรมทั้งหมด
+        Back to all programs
       </a>
 
       <div class="pkg-gallery-wrap" id="pkg-gallery"></div>
@@ -31,8 +33,8 @@
         <div class="pkg-col-itinerary">
           <div class="pkg-itinerary-panel">
             <header class="pkg-info-head">
-              <span class="pkg-info-eyebrow">ตารางเดินทาง</span>
-              <h3>โปรแกรมทัวร์</h3>
+              <span class="pkg-info-eyebrow">Itinerary</span>
+              <h3>Tour program</h3>
             </header>
             <ol class="pkg-steps" id="pkg-itinerary"></ol>
           </div>
@@ -61,7 +63,7 @@
       const { PROGRAMS, PACKAGES_2D1N, PACKAGES_3D2N, PACKAGES_4D3N, ICONS, IMAGES } = window.TT || {};
       if (!PROGRAMS && !PACKAGES_2D1N && !PACKAGES_3D2N && !PACKAGES_4D3N) return;
       const alertIcon = ICONS?.alert || ALERT_ICON;
-      const fmt = new Intl.NumberFormat('th-TH');
+      const fmt = new Intl.NumberFormat('en-US');
       const allPackages = [...PROGRAMS, ...(PACKAGES_2D1N || []), ...(PACKAGES_3D2N || []), ...(PACKAGES_4D3N || [])];
       const params = new URLSearchParams(location.search);
       const id = params.get('id') || (allPackages[0] && allPackages[0].id);
@@ -71,21 +73,21 @@
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
       const INCLUSION_MAP = {
-        boat:       { label: 'เรือนำเที่ยว',       icon: 'longtail' },
-        food:       { label: 'อาหารบุฟเฟ่ต์',      icon: 'cutlery' },
-        guide:      { label: 'พนักงานนำเที่ยว',    icon: 'users' },
-        snorkel:    { label: 'อุปกรณ์ดำน้ำตื้น',   icon: 'scuba' },
-        park:       { label: 'ค่าเข้าอุทยาน',      icon: 'ticket' },
-        insurance:  { label: 'ประกันอุบัติเหตุ',   icon: 'shield' },
-        coffee:     { label: 'กาแฟ',               icon: 'cutlery' },
-        snack:      { label: 'ของว่าง',            icon: 'cutlery' },
-        lifejacket: { label: 'เสื้อชูชีพ',         icon: 'shield' },
-        hotel:      { label: 'ที่พัก',             icon: 'bed' },
-        shuttle:    { label: 'รถรับส่ง',           icon: 'car' },
+        boat:       { label: 'Tour boat',       icon: 'longtail' },
+        food:       { label: 'Buffet meals',      icon: 'cutlery' },
+        guide:      { label: 'Tour staff',    icon: 'users' },
+        snorkel:    { label: 'Snorkeling gear',   icon: 'scuba' },
+        park:       { label: 'National park fee',      icon: 'ticket' },
+        insurance:  { label: 'Accident insurance',   icon: 'shield' },
+        coffee:     { label: 'Coffee',               icon: 'cutlery' },
+        snack:      { label: 'Snacks',            icon: 'cutlery' },
+        lifejacket: { label: 'Life jackets',         icon: 'shield' },
+        hotel:      { label: 'Accommodation',             icon: 'bed' },
+        shuttle:    { label: 'Transfers',           icon: 'car' },
       };
       const DEFAULT_INCLUSIONS = ['boat', 'food', 'guide', 'snorkel', 'park', 'insurance', 'coffee', 'snack', 'lifejacket'];
 
-      /** Map inclusion key or Thai label → { label, icon } */
+      /** Map inclusion key or Thai/English label → { label, icon } */
       function resolveInclusion(item) {
         if (item && typeof item === 'object' && item.label) {
           return {
@@ -99,17 +101,17 @@
         }
         const text = String(item ?? '');
         const rules = [
-          [/เรือทัวร์|เรือใหญ่/, 'bigBoat'],
-          [/เรือหางยาว|เรือกลับฝั่ง/, 'longtail'],
-          [/เรือสปีด|speedboat/i, 'speedboat'],
-          [/เรือ/, 'longtail'],
-          [/อาหาร|บุฟเฟ|กาแฟ|ของว่าง|น้ำดื่ม|น้ำแข็ง|มื้อเช้า|มื้อเที่ยง/, 'cutlery'],
-          [/ห้องพัก|ที่พัก|โรงแรม|พัก/, 'bed'],
-          [/รถ|รับส่ง|รับลูกค้า/, 'car'],
-          [/ไกด์|สตาฟ|มัคคุเทศ|พนักงาน/, 'users'],
-          [/ดำน้ำ|หน้ากาก|เสื้อชู|อุปกรณ์/, 'scuba'],
-          [/อุทยาน|ธรรมเนียม/, 'ticket'],
-          [/ประกัน/, 'shield'],
+          [/tour boat|big boat|large boat/i, 'bigBoat'],
+          [/long-?tail|return boat|shore boat/i, 'longtail'],
+          [/speed\s*boat|speedboat/i, 'speedboat'],
+          [/\bboat\b/i, 'longtail'],
+          [/lunch|breakfast|buffet|coffee|snack|drinking water|ice|meal/i, 'cutlery'],
+          [/room|hotel|accommodation|stay|resort/i, 'bed'],
+          [/transfer|pickup|pick-up|van|car|shuttle/i, 'car'],
+          [/guide|staff|crew/i, 'users'],
+          [/snorkel|diving|mask|life jacket|gear/i, 'scuba'],
+          [/park fee|national park|admission/i, 'ticket'],
+          [/insurance/i, 'shield'],
         ];
         for (const [re, icon] of rules) {
           if (re.test(text)) return { label: text, icon };
@@ -118,7 +120,7 @@
       }
 
       if (!p) {
-        document.getElementById('pkg-root').innerHTML = '<div class="container" style="padding:120px 0;text-align:center"><h1>ไม่พบแพ็กเกจ</h1><p><a href="programs.html">กลับไปหน้าโปรแกรม</a></p></div>';
+        document.getElementById('pkg-root').innerHTML = '<div class="container" style="padding:120px 0;text-align:center"><h1>Package not found</h1><p><a href="programs.html">Back to programs</a></p></div>';
         return;
       }
 
@@ -128,25 +130,26 @@
 
       const caption = p.galleryCaption || p.route || (p.stops || []).join(' ');
       const licenseNo = p.licenseNo || '43/00540';
-      const code = p.packageCode ? `รหัส ${p.packageCode}` : `รหัส #${allPackages.indexOf(p) + 1}`;
+      const code = p.packageCode ? `Code ${p.packageCode}` : `Code #${allPackages.indexOf(p) + 1}`;
 
       const STOP_DETAILS = {
-        'เกาะมุก': 'เทียบท่าเกาะมุก เตรียมอุปกรณ์ว่ายน้ำและเริ่มออกเดินทางสู่จุดแรกของทริป',
-        'ถ้ำมรกต': 'ว่ายน้ำผ่านถ้ำยาวเข้าสู่หาดในถ้ำ ชม Unseen Thailand และถ่ายรูปวิวสุดประทับใจ',
-        'เกาะกระดาน': 'พักผ่อนหาดทรายขาว ว่ายน้ำเล่นน้ำทะเลใส และรับประทานอาหารกลางวันบนเรือ',
-        'เกาะเชือก': 'ดำน้ำตื้นชมปะการังหลากสี ฝูงปลา และจุดถ่ายรูปใต้น้ำ',
-        'เกาะแหวน': 'แวะดำน้ำชมปะการังและฝูงปลารอบเกาะแหวน',
-        'รับลูกค้า': 'รับลูกค้าตามจุดนัดพบในเขตเมืองตรัง (เพิ่มค่าบริการตามเงื่อนไข)',
-        'ท่าเรือปากเมง': 'ลูกค้าเจอกันที่ท่าเรือปากเมง อำเภอสิเกา ก่อนออกเดินทาง',
-        'กลับท่าเรือ': 'เดินทางกลับท่าเรือปากเมง อาบน้ำเปลี่ยนเสื้อผ้า และจบโปรแกรม',
+        'Koh Muk': 'Arrive at Koh Muk, prepare swimming gear, and head to the first stop',
+        'Koh Mook': 'Arrive at Koh Muk, prepare swimming gear, and head to the first stop',
+        'Emerald Cave': 'Swim through the long cave to the inner beach — Unseen Thailand views and photos',
+        'Koh Kradan': 'Relax on white sand, swim in clear water, and enjoy lunch on the boat',
+        'Koh Chueak': 'Snorkel colorful coral, fish schools, and underwater photo spots',
+        'Koh Waen': 'Stop to snorkel coral and fish around Koh Waen',
+        'Pick-up in Trang city': 'Pickup at meeting points in Trang city (surcharge may apply)',
+        'Pak Meng Pier': 'Meet at Pak Meng Pier, Sikao District, before departure',
+        'Return to pier': 'Return to Pak Meng Pier, rinse and change, and end the program',
       };
       const DEFAULT_TIMES = ['07:00', '09:30', '11:30', '13:30', '15:30', '16:30'];
 
       function stopDetail(stop, i, total) {
         if (STOP_DETAILS[stop]) return STOP_DETAILS[stop];
-        if (i === 0) return `เริ่มต้นกิจกรรมที่${stop} — ${p.duration || 'ทริปเต็มวัน'}`;
-        if (i === total - 1) return `แวะ${stop} และเดินทางกลับจบโปรแกรม`;
-        return `แวะ${stop} — สัมผัสวิวทะเลและกิจกรรมตามจุด`;
+        if (i === 0) return `Start activities at ${stop} — ${p.duration || 'Full-day trip'}`;
+        if (i === total - 1) return `Stop at ${stop} and return to finish the program`;
+        return `Stop at ${stop} — sea views and activities at this stop`;
       }
 
       function enrichItineraryItem(item, i, total) {
@@ -162,7 +165,7 @@
           else text = stopDetail(text, i, total);
         }
         if (title && !text) text = stopDetail(title, i, total);
-        return { time, title: title || `ขั้นตอนที่ ${i + 1}`, text };
+        return { time, title: title || `Step ${i + 1}`, text };
       }
 
       const rawItinerary = (p.itinerary && p.itinerary.length) ? p.itinerary
@@ -179,18 +182,18 @@
       const isMultiNightPkg = isPkg2d1n || isPkg3d2n || isPkg4d3n;
 
       function parseItineraryDay(title) {
-        const m = (title || '').match(/วันที่\s*(\d+)/);
+        const m = (title || '').match(/Day\s*(\d+)/i);
         return m ? parseInt(m[1], 10) : null;
       }
       function stripDayPrefix(title) {
-        const stripped = (title || '').replace(/^วันที่\s*\d+\s*[·•\-–—]\s*/, '').trim();
+        const stripped = (title || '').replace(/^Day\s*\d+\s*[·•\-–—]\s*/i, '').trim();
         return stripped || title;
       }
       const TIME_LAYER_LABELS = {
-        1: 'ช่วงเช้า',
-        2: 'ก่อนเที่ยง',
-        3: 'ช่วงบ่าย',
-        4: 'ช่วงเย็น',
+        1: 'Morning',
+        2: 'Late morning',
+        3: 'Afternoon',
+        4: 'Evening',
       };
       function timeLayer(time) {
         const h = parseInt(String(time || '12:00').split(':')[0], 10);
@@ -202,7 +205,7 @@
       }
       function assignItineraryLayers(items, forceMultiDay = false) {
         let currentDay = 1;
-        const hasDayLabels = items.some((item) => /วันที่\s*\d+/.test(item.title));
+        const hasDayLabels = items.some((item) => /Day\s*\d+/i.test(item.title));
         const daySet = new Set();
         items.forEach((item) => {
           const parsed = parseItineraryDay(item.title);
@@ -228,7 +231,7 @@
             return {
               ...item,
               layer: day,
-              bandLabel: `วันที่ ${day}`,
+              bandLabel: `Day ${day}`,
               isMultiDay: true,
             };
           });
@@ -238,7 +241,7 @@
           const parsed = parseItineraryDay(item.title);
           if (parsed != null) currentDay = parsed;
           const layer = isMultiDay ? currentDay : timeLayer(item.time);
-          const bandLabel = isMultiDay ? `วันที่ ${layer}` : (TIME_LAYER_LABELS[layer] || `ช่วงที่ ${layer}`);
+          const bandLabel = isMultiDay ? `Day ${layer}` : (TIME_LAYER_LABELS[layer] || `Period ${layer}`);
           return { ...item, layer, bandLabel, isMultiDay };
         });
       }
@@ -254,7 +257,7 @@
 
       function splitMealCombo(text) {
         const s = String(text).trim();
-        const m = s.match(/^(.+?)\s*[·•]\s*(อาหารเช้า.+)$/i);
+        const m = s.match(/^(.+?)\s*[·•]\s*(Breakfast.+)$/i);
         if (!m) return null;
         return { lunch: m[1].trim(), breakfast: m[2].trim() };
       }
@@ -263,7 +266,7 @@
         if (pkg.inclusionsByDay && pkg.inclusionsByDay.length) {
           return pkg.inclusionsByDay.map((block) => ({
             day: block.day,
-            label: block.label || `วันที่ ${block.day}`,
+            label: block.label || `Day ${block.day}`,
             items: block.items || [],
           }));
         }
@@ -273,7 +276,7 @@
         const dayCount = isPkg4d3n ? 4 : isPkg3d2n ? 3 : 2;
         const days = Array.from({ length: dayCount }, (_, i) => ({
           day: i + 1,
-          label: `วันที่ ${i + 1}`,
+          label: `Day ${i + 1}`,
           items: [],
         }));
         const put = (day, item) => {
@@ -282,12 +285,12 @@
           if (d && !d.items.includes(item)) d.items.push(item);
         };
 
-        const isDay1Only = (t) => /วันที่\s*1|ตุ๊กตุ๊กนำเที่ยววันที่\s*1|รับจากสนามบิน|รถตุ๊กตุ๊กนำเที่ยว/.test(t);
-        const isDay3Only = (t) => /วันที่\s*3|city tour\s*วันที่\s*3|city tour/i.test(t) && /วันที่\s*3|city tour/i.test(t);
-        const isBreakfast = (t) => /อาหารเช้า/.test(t);
-        const isReturn = (t) => /กลับฝั่ง|กลับท่า|เรือกลับ|เรือหางยาวกลับ/.test(t);
-        const isHotel = (t) => /ห้องพัก|ที่พัก|ค่าที่พัก/.test(t);
-        const isSeaDay = (t) => /เรือ|อาหารเที่ยง|อาหารกลาง|บุฟเฟ่ต์|ดำน้ำ|อุปกรณ์|ไกด์|สตาฟ|มัคคุเทศ|อุทยาน|ประกัน|กาแฟ|ว่าง|น้ำดื่ม|น้ำแข็ง|รับลูกค้า|รถตู้รับส่งวันเที่ยว|รถรับส่งในเมือง/.test(t);
+        const isDay1Only = (t) => /Day\s*1|tuk-?tuk.*Day\s*1|airport pickup|airport transfer|tuk-?tuk tour/i.test(t);
+        const isDay3Only = (t) => /Day\s*3|city tour/i.test(t);
+        const isBreakfast = (t) => /breakfast/i.test(t);
+        const isReturn = (t) => /return to (shore|pier|mainland)|return boat|long-?tail.*return/i.test(t);
+        const isHotel = (t) => /room|hotel|accommodation|lodging|stay/i.test(t);
+        const isSeaDay = (t) => /boat|lunch|buffet|snorkel|diving|gear|guide|staff|park fee|insurance|coffee|snack|drinking water|ice|pickup|pick-up|van transfer|city transfer/i.test(t);
 
         for (const item of raw) {
           const text = String(item);
@@ -296,12 +299,12 @@
 
           if (combo) {
             const lunchDay = isPkg3d2n ? 2 : 1;
-            const breakfastMatch = combo.breakfast.match(/(\d+)\s*มื้อ/);
+            const breakfastMatch = combo.breakfast.match(/(\d+)\s*meals?/i);
             const breakfastCount = breakfastMatch ? parseInt(breakfastMatch[1], 10) : 1;
             put(lunchDay, combo.lunch);
             if (isPkg3d2n && breakfastCount >= 2) {
-              put(2, 'อาหารเช้า 1 มื้อ');
-              put(3, 'อาหารเช้า 1 มื้อ');
+              put(2, 'Breakfast × 1');
+              put(3, 'Breakfast × 1');
             } else {
               put(isPkg3d2n ? 3 : 2, combo.breakfast);
             }
@@ -310,23 +313,23 @@
 
           if (isPkg3d2n) {
             if (isDay1Only(text)) { put(1, text); continue; }
-            if (/รถตู้\s*city tour/i.test(text)) { put(3, text); continue; }
+            if (/van\s*city tour/i.test(text)) { put(3, text); continue; }
             if (isDay3Only(text)) { put(3, text); continue; }
             if (isBreakfast(text)) { put(3, text); continue; }
             if (isReturn(text)) { put(3, text); continue; }
-            if (/ห้องพัก\s*2\s*คืน|ที่พัก\s*2\s*คืน|ค่าที่พัก\s*2/.test(t)) {
-              put(1, text.replace(/\s*2\s*คืน/, ' · เช็กอิน'));
-              put(2, 'พักต่อที่ที่พัก');
+            if (/(?:room|hotel|accommodation|lodging).{0,20}2\s*nights?/i.test(t)) {
+              put(1, text.replace(/\s*2\s*nights?/i, ' · check-in'));
+              put(2, 'Continue stay at accommodation');
               continue;
             }
-            if (/เกาะไหง\s*2\s*คืน/.test(t)) {
+            if (/koh\s*(?:hai|ngai).{0,12}2\s*nights?/i.test(t)) {
               put(1, text);
-              put(2, 'พักผ่อนบนเกาะไหง');
+              put(2, 'Relax on Koh Ngai');
               continue;
             }
             if (isHotel(text)) { put(1, text); continue; }
-            if (/รถตู้รับส่ง/.test(t) && !/city tour/i.test(t)) { put(2, text); continue; }
-            if (isSeaDay(t) || /เกาะรอก|สปีดโบ/.test(t)) { put(2, text); continue; }
+            if (/van transfer|shuttle van/i.test(t) && !/city tour/i.test(t)) { put(2, text); continue; }
+            if (isSeaDay(t) || /koh\s*rok|speed\s*boat/i.test(t)) { put(2, text); continue; }
             put(2, text);
             continue;
           }
@@ -337,13 +340,13 @@
         }
 
         if (isPkg2d1n && days[1].items.length === 0) {
-          days[1].items.push('พักผ่อนที่ที่พัก · เช็กเอาท์ตามเวลา');
+          days[1].items.push('Relax at accommodation · checkout per schedule');
         }
         if (isPkg3d2n && days[2].items.length === 0) {
-          days[2].items.push('เช็กเอาท์ · เดินทางกลับตามโปรแกรม');
+          days[2].items.push('Checkout · return per program');
         }
         if (isPkg4d3n && days[3].items.length === 0) {
-          days[3].items.push('เช็กเอาท์ · เดินทางกลับตามโปรแกรม');
+          days[3].items.push('Checkout · return per program');
         }
 
         return days.filter((block) => block.items.length > 0);
@@ -373,7 +376,7 @@
             </div>`).join('');
         return `
           <div class="pkg-inc-switcher" id="pkg-inc-switcher">
-            <div class="pkg-inc-tabs" role="tablist" aria-label="สิ่งที่รวมแยกตามวัน">${tabs}</div>
+            <div class="pkg-inc-tabs" role="tablist" aria-label="Inclusions by day">${tabs}</div>
             <div class="pkg-inc-panels">${panels}</div>
           </div>`;
       }
@@ -402,25 +405,25 @@
 
       function roomPriceParts(room) {
         if (room && room.price != null && room.price > 0) {
-          return { amount: `฿${fmt.format(room.price)}`, unit: '/ ท่าน', book: false };
+          return { amount: `฿${fmt.format(room.price)}`, unit: '/ person', book: false };
         }
-        return { amount: 'จอง', unit: '', book: true };
+        return { amount: 'Inquire', unit: '', book: true };
       }
 
       const WW_HOTEL = 'https://www.xn--72c1af3ci9dk0j.com/wp-content/uploads';
       const HOTEL_IMAGE_KEYS = [
-        ['ชมตรัง', `${WW_HOTEL}/2019/08/ชมตรัง-min.jpg`],
-        ['เมซอง', `${WW_HOTEL}/2019/08/cc78dd160a4c679e30c2776ecec2aa636_4095006_190814_0048.jpg`],
-        ['ทับเที่ยง', `${WW_HOTEL}/2019/08/ณ-ทับเที่ยง-min.jpg`],
-        ['อิโค่อิ', `${WW_HOTEL}/2019/08/cc78dd160a4c679e30c2776ecec2aa636_4095029_190814_0002-min-1024x683.jpg`],
-        ['ไมตรี', `${WW_HOTEL}/2019/08/cc78dd160a4c679e30c2776ecec2aa636_4095010_190814_0055-min-1024x683.jpg`],
-        ['ธรรมรินทร์', `${WW_HOTEL}/2019/08/cc78dd160a4c679e30c2776ecec2aa636_4094997_190814_0071-min-1024x683.jpg`],
-        ['เรือรัษฎา', `${WW_HOTEL}/2019/08/Superior_sm-min-1024x683.jpg`],
-        ['แคมปิ้ง', `${WW_HOTEL}/2025/08/เกาะไหง-รีสอร์ท-1-Nov-23-Dec-23-11-Jan-24-Apr-24-3.jpg`],
-        ['เกาะไหง รีสอร์ท', `${WW_HOTEL}/2025/08/เกาะไหง-รีสอร์ท-1-Nov-23-Dec-23-11-Jan-24-Apr-24.jpg`],
-        ['แฟนตาซี', `${WW_HOTEL}/2025/08/แฟนตาซี-รีสอร์ท-1-May-31-Oct-23-2.jpg`],
-        ['ทับวารินทร์', `${WW_HOTEL}/2025/08/P2-นอนเกาะไหง-โปรแกรมทัวร์-ทับวารินทร์.jpg`],
-        ['ลิบง', `${WW_HOTEL}/2019/06/เที่ยวเกาะเหลาเหลียงวันเดย์25.jpg`],
+        ['Chom Trang', `${WW_HOTEL}/2019/08/%E0%B8%8A%E0%B8%A1%E0%B8%95%E0%B8%A3%E0%B8%B1%E0%B8%87-min.jpg`],
+        ['Maison', `${WW_HOTEL}/2019/08/cc78dd160a4c679e30c2776ecec2aa636_4095006_190814_0048.jpg`],
+        ['Thap Tiang', `${WW_HOTEL}/2019/08/%E0%B8%93-%E0%B8%97%E0%B8%B1%E0%B8%9A%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%87-min.jpg`],
+        ['Eco Inn', `${WW_HOTEL}/2019/08/cc78dd160a4c679e30c2776ecec2aa636_4095029_190814_0002-min-1024x683.jpg`],
+        ['Maitree', `${WW_HOTEL}/2019/08/cc78dd160a4c679e30c2776ecec2aa636_4095010_190814_0055-min-1024x683.jpg`],
+        ['Thammarin', `${WW_HOTEL}/2019/08/cc78dd160a4c679e30c2776ecec2aa636_4094997_190814_0071-min-1024x683.jpg`],
+        ['Ruen Rassada', `${WW_HOTEL}/2019/08/Superior_sm-min-1024x683.jpg`],
+        ['Koh Ngai Camping', `${WW_HOTEL}/2025/08/%E0%B9%80%E0%B8%81%E0%B8%B2%E0%B8%B0%E0%B9%84%E0%B8%AB%E0%B8%87-%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-1-Nov-23-Dec-23-11-Jan-24-Apr-24-3.jpg`],
+        ['Koh Ngai Resort', `${WW_HOTEL}/2025/08/%E0%B9%80%E0%B8%81%E0%B8%B2%E0%B8%B0%E0%B9%84%E0%B8%AB%E0%B8%87-%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-1-Nov-23-Dec-23-11-Jan-24-Apr-24.jpg`],
+        ['Fantasy', `${WW_HOTEL}/2025/08/%E0%B9%81%E0%B8%9F%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B8%8B%E0%B8%B5-%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-1-May-31-Oct-23-2.jpg`],
+        ['Thapwarin', `${WW_HOTEL}/2025/08/P2-%E0%B8%99%E0%B8%AD%E0%B8%99%E0%B9%80%E0%B8%81%E0%B8%B2%E0%B8%B0%E0%B9%84%E0%B8%AB%E0%B8%87-%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%81%E0%B8%81%E0%B8%A3%E0%B8%A1%E0%B8%97%E0%B8%B1%E0%B8%A7%E0%B8%A3%E0%B9%8C-%E0%B8%97%E0%B8%B1%E0%B8%9A%E0%B8%A7%E0%B8%B2%E0%B8%A3%E0%B8%B4%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B9%8C.jpg`],
+        ['Libong', `${WW_HOTEL}/2019/06/%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A7%E0%B9%80%E0%B8%81%E0%B8%B2%E0%B8%B0%E0%B9%80%E0%B8%AB%E0%B8%A5%E0%B8%B2%E0%B9%80%E0%B8%AB%E0%B8%A5%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%A7%E0%B8%B1%E0%B8%99%E0%B9%80%E0%B8%94%E0%B8%A2%E0%B9%8C25.jpg`],
       ];
       const HOTEL_IMAGE_FALLBACK = 'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=800';
 
@@ -465,8 +468,8 @@
                 </label>`;
           }).join('');
           const fromHtml = fromPrice != null
-            ? `<span class="pkg-hotel-card-from">เริ่ม <strong>฿${fmt.format(fromPrice)}</strong><span>/ ท่าน</span></span>`
-            : `<span class="pkg-hotel-card-from is-book">สอบถามราคา</span>`;
+            ? `<span class="pkg-hotel-card-from">From <strong>฿${fmt.format(fromPrice)}</strong><span>/ person</span></span>`
+            : `<span class="pkg-hotel-card-from is-book">Ask for price</span>`;
           return `
             <article class="pkg-hotel-item${hi === 0 ? ' is-selected' : ''}" data-hotel="${hi}">
               <div class="pkg-hotel-card${hi === 0 ? ' is-selected' : ''}" role="button" tabindex="0" aria-expanded="${hi === 0 ? 'true' : 'false'}">
@@ -478,11 +481,11 @@
                     <span class="pkg-hotel-card-name">${esc(hotel.name)}</span>
                     ${fromHtml}
                   </span>
-                  <button type="button" class="pkg-hotel-card-pick${hi === 0 ? ' is-active' : ''}">เลือกห้อง</button>
+                  <button type="button" class="pkg-hotel-card-pick${hi === 0 ? ' is-active' : ''}">Select room</button>
                 </span>
               </div>
               <div class="pkg-hotel-detail"${hi === 0 ? '' : ' hidden'}>
-                <p class="pkg-hotel-detail-label">เลือกประเภทห้อง</p>
+                <p class="pkg-hotel-detail-label">Choose room type</p>
                 <div class="pkg-hotel-rooms">${roomRows}</div>
               </div>
             </article>`;
@@ -490,8 +493,8 @@
         return `
           <section class="pkg-purchase pkg-hotel-section" id="pkg-hotel-block">
             <header class="pkg-info-head">
-              <span class="pkg-info-eyebrow">ที่พัก</span>
-              <h3>เลือกโรงแรม &amp; ห้อง</h3>
+              <span class="pkg-info-eyebrow">Stay</span>
+              <h3>Choose hotel &amp; room</h3>
             </header>
             <div class="pkg-hotel-summary" id="pkg-hotel-summary">
               <span class="pkg-hotel-summary-icon">${ICONS.bed}</span>
@@ -521,7 +524,7 @@
             ? esc(parts.amount)
             : `${esc(parts.amount)} <small>${esc(parts.unit)}</small>`;
         }
-        if (countEl) countEl.textContent = `${(hotel?.rooms || []).length} แบบ`;
+        if (countEl) countEl.textContent = `${(hotel?.rooms || []).length} types`;
       }
 
       function initHotelPicker(hotels, onChange) {
@@ -635,19 +638,19 @@
         };
       }
 
-      const season = p.season || 'ตั้งแต่ 1 ตุลาคม – 31 พฤษภาคม ออกเดินทางทุกวัน ตั้งแต่ 2 ท่านขึ้นไป';
+      const season = p.season || 'From 1 October – 31 May, daily departures, from 2 guests';
       const inclusions = (p.inclusions && p.inclusions.length) ? p.inclusions : DEFAULT_INCLUSIONS;
       const childPrice = p.childPrice != null && p.childPrice !== '' ? Number(p.childPrice) : Math.round(p.basePrice * 0.74);
-      const priceMeeting = p.priceMeetingNote || 'ราคานี้เจอกันที่ท่าเรือปากเมง';
+      const priceMeeting = p.priceMeetingNote || 'This price is for meeting at Pak Meng Pier';
       const pickupFee = p.pickupSurcharge != null && p.pickupSurcharge !== '' ? Number(p.pickupSurcharge) : 200;
       const priceNotes = (p.priceNotes && p.priceNotes.length) ? p.priceNotes : [
-        'เด็กเล็ก (อายุ 1–2.99 ปี) ฟรี',
-        'เด็ก (อายุ 3–11.99 ปี)',
-        'ผู้ใหญ่ (อายุ 12 ปีขึ้นไป)',
+        'Infants (ages 1–2.99) free',
+        'Children (ages 3–11.99)',
+        'Adults (age 12+)',
       ];
-      const warning = p.warning || 'โปรแกรมอาจเปลี่ยนแปลงตามสภาพอากาศและกระแสน้ำ ลูกค้าสามารถเลื่อนวันเดินทางได้โดยแจ้งล่วงหน้า 7 วัน ไม่มีการคืนเงิน';
+      const warning = p.warning || 'The program may change with weather and tides. You may reschedule with 7 days\' notice. No refunds.';
 
-      document.getElementById('page-title').textContent = `${p.name} | Talay Trang`;
+      document.getElementById('page-title').textContent = `${p.name} | Suwan Travel`;
       document.getElementById('page-desc').setAttribute('content', p.desc || p.route || p.name);
 
       const topRow = gallery.slice(0, 3).map(src => `<div class="pkg-gallery-cell"><img src="${esc(src)}" alt="" loading="lazy"/></div>`).join('');
@@ -660,7 +663,7 @@
         </div>`;
 
       document.getElementById('pkg-meta-bar').innerHTML = `
-        <span class="pkg-license">ใบอนุญาตนำเที่ยวที่ ${esc(licenseNo)}</span>
+        <span class="pkg-license">Tour license no. ${esc(licenseNo)}</span>
         <span class="pkg-code">${esc(code)}</span>`;
 
       (function renderItinerary() {
@@ -730,8 +733,8 @@
         ${hotelSectionHtml || ''}
         <section class="pkg-purchase" id="pkg-book">
           <header class="pkg-info-head">
-            <span class="pkg-info-eyebrow">พร้อมจองแล้ว</span>
-            <h3>กรอกรายละเอียด</h3>
+            <span class="pkg-info-eyebrow">Ready to book</span>
+            <h3>Enter your details</h3>
           </header>
 
           <form id="pkg-book-form" class="pkg-book-form" novalidate>
@@ -739,73 +742,73 @@
             <input type="hidden" name="room_idx" id="pkg-room-idx" value="0"/>
             <div class="pkg-book-date-row">
               <div class="field" data-pkg-field="date">
-                <label for="pkg-book-date">วันที่เริ่มเดินทาง <span class="req">*</span></label>
+                <label for="pkg-book-date">Start date <span class="req">*</span></label>
                 <input class="input" type="date" id="pkg-book-date" name="date" required/>
                 <div class="field-error"></div>
               </div>
               <div class="field">
-                <label for="pkg-book-date-end">วันสิ้นสุด</label>
+                <label for="pkg-book-date-end">End date</label>
                 <input class="input input-readonly" type="date" id="pkg-book-date-end" name="date_end" readonly tabindex="-1" aria-readonly="true"/>
               </div>
             </div>
             <div class="pkg-book-qty-row">
               <div class="field" data-pkg-field="adults">
-                <label>ผู้ใหญ่ <span class="req">*</span> <span class="field-hint">12 ปีขึ้นไป</span></label>
+                <label>Adults <span class="req">*</span> <span class="field-hint">Age 12+</span></label>
                 <div class="qty-stepper">
-                  <button type="button" class="qty-btn" data-qty="-" aria-label="ลดจำนวนผู้ใหญ่">−</button>
+                  <button type="button" class="qty-btn" data-qty="-" aria-label="Decrease adults">−</button>
                   <span class="qty-value">
-                    <input class="qty-input" type="number" name="adults" value="2" min="1" max="80" inputmode="numeric" aria-label="จำนวนผู้ใหญ่"/>
-                    <span class="qty-unit">ท่าน</span>
+                    <input class="qty-input" type="number" name="adults" value="2" min="1" max="80" inputmode="numeric" aria-label="Number of adults"/>
+                    <span class="qty-unit">pax</span>
                   </span>
-                  <button type="button" class="qty-btn" data-qty="+" aria-label="เพิ่มจำนวนผู้ใหญ่">+</button>
+                  <button type="button" class="qty-btn" data-qty="+" aria-label="Increase adults">+</button>
                 </div>
                 <div class="field-error"></div>
               </div>
               <div class="field" data-pkg-field="children">
-                <label>เด็ก <span class="field-hint">3–11 ปี</span></label>
+                <label>Children <span class="field-hint">Ages 3–11</span></label>
                 <div class="qty-stepper">
-                  <button type="button" class="qty-btn" data-qty="-" aria-label="ลดจำนวนเด็ก">−</button>
+                  <button type="button" class="qty-btn" data-qty="-" aria-label="Decrease children">−</button>
                   <span class="qty-value">
-                    <input class="qty-input" type="number" name="children" value="0" min="0" max="80" inputmode="numeric" aria-label="จำนวนเด็ก"/>
-                    <span class="qty-unit">ท่าน</span>
+                    <input class="qty-input" type="number" name="children" value="0" min="0" max="80" inputmode="numeric" aria-label="Number of children"/>
+                    <span class="qty-unit">pax</span>
                   </span>
-                  <button type="button" class="qty-btn" data-qty="+" aria-label="เพิ่มจำนวนเด็ก">+</button>
+                  <button type="button" class="qty-btn" data-qty="+" aria-label="Increase children">+</button>
                 </div>
                 <div class="field-error"></div>
               </div>
             </div>
             <div class="field" data-pkg-field="name">
-              <label for="pkg-book-name">ชื่อ-นามสกุล <span class="req">*</span></label>
-              <input class="input" type="text" id="pkg-book-name" name="name" placeholder="เช่น คุณสมชาย ใจดี" autocomplete="name" required/>
+              <label for="pkg-book-name">Full name <span class="req">*</span></label>
+              <input class="input" type="text" id="pkg-book-name" name="name" placeholder="e.g. Alex Johnson" autocomplete="name" required/>
               <div class="field-error"></div>
             </div>
             <div class="field" data-pkg-field="phone">
-              <label for="pkg-book-phone">เบอร์โทร <span class="req">*</span></label>
+              <label for="pkg-book-phone">Phone <span class="req">*</span></label>
               <input class="input" type="tel" id="pkg-book-phone" name="phone" placeholder="08X-XXX-XXXX" autocomplete="tel" inputmode="tel" required/>
               <div class="field-error"></div>
             </div>
             <div class="field">
-              <label for="pkg-book-note">หมายเหตุ <span class="field-hint">(ถ้ามี)</span></label>
-              <textarea class="textarea" id="pkg-book-note" name="note" rows="2" placeholder="เช่น ต้องการรับในเมือง, มีเด็กเล็ก ฯลฯ"></textarea>
+              <label for="pkg-book-note">Notes <span class="field-hint">(optional)</span></label>
+              <textarea class="textarea" id="pkg-book-note" name="note" rows="2" placeholder="e.g. city pickup, young children, etc."></textarea>
             </div>
 
             <div class="pkg-book-total" aria-live="polite">
               <div class="pkg-book-total-lines" id="pkg-book-lines"></div>
               <div class="pkg-book-total-sum">
-                <span>ยอดรวมโดยประมาณ</span>
+                <span>Estimated total</span>
                 <strong id="pkg-book-total">฿0</strong>
               </div>
             </div>
 
             <div class="pkg-book-actions">
               <button type="button" class="btn btn-line btn-lg" id="pkg-book-line">
-                ${ICONS.line} ส่งจองผ่าน LINE
+                ${ICONS.line} Send booking via LINE
               </button>
               <button type="button" class="btn btn-outline btn-lg" id="pkg-book-copy">
-                ${ICONS.copy} คัดลอกสรุปไว้ส่งเอง
+                ${ICONS.copy} Copy summary to send yourself
               </button>
             </div>
-            <p class="pkg-book-note">* ยอดคำนวณจากราคาต่อท่าน · แอดมินยืนยันราคาสุดท้ายทาง LINE</p>
+            <p class="pkg-book-note">* Calculated from per-person rates · final price confirmed on LINE</p>
           </form>
         </section>`;
 
@@ -818,7 +821,7 @@
       const inclusionHtml = renderInclusionsSection(p, inclusions);
 
       const noteHtml = priceNotes.map((n) => {
-        const excluded = /ไม่รวม/.test(String(n).trim());
+        const excluded = /not included|excluded/i.test(String(n).trim());
         return `
         <li class="pkg-note-item${excluded ? ' is-excluded' : ''}">
           <span class="${excluded ? 'pkg-note-exclude' : 'pkg-note-check'}">${excluded ? ICONS.close : ICONS.check}</span>
@@ -830,8 +833,8 @@
       pkgInfoPanel.innerHTML = `
         <section class="pkg-info-block">
           <header class="pkg-info-head">
-            <span class="pkg-info-eyebrow">ช่วงเวลา</span>
-            <h3>พร้อมออกเดินทาง</h3>
+            <span class="pkg-info-eyebrow">Season</span>
+            <h3>Ready to go</h3>
           </header>
           <div class="pkg-season-card">
             <span class="pkg-season-icon">${ICONS.clock}</span>
@@ -841,16 +844,16 @@
 
         <section class="pkg-info-block">
           <header class="pkg-info-head">
-            <span class="pkg-info-eyebrow">ครบในที่เดียว</span>
-            <h3>สิ่งที่รวมในแพ็กเกจ</h3>
+            <span class="pkg-info-eyebrow">All included</span>
+            <h3>What's included</h3>
           </header>
           ${inclusionHtml}
         </section>
 
         <section class="pkg-info-block">
           <header class="pkg-info-head">
-            <span class="pkg-info-eyebrow">เงื่อนไขราคา</span>
-            <h3>หมายเหตุ</h3>
+            <span class="pkg-info-eyebrow">Pricing terms</span>
+            <h3>Notes</h3>
           </header>
           <ul class="pkg-note-list">${noteHtml}</ul>
         </section>`;
@@ -863,7 +866,7 @@
 
       function getPkgTripDays(pkg) {
         const d = String(pkg.duration || '');
-        const m = d.match(/(\d+)\s*วัน/);
+        const m = d.match(/(\d+)\s*days?/i);
         if (m) return Math.max(1, parseInt(m[1], 10));
         const id = pkg.id;
         if ((PACKAGES_4D3N || []).some((x) => x.id === id)) return 4;
@@ -883,7 +886,7 @@
       function initPkgBookForm(pkg, childRate, hotels) {
         const form = document.getElementById('pkg-book-form');
         if (!form) return;
-        const lineUrl = (window.TT?.SITE?.lineUrl) || 'https://line.me/R/ti/p/%40talaytrang';
+        const lineUrl = (window.TT?.SITE?.lineUrl) || 'https://line.me/R/ti/p/%40ndpoolvilla';
         const tripDays = getPkgTripDays(pkg);
         const dateInput = form.querySelector('input[name="date"]');
         const endDateInput = form.querySelector('#pkg-book-date-end');
@@ -951,8 +954,7 @@
           if (!d) return '-';
           try {
             const dt = new Date(d + 'T12:00:00');
-            const months = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
-            return `${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear() + 543}`;
+            return dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
           } catch { return d; }
         }
 
@@ -1003,16 +1005,16 @@
           const lines = [];
           if (state.adults > 0) {
             const adultLabel = calc.isBookOnly
-              ? `ผู้ใหญ่ × ${state.adults}`
-              : `ผู้ใหญ่ ${fmt.format(calc.adultPrice)} × ${state.adults}`;
-            const adultSum = calc.isBookOnly ? 'จอง' : `฿${fmt.format(calc.adultTotal)}`;
+              ? `Adults × ${state.adults}`
+              : `Adults ${fmt.format(calc.adultPrice)} × ${state.adults}`;
+            const adultSum = calc.isBookOnly ? 'Inquire' : `฿${fmt.format(calc.adultTotal)}`;
             lines.push(`<div class="pkg-book-price-line"><span>${adultLabel}</span><span>${adultSum}</span></div>`);
           }
           if (state.children > 0) {
             const childLabel = calc.isBookOnly
-              ? `เด็ก × ${state.children}`
-              : `เด็ก ${fmt.format(calc.childPriceUnit)} × ${state.children}`;
-            const childSum = calc.isBookOnly ? 'จอง' : `฿${fmt.format(calc.childTotal)}`;
+              ? `Children × ${state.children}`
+              : `Children ${fmt.format(calc.childPriceUnit)} × ${state.children}`;
+            const childSum = calc.isBookOnly ? 'Inquire' : `฿${fmt.format(calc.childTotal)}`;
             lines.push(`<div class="pkg-book-price-line"><span>${childLabel}</span><span>${childSum}</span></div>`);
           }
           if (calc.selection?.hotelName) {
@@ -1020,8 +1022,8 @@
             let priceText;
             if (rp.book) {
               priceText = calc.adultPrice > 0
-                ? `~${esc(`฿${fmt.format(calc.adultPrice)}`)}/ท่าน`
-                : 'จอง';
+                ? `~${esc(`฿${fmt.format(calc.adultPrice)}`)}/person`
+                : 'Inquire';
             } else {
               priceText = `${rp.amount}${rp.unit ? ` ${rp.unit}` : ''}`;
             }
@@ -1031,7 +1033,7 @@
           const totalEl = document.getElementById('pkg-book-total');
           if (linesEl) linesEl.innerHTML = lines.join('');
           if (totalEl) {
-            totalEl.textContent = calc.isBookOnly ? 'จอง' : ('฿' + fmt.format(calc.total));
+            totalEl.textContent = calc.isBookOnly ? 'Inquire' : ('฿' + fmt.format(calc.total));
           }
           return { state, calc };
         }
@@ -1040,74 +1042,74 @@
         function validatePkgForm(state) {
           let ok = true;
           if (hotels?.length && !getSelectedRoomInfo()?.roomName) {
-            window.TT?.toast?.('กรุณาเลือกโรงแรมและประเภทห้อง');
+            window.TT?.toast?.('Please select a hotel and room type');
             ok = false;
           }
-          if (!state.date) { setPkgError('date', 'กรุณาเลือกวันที่เดินทาง'); ok = false; }
+          if (!state.date) { setPkgError('date', 'Please select a travel date'); ok = false; }
           else setPkgError('date', '');
-          if (!state.adults || state.adults < 1) { setPkgError('adults', 'ระบุผู้ใหญ่อย่างน้อย 1 ท่าน'); ok = false; }
+          if (!state.adults || state.adults < 1) { setPkgError('adults', 'At least 1 adult required'); ok = false; }
           else setPkgError('adults', '');
-          if (state.children < 0) { setPkgError('children', 'จำนวนเด็กไม่ถูกต้อง'); ok = false; }
+          if (state.children < 0) { setPkgError('children', 'Invalid number of children'); ok = false; }
           else setPkgError('children', '');
-          if (!state.name) { setPkgError('name', 'กรุณากรอกชื่อ'); ok = false; }
+          if (!state.name) { setPkgError('name', 'Please enter your name'); ok = false; }
           else setPkgError('name', '');
           const phoneClean = state.phone.replace(/\D/g, '');
           if (!state.phone || phoneClean.length < 9) {
-            setPkgError('phone', state.phone ? 'เบอร์โทรไม่ถูกต้อง' : 'กรุณากรอกเบอร์โทร');
+            setPkgError('phone', state.phone ? 'Invalid phone number' : 'Please enter your phone number');
             ok = false;
           } else setPkgError('phone', '');
           return ok;
         }
 
         function buildPkgLineMessage(state, calc) {
-          const code = pkg.packageCode ? `รหัส ${pkg.packageCode}` : `ID ${pkg.id}`;
+          const code = pkg.packageCode ? `Code ${pkg.packageCode}` : `ID ${pkg.id}`;
           const L = [
-            'สวัสดีครับ/ค่ะ สนใจจองแพ็กเกจทัวร์',
+            'Hello, I would like to book a tour package',
             '',
-            '— แพ็กเกจ —',
+            '— Package —',
             `${pkg.name}`,
             code,
-            pkg.route ? `เส้นทาง: ${pkg.route}` : '',
-            pkg.duration ? `ระยะเวลา: ${pkg.duration}` : '',
+            pkg.route ? `Route: ${pkg.route}` : '',
+            pkg.duration ? `Duration: ${pkg.duration}` : '',
             '',
-            '— ข้อมูลผู้จอง —',
-            `ชื่อ: ${state.name}`,
-            `เบอร์โทร: ${state.phone}`,
-            `วันเริ่มเดินทาง: ${formatThaiDate(state.date)}`,
-            state.dateEnd ? `วันสิ้นสุด: ${formatThaiDate(state.dateEnd)}` : '',
-            `ผู้ใหญ่: ${state.adults} ท่าน`,
+            '— Guest details —',
+            `Name: ${state.name}`,
+            `Phone: ${state.phone}`,
+            `Start date: ${formatThaiDate(state.date)}`,
+            state.dateEnd ? `End date: ${formatThaiDate(state.dateEnd)}` : '',
+            `Adults: ${state.adults}`,
           ];
-          if (state.children > 0) L.push(`เด็ก: ${state.children} ท่าน`);
-          L.push(`รวม: ${state.people} ท่าน`);
+          if (state.children > 0) L.push(`Children: ${state.children}`);
+          L.push(`Total: ${state.people} guests`);
           if (calc.selection?.hotelName) {
             L.push('');
-            L.push('— ที่พัก —');
-            L.push(`โรงแรม: ${calc.selection.hotelName}`);
-            L.push(`ห้อง: ${calc.selection.roomName}`);
+            L.push('— Accommodation —');
+            L.push(`Hotel: ${calc.selection.hotelName}`);
+            L.push(`Room: ${calc.selection.roomName}`);
             const rp = roomPriceParts(calc.selection.room);
             if (rp.book && calc.adultPrice > 0) {
-              L.push(`ราคา: ~฿${fmt.format(calc.adultPrice)}/ท่าน (เริ่มต้น · แอดมินยืนยันตามโรงแรม)`);
+              L.push(`Price: ~฿${fmt.format(calc.adultPrice)}/person (from · confirmed by team per hotel)`);
             } else {
-              L.push(`ราคา: ${rp.amount}${rp.unit ? ' ' + rp.unit : ''}`);
+              L.push(`Price: ${rp.amount}${rp.unit ? ' ' + rp.unit : ''}`);
             }
           }
           L.push('');
-          L.push('— สรุปราคา —');
+          L.push('— Price summary —');
           if (calc.isBookOnly) {
-            L.push('>>> ราคา: จอง (แอดมินยืนยัน) <<<');
+            L.push('>>> Price: Inquire (team will confirm) <<<');
           } else {
-            if (state.adults > 0) L.push(`ผู้ใหญ่: ฿${fmt.format(calc.adultPrice)} × ${state.adults} = ฿${fmt.format(calc.adultTotal)}`);
-            if (state.children > 0) L.push(`เด็ก: ฿${fmt.format(calc.childPriceUnit)} × ${state.children} = ฿${fmt.format(calc.childTotal)}`);
-            L.push(`>>> รวมโดยประมาณ: ฿${fmt.format(calc.total)} <<<`);
-            if (calc.roomQuoted) L.push('(ราคาโรงแรมที่เลือกอาจปรับตามช่วง · แอดมินยืนยันทาง LINE)');
+            if (state.adults > 0) L.push(`Adults: ฿${fmt.format(calc.adultPrice)} × ${state.adults} = ฿${fmt.format(calc.adultTotal)}`);
+            if (state.children > 0) L.push(`Children: ฿${fmt.format(calc.childPriceUnit)} × ${state.children} = ฿${fmt.format(calc.childTotal)}`);
+            L.push(`>>> Estimated total: ฿${fmt.format(calc.total)} <<<`);
+            if (calc.roomQuoted) L.push('(Selected hotel rate may vary by season · confirmed on LINE)');
           }
           if (state.note) {
             L.push('');
-            L.push('— หมายเหตุ —');
+            L.push('— Notes —');
             L.push(state.note);
           }
           L.push('');
-          L.push('รบกวนแอดมินติดต่อกลับเพื่อยืนยันการจองด้วยครับ/ค่ะ');
+          L.push('Please contact me to confirm the booking. Thank you.');
           return L.filter(Boolean).join('\n');
         }
 
@@ -1120,25 +1122,25 @@
         document.getElementById('pkg-book-line')?.addEventListener('click', () => {
           const { state, calc } = renderPkgTotal();
           if (!validatePkgForm(state)) {
-            window.TT?.toast?.('กรุณากรอกข้อมูลให้ครบ');
+            window.TT?.toast?.('Please complete all required fields');
             return;
           }
           const msg = buildPkgLineMessage(state, calc);
           try { navigator.clipboard?.writeText(msg); } catch {}
-          window.TT?.toast?.('คัดลอกข้อความแล้ว กำลังเปิด LINE…');
+          window.TT?.toast?.('Copied — opening LINE…');
           window.open(lineUrl, '_blank', 'noopener');
         });
 
         document.getElementById('pkg-book-copy')?.addEventListener('click', () => {
           const { state, calc } = renderPkgTotal();
           if (!validatePkgForm(state)) {
-            window.TT?.toast?.('กรุณากรอกข้อมูลให้ครบก่อนคัดลอก');
+            window.TT?.toast?.('Please complete all fields before copying');
             return;
           }
           const msg = buildPkgLineMessage(state, calc);
           navigator.clipboard?.writeText(msg).then(
-            () => window.TT?.toast?.('คัดลอกเรียบร้อย พร้อมส่งใน LINE'),
-            () => window.TT?.toast?.('คัดลอกไม่สำเร็จ')
+            () => window.TT?.toast?.('Copied — ready to send on LINE'),
+            () => window.TT?.toast?.('Copy failed')
           );
         });
       }

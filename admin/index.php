@@ -8,35 +8,35 @@ tt_require_admin();
 $data = tt_read_data();
 $updated = $data['meta']['updated'] ?? '—';
 
-tt_admin_header('ภาพรวม', 'dashboard');
+tt_admin_header('Overview', 'dashboard');
 $flash = tt_flash();
 if ($flash): ?>
   <div class="alert alert-success"><?= htmlspecialchars($flash, ENT_QUOTES, 'UTF-8') ?></div>
 <?php endif; ?>
 
 <div class="stats">
-  <div class="stat"><div class="stat-num"><?= count($data['boats'] ?? []) ?></div><div class="stat-label">ประเภทเรือ</div></div>
-  <div class="stat"><div class="stat-num"><?= count($data['programs'] ?? []) ?></div><div class="stat-label">โปรแกรม</div></div>
-  <div class="stat"><div class="stat-num"><?= count($data['articles'] ?? []) ?></div><div class="stat-label">บทความ</div></div>
-  <div class="stat"><div class="stat-num"><?= count($data['reviews'] ?? []) ?></div><div class="stat-label">รีวิว</div></div>
+  <div class="stat"><div class="stat-num"><?= count($data['boats'] ?? []) ?></div><div class="stat-label">Boat types</div></div>
+  <div class="stat"><div class="stat-num"><?= count($data['programs'] ?? []) ?></div><div class="stat-label">Programs</div></div>
+  <div class="stat"><div class="stat-num"><?= count($data['articles'] ?? []) ?></div><div class="stat-label">Articles</div></div>
+  <div class="stat"><div class="stat-num"><?= count($data['reviews'] ?? []) ?></div><div class="stat-label">Reviews</div></div>
 </div>
 
 <div class="card">
-  <h2>ข้อมูลล่าสุด</h2>
-  <p>อัปเดตล่าสุด: <strong><?= htmlspecialchars($updated, ENT_QUOTES, 'UTF-8') ?></strong></p>
-  <p class="field-hint">การบันทึกจากหลังบ้านจะอัปเดต <code>data/site.json</code> และ <code>assets/js/data-fallback.js</code> ทันที</p>
+  <h2>Latest data</h2>
+  <p>Last updated: <strong><?= htmlspecialchars($updated, ENT_QUOTES, 'UTF-8') ?></strong></p>
+  <p class="field-hint">Saving from the admin updates <code>data/site.json</code> and <code>assets/js/data-fallback.js</code> immediately</p>
   <div class="form-actions" style="border:0;padding-top:8px">
-    <a class="btn btn-primary" href="../index.html" target="_blank">เปิดหน้าเว็บ</a>
-    <a class="btn btn-ghost" href="section-headings.php">หัวข้อ Section</a>
-    <a class="btn btn-ghost" href="site.php">แก้ข้อมูลเว็บ</a>
-    <a class="btn btn-ghost" href="articles.php">จัดการบทความ</a>
-    <a class="btn btn-ghost" href="backup.php">สำรอง & กู้คืน</a>
+    <a class="btn btn-primary" href="../index.html" target="_blank">Open website</a>
+    <a class="btn btn-ghost" href="section-headings.php">Section headings</a>
+    <a class="btn btn-ghost" href="site.php">Edit site info</a>
+    <a class="btn btn-ghost" href="articles.php">Manage articles</a>
+    <a class="btn btn-ghost" href="backup.php">Backup & restore</a>
   </div>
 </div>
 
 <div class="card">
-  <h2>แก้ไขตามส่วน</h2>
-  <p class="field-hint" style="margin-bottom:16px">เลือกเมนูด้านซ้ายเพื่อแก้ไขแต่ละส่วนของเว็บ</p>
+  <h2>Edit by section</h2>
+  <p class="field-hint" style="margin-bottom:16px">Choose a menu on the left to edit each section of the website</p>
   <div class="grid-2">
     <?php foreach (tt_admin_nav() as $item): if ($item['id'] === 'dashboard') continue; ?>
       <a class="btn btn-ghost" href="<?= htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8') ?>" style="justify-content:flex-start">

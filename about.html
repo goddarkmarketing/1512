@@ -1,83 +1,112 @@
 <!doctype html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>เกี่ยวกับเรา — Talay Trang เช่าเรือตรัง โดยเจ้าถิ่นกันตัง</title>
-  <meta name="description" content="Talay Trang ทีมงานเจ้าถิ่นกันตัง บริการเช่าเรือเที่ยวทะเลตรัง มีออฟฟิศจริง รู้เส้นทาง ดูแลตั้งแต่ก่อนเดินทางจนจบทริป" />
+  <title>About Suwan Travel — Ao Nang, Krabi</title>
+  <meta name="description" content="Suwan Travel and Tour in Ao Nang, Krabi — day trips to Phi Phi, Hong Island, and Krabi 4 Islands, plus local car rental." />
   <meta name="theme-color" content="#0277bd" />
+  <link rel="icon" type="image/png" href="assets/logo/logo.png" />
+  <link rel="apple-touch-icon" href="assets/logo/logo.png" />
+  <meta property="og:title" content="About Suwan Travel" />
+  <meta property="og:description" content="Ao Nang, Krabi tour operator — day trips and car rental." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://images.pexels.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/fonts.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/about.css" />
 </head>
-<body data-tt-page="about">
-  <div id="site-header"></div>
+<body data-tt-page="about" class="about-page">
+  <div id="site-header" class="transparent"></div>
 
-  <section class="hero-sub">
-    <div class="hero-media"><img id="hero-img" alt="" /></div>
-    <div class="container hero-inner" data-reveal>
-      <span class="crumb" id="about-crumb"></span>
-      <h1 id="about-hero-title"></h1>
-      <p class="lead" id="about-hero-lead"></p>
+  <!-- HERO -->
+  <section class="about-hero" aria-label="About Suwan Travel">
+    <div class="about-hero-media">
+      <img id="about-hero-img" src="assets/uploads/tours/krabi-4islands/img-0.jpg" alt="Ao Nang, Krabi sea tours" />
+    </div>
+    <div class="container about-hero-inner">
+      <span class="about-badge" id="about-crumb">About us</span>
+      <h1 id="about-hero-title">Suwan Travel &amp; Tour, Ao Nang, Krabi</h1>
+      <p class="about-hero-lead" id="about-hero-lead">Day trips around Phi Phi, Hong Island, and Krabi’s 4 Islands, plus local car rental.</p>
+      <ul class="about-hero-pills">
+        <li><a href="programs.html"><span class="ico" data-icon="speedboat"></span>Island tours</a></li>
+        <li><a href="cars.html"><span class="ico" data-icon="car"></span>Car rental</a></li>
+        <li><a href="contact.html"><span class="ico" data-icon="compass"></span>Local experiences</a></li>
+      </ul>
+    </div>
+    <div class="about-wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#ffffff" d="M0,40 C280,80 520,8 760,36 C1000,64 1240,78 1440,28 L1440,80 L0,80 Z"/>
+      </svg>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="grid grid-2" style="align-items:center;">
-        <div data-reveal>
-          <span class="eyebrow" id="about-story-eyebrow"></span>
-          <h2 id="about-story-title"></h2>
-          <div id="about-story-paragraphs"></div>
-          <div class="btn-row" style="margin-top:1.4rem;" id="about-story-ctas"></div>
-        </div>
-        <div class="story-grid" id="story-grid"></div>
+  <!-- STORY -->
+  <section class="section about-story" id="story">
+    <div class="container about-story-grid">
+      <div data-reveal>
+        <span class="eyebrow" id="about-story-eyebrow">Our story</span>
+        <h2 id="about-story-title">Travel experiences from Ao Nang</h2>
+        <div id="about-story-paragraphs"></div>
+        <ul class="about-checks">
+          <li><span class="about-check" aria-hidden="true"></span>Local Ao Nang team</li>
+          <li><span class="about-check" aria-hidden="true"></span>Safe &amp; reliable day trips</li>
+          <li><span class="about-check" aria-hidden="true"></span>Flexible plans on LINE</li>
+        </ul>
+        <div class="btn-row" id="about-story-ctas"></div>
       </div>
+      <div class="about-collage" id="story-grid" data-reveal></div>
     </div>
   </section>
 
-  <section class="section section-soft">
+  <!-- WHY -->
+  <section class="section about-why" id="why">
+    <div class="about-why-wave-top" aria-hidden="true">
+      <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#ffffff" d="M0,28 C320,64 560,0 800,28 C1040,56 1280,64 1440,20 L1440,64 L0,64 Z"/>
+      </svg>
+    </div>
     <div class="container">
       <div class="section-head" data-reveal>
-        <span class="eyebrow" id="about-why-eyebrow"></span>
-        <h2 id="about-why-title"></h2>
+        <span class="eyebrow" id="about-why-eyebrow">Why book with us</span>
+        <h2 id="about-why-title">Simple booking, clear trip details</h2>
       </div>
-      <div class="grid grid-4" id="why-list"></div>
+      <div class="about-why-grid" id="why-list"></div>
+      <div class="about-stats" id="about-trust" data-reveal></div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="trust" data-reveal id="about-trust"></div>
-    </div>
-  </section>
-
-  <section class="section section-soft">
-    <div class="container">
-      <div class="section-head left" data-reveal>
-        <span class="eyebrow" id="about-office-eyebrow"></span>
-        <h2 id="about-office-title"></h2>
-      </div>
-      <div class="office" data-reveal>
-        <div class="office-map">
-          <iframe id="about-map" loading="lazy" title="แผนที่ออฟฟิศ Talay Trang"></iframe>
+  <!-- VISIT -->
+  <section class="section" id="visit">
+    <div class="container about-visit-grid">
+      <div data-reveal>
+        <span class="eyebrow" id="about-office-eyebrow">Visit us</span>
+        <h2 id="about-office-title">Ao Nang, Mueang Krabi</h2>
+        <div class="about-map">
+          <iframe id="about-map" loading="lazy" title="Suwan Travel office map, Ao Nang Krabi"></iframe>
         </div>
-        <div class="office-info">
-          <h2 id="about-office-info-title"></h2>
-          <p id="about-office-info-text"></p>
-          <ul class="contact-list" id="about-contact-list"></ul>
+      </div>
+      <div data-reveal>
+        <h3 id="about-office-info-title" style="margin-top:0;">Contact channels</h3>
+        <p id="about-office-info-text" class="lead" style="margin-bottom:0;"></p>
+        <ul class="about-contact-list" id="about-contact-list"></ul>
+        <div class="btn-row" style="margin-top:1.4rem;">
+          <a class="btn btn-line" id="about-line-btn" href="#" target="_blank" rel="noopener"><span data-icon="line"></span>Chat on LINE</a>
+          <a class="btn btn-outline" href="contact.html">All contact details</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section-deep">
-    <div class="container text-center" data-reveal>
-      <h2 id="about-cta-title"></h2>
-      <p class="lead" style="max-width:540px; margin:0 auto 1.6rem;" id="about-cta-lead"></p>
+  <!-- CTA -->
+  <section class="about-cta" id="about-cta">
+    <div class="about-cta-media">
+      <img id="about-cta-img" src="assets/uploads/tours/hong-kayak-sunset/img-0.jpg" alt="" aria-hidden="true" />
+    </div>
+    <div class="container about-cta-inner" data-reveal>
+      <h2 id="about-cta-title">Book your Krabi trip with us</h2>
+      <p id="about-cta-lead">Ask about tours or car rental on LINE @ndpoolvilla.</p>
       <div class="btn-row center" id="about-cta-buttons"></div>
     </div>
   </section>
@@ -98,61 +127,90 @@
       const cta = ABOUT.cta || {};
       const ctaPrimary = story.ctaPrimary || {};
       const ctaSecondary = story.ctaSecondary || {};
+      const lineUrl = SITE.lineUrl || '#';
 
-      document.getElementById('hero-img').src = IMAGES.heroAbout;
-      document.getElementById('hero-img').alt = hero.heroAlt || 'ทีมงาน Talay Trang ที่ทะเลตรัง';
-      document.getElementById('about-crumb').textContent = hero.crumb || '';
-      document.getElementById('about-hero-title').textContent = hero.title || '';
+      document.getElementById('about-hero-img').src = IMAGES.heroAbout || 'assets/uploads/tours/krabi-4islands/img-0.jpg';
+      document.getElementById('about-hero-img').alt = hero.heroAlt || 'Ao Nang, Krabi sea tours';
+      document.getElementById('about-crumb').textContent = hero.crumb || 'About us';
+      document.getElementById('about-hero-title').textContent = hero.title || 'Suwan Travel & Tour, Ao Nang, Krabi';
       document.getElementById('about-hero-lead').textContent = hero.lead || '';
 
-      document.getElementById('about-story-eyebrow').textContent = story.eyebrow || '';
+      document.getElementById('about-story-eyebrow').textContent = story.eyebrow || 'Our story';
       document.getElementById('about-story-title').textContent = story.title || '';
       document.getElementById('about-story-paragraphs').innerHTML = (story.paragraphs || [])
         .map(p => `<p>${p}</p>`).join('');
       document.getElementById('about-story-ctas').innerHTML = `
-        ${ctaPrimary.href ? `<a class="btn btn-primary" href="${ctaPrimary.href}">${ctaPrimary.label || ''}</a>` : ''}
-        ${ctaSecondary.href ? `<a class="btn btn-outline" href="${ctaSecondary.href}">${ctaSecondary.label || ''}</a>` : ''}
+        ${ctaPrimary.href ? `<a class="btn btn-line" href="${ctaPrimary.href}">${ctaPrimary.label || 'View tour packages'}</a>` : ''}
+        ${ctaSecondary.href ? `<a class="btn btn-outline" href="${ctaSecondary.href}">${ctaSecondary.label || 'View car rental'}</a>` : ''}
       `;
 
-      document.getElementById('story-grid').innerHTML = `
-        <img src="${IMAGES.about1}" alt="ภาพทีมงานพร้อมออกเรือทะเลตรัง" loading="lazy"/>
-        <img src="${IMAGES.about2}" alt="กัปตันและลูกค้าบนเรือ" loading="lazy"/>
-        <img src="${IMAGES.about3}" alt="ลูกค้าสนุกกับการเล่นน้ำที่เกาะ" loading="lazy"/>
-      `;
+      const collage = [
+        { src: IMAGES.about1 || 'assets/uploads/tours/phi-phi-maya-bamboo/img-0.jpg', alt: 'Longtail boat in Ao Nang', cls: 'about-collage-main' },
+        { src: IMAGES.about2 || 'assets/uploads/tours/phi-phi-sunset/img-0.jpg', alt: 'Sunset boat trip' },
+        { src: IMAGES.about3 || 'assets/uploads/tours/hong-kayak-sunset/img-2.jpg', alt: 'Snorkeling in Krabi' },
+      ];
+      /* Prefer local tour photos for collage when about* are remote stock */
+      const localCollage = [
+        { src: 'assets/uploads/tours/krabi-4islands/img-1.jpg', alt: 'Krabi coastline', cls: 'about-collage-main' },
+        { src: 'assets/uploads/tours/phi-phi-sunset/img-0.jpg', alt: 'Phi Phi sunset' },
+        { src: 'assets/uploads/tours/hong-paradise-speedboat/img-0.jpg', alt: 'Hong Island lagoon' },
+      ];
+      document.getElementById('story-grid').innerHTML = localCollage.map((img) =>
+        `<img class="${img.cls || ''}" src="${img.src}" alt="${img.alt}" loading="lazy"/>`
+      ).join('');
 
-      document.getElementById('about-why-eyebrow').textContent = whySection.eyebrow || '';
-      document.getElementById('about-why-title').textContent = whySection.title || '';
-      document.getElementById('why-list').innerHTML = WHY_US.map((w, i) => `
-        <div class="feature" style="--rd:${i*.06}s" data-reveal>
-          <span class="ico">${ICONS[w.icon] || ICONS.starOutline}</span>
+      document.getElementById('about-why-eyebrow').textContent = whySection.eyebrow || 'Why book with us';
+      document.getElementById('about-why-title').textContent = whySection.title || 'Simple booking, clear trip details';
+
+      const whyItems = [...(WHY_US || [])];
+      if (!whyItems.some(w => /support|friendly|line/i.test(w.title || ''))) {
+        whyItems.push({
+          icon: 'chat',
+          title: 'Friendly support',
+          desc: 'Quick replies on LINE @ndpoolvilla and WhatsApp.',
+        });
+      }
+      document.getElementById('why-list').innerHTML = whyItems.map((w, i) => `
+        <div class="about-why-card" style="--rd:${i * 0.05}s" data-reveal>
+          <span class="ico">${ICONS[w.icon] || ICONS.starOutline || ''}</span>
           <h3>${w.title}</h3>
           <p>${w.desc}</p>
         </div>
       `).join('');
 
-      document.getElementById('about-trust').innerHTML = (ABOUT.trust || []).map(t => `
-        <div class="trust-cell"><strong>${t.value}</strong><span>${t.label}</span></div>
+      const trust = ABOUT.trust || [];
+      document.getElementById('about-trust').innerHTML = trust.map((t) => `
+        <div class="about-stat"><strong>${t.value}${/^\d+$/.test(String(t.value)) ? '+' : ''}</strong><span>${t.label}</span></div>
       `).join('');
 
-      document.getElementById('about-office-eyebrow').textContent = office.eyebrow || '';
-      document.getElementById('about-office-title').textContent = office.title || '';
-      document.getElementById('about-office-info-title').textContent = office.infoTitle || '';
+      document.getElementById('about-office-eyebrow').textContent = office.eyebrow || 'Visit us';
+      document.getElementById('about-office-title').textContent = office.title || 'Ao Nang, Mueang Krabi';
+      document.getElementById('about-office-info-title').textContent = office.infoTitle || 'Contact channels';
       document.getElementById('about-office-info-text').textContent = office.infoText || '';
-      document.getElementById('about-map').src = window.TT?.SITE?.mapEmbed || '';
-      const aboutSite = window.TT?.SITE || {};
+      document.getElementById('about-map').src = SITE.mapEmbed || '';
+      document.getElementById('about-line-btn').href = lineUrl;
+
+      const phoneTel = (SITE.phone || '').replace(/\D/g, '');
+      const phone2Tel = (SITE.phone2 || '').replace(/\D/g, '');
       document.getElementById('about-contact-list').innerHTML = `
-        <li><span class="ico" data-icon="map"></span><span><strong>ที่ตั้งออฟฟิศ</strong><span>${aboutSite.addressFull || aboutSite.address || ''}</span></span></li>
-        <li><span class="ico" data-icon="clock"></span><span><strong>เวลาทำการ</strong><span>${aboutSite.hours || ''}</span></span></li>
-        <li><span class="ico" data-icon="phone"></span><span><strong>โทรหาเรา</strong><span><a href="tel:${(aboutSite.phone || '').replace(/\D/g, '')}">${aboutSite.phone || aboutSite.phoneDisplay || ''}</a></span></span></li>
-        <li><span class="ico" data-icon="line"></span><span><strong>LINE Official</strong><span><a href="${aboutSite.lineUrl || '#'}" target="_blank" rel="noopener">${aboutSite.lineId || ''}</a></span></span></li>
+        <li><span class="ico" data-icon="map"></span><span><strong>Office location</strong><span>${SITE.addressFull || SITE.address || ''}</span></span></li>
+        <li><span class="ico" data-icon="clock"></span><span><strong>Opening hours</strong><span>${SITE.hours || ''}</span></span></li>
+        <li><span class="ico" data-icon="phone"></span><span><strong>Call us</strong><span>
+          <a href="tel:${phoneTel}">${SITE.phone || ''}</a>${SITE.phone2 ? ` · <a href="tel:${phone2Tel}">${SITE.phone2}</a>` : ''}
+        </span></span></li>
+        <li><span class="ico" data-icon="line"></span><span><strong>LINE Official</strong><span><a href="${lineUrl}" target="_blank" rel="noopener">${SITE.lineId || '@ndpoolvilla'}</a></span></span></li>
       `;
 
-      document.getElementById('about-cta-title').textContent = cta.title || '';
-      document.getElementById('about-cta-lead').textContent = cta.lead || '';
+      document.getElementById('about-cta-title').textContent = cta.title || 'Book your Krabi trip with us';
+      document.getElementById('about-cta-lead').textContent = cta.lead || 'Ask about tours or car rental on LINE @ndpoolvilla.';
       document.getElementById('about-cta-buttons').innerHTML = `
-        <a class="btn btn-line btn-lg" href="${SITE.lineUrl || '#'}" target="_blank" rel="noopener"><span data-icon="line"></span>${cta.lineLabel || 'คุยกับเรา'}</a>
-        <a class="btn btn-ghost btn-lg" href="booking.html">${cta.bookingLabel || 'เริ่มจองเรือ'}</a>
+        <a class="btn btn-line btn-lg" href="${lineUrl}" target="_blank" rel="noopener"><span data-icon="line"></span>${cta.lineLabel || 'Chat on LINE'}</a>
+        <a class="btn btn-ghost btn-lg" href="programs.html">${cta.bookingLabel || 'Browse packages'}</a>
       `;
+
+      if (IMAGES.heroAbout && !/pexels/i.test(IMAGES.heroAbout)) {
+        document.getElementById('about-cta-img').src = IMAGES.heroAbout;
+      }
 
       window.TT.injectIcons();
       window.TT.bindReveal();

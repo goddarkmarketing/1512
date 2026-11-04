@@ -5,12 +5,12 @@ declare(strict_types=1);
 function tt_bb_nav_items(): array
 {
     return [
-        ['id' => 'profiles', 'href' => 'boat-booking-profiles.php', 'step' => 1, 'label' => 'โปรไฟล์เรือ'],
-        ['id' => 'routes', 'href' => 'boat-booking-routes.php', 'step' => 2, 'label' => 'เส้นทาง'],
-        ['id' => 'tiers', 'href' => 'boat-booking-tiers.php', 'step' => 3, 'label' => 'ช่วงจำนวนคน'],
-        ['id' => 'prices', 'href' => 'boat-booking-prices.php', 'step' => 4, 'label' => 'ราคาเหมา (หางยาว)'],
-        ['id' => 'insurance', 'href' => 'boat-booking-insurance.php', 'step' => 5, 'label' => 'ประกัน & ค่าบังคับ'],
-        ['id' => 'addons', 'href' => 'boat-booking-addons.php', 'step' => 6, 'label' => 'บริการเสริม'],
+        ['id' => 'profiles', 'href' => 'boat-booking-profiles.php', 'step' => 1, 'label' => 'Boat profiles'],
+        ['id' => 'routes', 'href' => 'boat-booking-routes.php', 'step' => 2, 'label' => 'Routes'],
+        ['id' => 'tiers', 'href' => 'boat-booking-tiers.php', 'step' => 3, 'label' => 'Group sizes'],
+        ['id' => 'prices', 'href' => 'boat-booking-prices.php', 'step' => 4, 'label' => 'Charter prices (long-tail)'],
+        ['id' => 'insurance', 'href' => 'boat-booking-insurance.php', 'step' => 5, 'label' => 'Insurance & mandatory fees'],
+        ['id' => 'addons', 'href' => 'boat-booking-addons.php', 'step' => 6, 'label' => 'Add-ons'],
     ];
 }
 
@@ -41,7 +41,7 @@ function tt_bb_render_nav(string $activeId): void
 {
     $activeId = tt_bb_active_nav_id($activeId);
     ?>
-<nav class="admin-subnav card adm-bb-subnav" aria-label="ลำดับตามขั้นตอนจองบนเว็บ">
+<nav class="admin-subnav card adm-bb-subnav" aria-label="Order of the booking steps on the website">
   <?php foreach (tt_bb_nav_items() as $item):
     $navId = 'boat-booking-' . $item['id'];
     $isActive = $navId === $activeId;
@@ -60,11 +60,11 @@ function tt_bb_render_preview_bar(): void
     ?>
 <div class="card admin-preview-bar">
   <div>
-    <strong>หน้าจอง:</strong>
+    <strong>Booking page:</strong>
     <a href="../boat-book.html" target="_blank" rel="noopener">boat-book.html</a>
-    — การ์ดชื่อ/รูปเรือที่เมนู <a href="boats.php">ประเภทเรือ</a>
+    — boat card name / image in the <a href="boats.php">Boat types</a> menu
   </div>
-  <a class="btn btn-ghost btn-sm" href="../boat-book.html" target="_blank" rel="noopener">ทดสอบจองเรือ ↗</a>
+  <a class="btn btn-ghost btn-sm" href="../boat-book.html" target="_blank" rel="noopener">Test boat booking ↗</a>
 </div>
 <?php
 }

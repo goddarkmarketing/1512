@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data['about'] = $about;
     tt_write_data($data);
-    tt_set_flash('บันทึกหน้าเกี่ยวกับเราแล้ว');
+    tt_set_flash('About page saved');
     header('Location: about.php');
     exit;
 }
@@ -77,7 +77,7 @@ $cta = $about['cta'] ?? [];
 $ctaPrimary = $story['ctaPrimary'] ?? [];
 $ctaSecondary = $story['ctaSecondary'] ?? [];
 
-tt_admin_header('หน้าเกี่ยวกับเรา', 'about');
+tt_admin_header('About page', 'about');
 $flash = tt_flash();
 if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
 
@@ -86,73 +86,73 @@ if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT
     <h2>Hero</h2>
     <div class="grid-2">
       <div class="field"><label>Crumb</label><input name="hero_crumb" value="<?= htmlspecialchars($hero['crumb'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field"><label>Alt รูป Hero</label><input name="hero_alt" value="<?= htmlspecialchars($hero['heroAlt'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field" style="grid-column:1/-1"><label>หัวข้อหลัก</label><input name="hero_title" value="<?= htmlspecialchars($hero['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field"><label>Hero image alt</label><input name="hero_alt" value="<?= htmlspecialchars($hero['heroAlt'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field" style="grid-column:1/-1"><label>Main heading</label><input name="hero_title" value="<?= htmlspecialchars($hero['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
       <div class="field" style="grid-column:1/-1"><label>Lead</label><textarea name="hero_lead"><?= htmlspecialchars($hero['lead'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea></div>
     </div>
-    <p class="field-hint">รูป Hero แก้ที่เมนู <a href="images.php">รูปภาพ (Registry)</a> → key <code>heroAbout</code> (<?= htmlspecialchars(tt_image_size_hint('heroAbout'), ENT_QUOTES, 'UTF-8') ?>)</p>
+    <p class="field-hint">Edit the Hero image in the <a href="images.php">Images (Registry)</a> menu → key <code>heroAbout</code> (<?= htmlspecialchars(tt_image_size_hint('heroAbout'), ENT_QUOTES, 'UTF-8') ?>)</p>
   </div>
 
   <div class="card">
-    <h2>เรื่องราว</h2>
+    <h2>Our story</h2>
     <div class="grid-2">
       <div class="field"><label>Eyebrow</label><input name="story_eyebrow" value="<?= htmlspecialchars($story['eyebrow'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field" style="grid-column:1/-1"><label>หัวข้อ</label><input name="story_title" value="<?= htmlspecialchars($story['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field" style="grid-column:1/-1"><label>ย่อหน้า (บรรทัดละ 1 ย่อหน้า)</label><textarea name="story_paragraphs" rows="5"><?= htmlspecialchars(implode("\n", $story['paragraphs'] ?? []), ENT_QUOTES, 'UTF-8') ?></textarea></div>
-      <div class="field"><label>ปุ่มหลัก — ข้อความ</label><input name="story_cta1_label" value="<?= htmlspecialchars($ctaPrimary['label'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field"><label>ปุ่มหลัก — ลิงก์</label><input name="story_cta1_href" value="<?= htmlspecialchars($ctaPrimary['href'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field"><label>ปุ่มรอง — ข้อความ</label><input name="story_cta2_label" value="<?= htmlspecialchars($ctaSecondary['label'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field"><label>ปุ่มรอง — ลิงก์</label><input name="story_cta2_href" value="<?= htmlspecialchars($ctaSecondary['href'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field" style="grid-column:1/-1"><label>Title</label><input name="story_title" value="<?= htmlspecialchars($story['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field" style="grid-column:1/-1"><label>Paragraphs (one paragraph per line)</label><textarea name="story_paragraphs" rows="5"><?= htmlspecialchars(implode("\n", $story['paragraphs'] ?? []), ENT_QUOTES, 'UTF-8') ?></textarea></div>
+      <div class="field"><label>Primary button — text</label><input name="story_cta1_label" value="<?= htmlspecialchars($ctaPrimary['label'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field"><label>Primary button — link</label><input name="story_cta1_href" value="<?= htmlspecialchars($ctaPrimary['href'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field"><label>Secondary button — text</label><input name="story_cta2_label" value="<?= htmlspecialchars($ctaSecondary['label'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field"><label>Secondary button — link</label><input name="story_cta2_href" value="<?= htmlspecialchars($ctaSecondary['href'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
     </div>
-    <p class="field-hint">รูป 3 รูปใน story grid แก้ที่ <code>about1</code> (<?= htmlspecialchars(tt_image_size_hint('about1'), ENT_QUOTES, 'UTF-8') ?>), <code>about2</code> / <code>about3</code> (<?= htmlspecialchars(tt_image_size_hint('about2'), ENT_QUOTES, 'UTF-8') ?>) ในเมนู <a href="images.php">รูปภาพ</a></p>
+    <p class="field-hint">The 3 images in the story grid are edited at <code>about1</code> (<?= htmlspecialchars(tt_image_size_hint('about1'), ENT_QUOTES, 'UTF-8') ?>), <code>about2</code> / <code>about3</code> (<?= htmlspecialchars(tt_image_size_hint('about2'), ENT_QUOTES, 'UTF-8') ?>) in the <a href="images.php">Images</a> menu</p>
   </div>
 
   <div class="card">
-    <h2>ส่วน Why us (หัวข้อ)</h2>
-    <p class="field-hint">รายการจุดเด่นแก้ที่เมนู <a href="why.php">จุดเด่น</a></p>
+    <h2>Why us section (heading)</h2>
+    <p class="field-hint">Edit the list of highlights in the <a href="why.php">Highlights</a> menu</p>
     <div class="grid-2">
       <div class="field"><label>Eyebrow</label><input name="why_eyebrow" value="<?= htmlspecialchars($whySection['eyebrow'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field"><label>หัวข้อ</label><input name="why_title" value="<?= htmlspecialchars($whySection['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field"><label>Title</label><input name="why_title" value="<?= htmlspecialchars($whySection['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
     </div>
   </div>
 
   <div class="card">
-    <h2>Trust strip (ตัวเลขความน่าเชื่อถือ)</h2>
+    <h2>Trust strip (credibility numbers)</h2>
     <?php
     $trustRows = $trust ?: [['value' => '', 'label' => '']];
     foreach ($trustRows as $i => $t): ?>
       <div class="grid-2 item-card" style="margin-bottom:12px">
-        <div class="field"><label>ตัวเลข #<?= $i + 1 ?></label><input name="trust_value[]" value="<?= htmlspecialchars($t['value'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-        <div class="field"><label>คำอธิบาย</label><input name="trust_label[]" value="<?= htmlspecialchars($t['label'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+        <div class="field"><label>Number #<?= $i + 1 ?></label><input name="trust_value[]" value="<?= htmlspecialchars($t['value'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+        <div class="field"><label>Description</label><input name="trust_label[]" value="<?= htmlspecialchars($t['label'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
       </div>
     <?php endforeach; ?>
-    <p class="field-hint">เพิ่มแถวได้โดยกรอกช่องว่างแล้วบันทึก — ลบแถวโดยลบข้อความทั้งสองช่อง</p>
+    <p class="field-hint">To add a row, fill in the empty fields and save — to remove a row, clear the text in both fields</p>
   </div>
 
   <div class="card">
-    <h2>ออฟฟิศ / แผนที่</h2>
-    <p class="field-hint">ที่อยู่ เบอร์โทร LINE และแผนที่ ดึงจาก <a href="site.php">ข้อมูลเว็บ</a> อัตโนมัติ</p>
+    <h2>Office / Map</h2>
+    <p class="field-hint">Address, phone, LINE and map are pulled automatically from <a href="site.php">Site info</a></p>
     <div class="grid-2">
       <div class="field"><label>Eyebrow</label><input name="office_eyebrow" value="<?= htmlspecialchars($office['eyebrow'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field"><label>หัวข้อ</label><input name="office_title" value="<?= htmlspecialchars($office['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field" style="grid-column:1/-1"><label>หัวข้อ info</label><input name="office_info_title" value="<?= htmlspecialchars($office['infoTitle'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field" style="grid-column:1/-1"><label>ข้อความ info</label><textarea name="office_info_text"><?= htmlspecialchars($office['infoText'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea></div>
+      <div class="field"><label>Title</label><input name="office_title" value="<?= htmlspecialchars($office['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field" style="grid-column:1/-1"><label>Info heading</label><input name="office_info_title" value="<?= htmlspecialchars($office['infoTitle'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field" style="grid-column:1/-1"><label>Info text</label><textarea name="office_info_text"><?= htmlspecialchars($office['infoText'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea></div>
     </div>
   </div>
 
   <div class="card">
-    <h2>CTA ท้ายหน้า</h2>
+    <h2>CTA at bottom of page</h2>
     <div class="grid-2">
-      <div class="field" style="grid-column:1/-1"><label>หัวข้อ</label><input name="cta_title" value="<?= htmlspecialchars($cta['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field" style="grid-column:1/-1"><label>Title</label><input name="cta_title" value="<?= htmlspecialchars($cta['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
       <div class="field" style="grid-column:1/-1"><label>Lead</label><textarea name="cta_lead"><?= htmlspecialchars($cta['lead'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea></div>
-      <div class="field"><label>ปุ่ม LINE</label><input name="cta_line_label" value="<?= htmlspecialchars($cta['lineLabel'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field"><label>ปุ่มจอง</label><input name="cta_booking_label" value="<?= htmlspecialchars($cta['bookingLabel'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field"><label>LINE button</label><input name="cta_line_label" value="<?= htmlspecialchars($cta['lineLabel'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field"><label>Booking button</label><input name="cta_booking_label" value="<?= htmlspecialchars($cta['bookingLabel'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
     </div>
   </div>
 
   <div class="form-actions">
-    <a class="btn btn-ghost" href="../about.html" target="_blank">ดูหน้าเว็บ</a>
-    <button type="submit" class="btn btn-primary">บันทึก</button>
+    <a class="btn btn-ghost" href="../about.html" target="_blank">View page</a>
+    <button type="submit" class="btn btn-primary">Save</button>
   </div>
 </form>
 

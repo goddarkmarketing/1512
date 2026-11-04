@@ -1,7 +1,7 @@
 <?php
 /**
  * Talay Trang — CMS configuration
- * เปลี่ยนรหัสผ่าน: แก้ ADMIN_PASSWORD แล้วลบไฟล์ data/admin-credentials.json (ถ้ามี) เพื่อสร้าง hash ใหม่
+ * Change password: update ADMIN_PASSWORD then delete data/admin-credentials.json (if present) to rebuild the hash.
  */
 declare(strict_types=1);
 
@@ -16,7 +16,7 @@ define('TT_BACKUP_DIR', TT_ROOT . '/data/backups');
 define('TT_BACKUP_MAX_MANUAL', 30);
 define('TT_BACKUP_MAX_AUTO', 15);
 
-/** รหัสผ่านเริ่มต้น — เปลี่ยนทันทีหลังติดตั้ง */
+/** Default password — change immediately after install */
 define('TT_ADMIN_USER', 'admin');
 define('TT_ADMIN_PASSWORD', 'talaytrang2026');
 

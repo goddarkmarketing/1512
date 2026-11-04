@@ -16,26 +16,26 @@ if (isset($_GET['delete']) && $_GET['delete'] !== '') {
     $addons = array_values(array_filter($addons, static fn($a) => ($a['id'] ?? '') !== $deleteId));
     $bb['addons'] = $addons;
     tt_bb_save($bb);
-    tt_set_flash('ลบบริการเสริมแล้ว');
+    tt_set_flash('Add-on deleted');
     header('Location: boat-booking-addons.php');
     exit;
 }
 
-tt_bb_page_start('⑥ บริการเสริม', 'addons');
+tt_bb_page_start('⑥ Add-ons', 'addons');
 ?>
 
 <div class="form-actions" style="border:0;margin-bottom:16px;padding:0">
-  <a class="btn btn-primary" href="boat-booking-addon-edit.php">+ เพิ่มบริการเสริม</a>
+  <a class="btn btn-primary" href="boat-booking-addon-edit.php">+ Add add-on</a>
 </div>
 
 <div class="card">
-  <p class="field-hint" style="margin:0 0 16px">ค่าเริ่มต้นทุกเรือ — โปรไฟล์เรือแต่ละประเภทสามารถกำหนดบริการเสริมเฉพาะได้</p>
+  <p class="field-hint" style="margin:0 0 16px">Default for all boats — each boat type profile can define its own add-ons</p>
   <?php if (!$addons): ?>
-    <p class="field-hint">ยังไม่มีบริการเสริม — กด <strong>+ เพิ่มบริการเสริม</strong> เพื่อสร้างรายการแรก</p>
+    <p class="field-hint">No add-ons yet — click <strong>+ Add add-on</strong> to create the first one</p>
   <?php else: ?>
   <table class="table">
     <thead>
-      <tr><th>ชื่อ</th><th>หน่วย</th><th>ราคา</th><th></th></tr>
+      <tr><th>Name</th><th>Unit</th><th>Price</th><th></th></tr>
     </thead>
     <tbody>
       <?php foreach ($addons as $a):
@@ -61,9 +61,9 @@ tt_bb_page_start('⑥ บริการเสริม', 'addons');
         </td>
         <td class="table-actions">
           <div class="table-actions-row">
-            <a class="btn btn-ghost btn-sm" href="boat-booking-addon-edit.php?id=<?= urlencode($id) ?>">แก้ไข</a>
-            <a class="btn btn-danger btn-sm" href="boat-booking-addons.php?delete=<?= urlencode($id) ?>" onclick="return confirm('ลบบริการเสริมนี้?')">ลบ</a>
-            <a class="btn btn-ghost btn-sm" href="../boat-book.html" target="_blank" rel="noopener">ดู</a>
+            <a class="btn btn-ghost btn-sm" href="boat-booking-addon-edit.php?id=<?= urlencode($id) ?>">Edit</a>
+            <a class="btn btn-danger btn-sm" href="boat-booking-addons.php?delete=<?= urlencode($id) ?>" onclick="return confirm('Delete this add-on?')">Delete</a>
+            <a class="btn btn-ghost btn-sm" href="../boat-book.html" target="_blank" rel="noopener">View</a>
           </div>
         </td>
       </tr>

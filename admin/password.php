@@ -14,11 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirm = $_POST['confirm'] ?? '';
 
     if (!tt_verify_login($_SESSION['tt_admin_user'] ?? TT_ADMIN_USER, $current)) {
-        $error = 'รหัสผ่านปัจจุบันไม่ถูกต้อง';
+        $error = 'Current password is incorrect';
     } elseif (strlen($new) < 8) {
-        $error = 'รหัสผ่านใหม่ต้องยาวอย่างน้อย 8 ตัวอักษร';
+        $error = 'New password must be at least 8 characters';
     } elseif ($new !== $confirm) {
-        $error = 'รหัสผ่านใหม่ไม่ตรงกัน';
+        $error = 'New passwords do not match';
     } else {
         $cred = [
             'username' => $_SESSION['tt_admin_user'] ?? TT_ADMIN_USER,
@@ -30,19 +30,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             json_encode($cred, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT),
             LOCK_EX
         );
-        $ok = 'เปลี่ยนรหัสผ่านเรียบร้อยแล้ว';
+        $ok = 'Password changed successfully';
     }
 }
 
-tt_admin_header('เปลี่ยนรหัสผ่าน', 'password');
+tt_admin_header('Change password', 'password');
 if ($error): ?><div class="alert alert-error"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div><?php endif;
 if ($ok): ?><div class="alert alert-success"><?= htmlspecialchars($ok, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
 
 <form method="post" class="card" style="max-width:480px">
-  <div class="field"><label>รหัสผ่านปัจจุบัน</label><input type="password" name="current" required autocomplete="current-password"/></div>
-  <div class="field"><label>รหัสผ่านใหม่</label><input type="password" name="new" required minlength="8" autocomplete="new-password"/></div>
-  <div class="field"><label>ยืนยันรหัสผ่านใหม่</label><input type="password" name="confirm" required minlength="8" autocomplete="new-password"/></div>
-  <div class="form-actions"><button type="submit" class="btn btn-primary">เปลี่ยนรหัสผ่าน</button></div>
+  <div class="field"><label>Current password</label><input type="password" name="current" required autocomplete="current-password"/></div>
+  <div class="field"><label>New password</label><input type="password" name="new" required minlength="8" autocomplete="new-password"/></div>
+  <div class="field"><label>Confirm new password</label><input type="password" name="confirm" required minlength="8" autocomplete="new-password"/></div>
+  <div class="form-actions"><button type="submit" class="btn btn-primary">Change password</button></div>
 </form>
 
 <?php tt_admin_footer(); ?>

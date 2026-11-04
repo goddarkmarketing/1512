@@ -1,6 +1,6 @@
 /* =========================================================
    Talay Trang — Social embeds (TikTok + Facebook)
-   ไม่ใช้ API — ใช้ embed อย่างเป็นทางการจากแพลตฟอร์ม
+   No API — uses official platform embeds
    ========================================================= */
 (function () {
   const TT = window.TT || {};
@@ -150,7 +150,7 @@
     const moreBtn = hidden.length
       ? `<div class="feed-more-wrap text-center mt-4" data-reveal>
           <button type="button" class="btn btn-outline btn-lg feed-more-btn" data-feed-step="${size}" aria-expanded="false">
-            ดูเพิ่มเติม (${hidden.length} คลิป)
+            See more (${hidden.length} clips)
           </button>
         </div>`
       : '';
@@ -176,7 +176,7 @@
         if (remaining <= 0) {
           btn.closest('.feed-more-wrap')?.remove();
         } else {
-          btn.textContent = `ดูเพิ่มเติม (${remaining} คลิป)`;
+          btn.textContent = `See more (${remaining} clips)`;
         }
         if (typeof TT.bindReveal === 'function') TT.bindReveal();
       });
@@ -239,7 +239,7 @@
     const href = encodeURIComponent(url);
     const h = height || 720;
     const w = width || 500;
-    const src = `https://www.facebook.com/plugins/page.php?href=${href}&tabs=timeline&width=${w}&height=${h}&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&locale=th_TH`;
+    const src = `https://www.facebook.com/plugins/page.php?href=${href}&tabs=timeline&width=${w}&height=${h}&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&locale=en_US`;
     return `<iframe
         class="fb-page-iframe"
         src="${src}"
@@ -268,7 +268,7 @@
     const lineUrl = site?.lineUrl || '#';
     const lineId = site?.lineId || '@talaytrang';
     const hours = site?.hours || '';
-    const address = site?.address || 'จังหวัดตรัง';
+    const address = site?.address || 'Trang Province';
 
     return `<aside class="fb-page-aside" data-reveal>
       <div class="fb-page-aside-glow" aria-hidden="true"></div>
@@ -276,45 +276,45 @@
         <div class="fb-page-aside-head">
           <span class="fb-page-aside-badge">Facebook Page</span>
           <h3 class="fb-page-aside-title">@${esc(label)}</h3>
-          <p class="fb-page-aside-lead">${esc(brand)} — ติดตามเพจเพื่อดูโปรโมชั่น คลิปทริปจริง และอัปเดตสภาพอากาศก่อนออกเรือ</p>
+          <p class="fb-page-aside-lead">${esc(brand)} — Follow the page for promotions, real trip clips, and weather updates before departure</p>
         </div>
 
         <div class="fb-aside-features">
           <article class="fb-aside-feature">
             <span class="fb-aside-feature-icon" aria-hidden="true">🌊</span>
             <div>
-              <strong>โปรเที่ยวทะเลตรัง</strong>
-              <p>แพ็กเกจ ไปเช้า–เย็นกลับ / 2 วัน 1 คืน / เหมาลำเรือ — อัปเดตสม่ำเสมอ</p>
+              <strong>Trang sea trip deals</strong>
+              <p>Day trips / 2D1N / private boat charter — updated regularly</p>
             </div>
           </article>
           <article class="fb-aside-feature">
             <span class="fb-aside-feature-icon" aria-hidden="true">📸</span>
             <div>
-              <strong>คลิปจากทริปจริง</strong>
-              <p>ดูบรรยากาศ น้ำทะเล และรีวิวจากลูกค้าจริงก่อนตัดสินใจจอง</p>
+              <strong>Clips from real trips</strong>
+              <p>See the atmosphere, sea conditions, and real customer reviews before you book</p>
             </div>
           </article>
           <article class="fb-aside-feature">
             <span class="fb-aside-feature-icon" aria-hidden="true">🌧️</span>
             <div>
-              <strong>อัปเดตสภาพอากาศ</strong>
-              <p>แจ้งฝน คลื่น และความพร้อมออกเรือ — ช่วยวางแผนทริปได้แม่นยำ</p>
+              <strong>Weather updates</strong>
+              <p>Rain, waves, and departure readiness — plan your trip with confidence</p>
             </div>
           </article>
         </div>
 
         <div class="fb-aside-info">
-          ${phone ? `<div class="fb-aside-info-row"><span>โทร</span><a href="tel:${esc(String(phone).replace(/\D/g, ''))}">${esc(phone)}</a></div>` : ''}
+          ${phone ? `<div class="fb-aside-info-row"><span>Call</span><a href="tel:${esc(String(phone).replace(/\D/g, ''))}">${esc(phone)}</a></div>` : ''}
           <div class="fb-aside-info-row"><span>LINE</span><a href="${esc(lineUrl)}" target="_blank" rel="noopener">${esc(lineId)}</a></div>
-          ${hours ? `<div class="fb-aside-info-row"><span>เวลา</span><span>${esc(hours)}</span></div>` : ''}
-          <div class="fb-aside-info-row"><span>พื้นที่</span><span>${esc(address)}</span></div>
+          ${hours ? `<div class="fb-aside-info-row"><span>Hours</span><span>${esc(hours)}</span></div>` : ''}
+          <div class="fb-aside-info-row"><span>Area</span><span>${esc(address)}</span></div>
         </div>
 
         <div class="fb-page-aside-cta">
           <a class="btn btn-primary btn-lg fb-aside-btn-fb" href="${esc(openUrl)}" target="_blank" rel="noopener">
-            <span data-icon="fb"></span>เปิดเพจ Facebook
+            <span data-icon="fb"></span>Open Facebook page
           </a>
-          <a class="btn btn-outline btn-lg" href="${esc(lineUrl)}" target="_blank" rel="noopener">จองผ่าน LINE</a>
+          <a class="btn btn-outline btn-lg" href="${esc(lineUrl)}" target="_blank" rel="noopener">Book via LINE</a>
         </div>
       </div>
     </aside>`;
@@ -324,7 +324,7 @@
     return `<div class="fb-page-embed" data-reveal>
       <div class="fb-page-layout">
         <div class="fb-page-iframe-wrap" id="fb-page-iframe-wrap">
-          <p class="fb-page-loading muted">กำลังโหลด Facebook Feed…</p>
+          <p class="fb-page-loading muted">Loading Facebook Feed…</p>
         </div>
         ${facebookPageAsideHtml(pageUrl, site || {})}
       </div>
@@ -342,9 +342,9 @@
     const openUrl = fbUrl || pageUrl || '#';
     const pageLabel = pageUrl ? pageUrl.replace(/^https?:\/\/(www\.)?facebook\.com\/?/i, '') : 'Facebook';
     return `<div class="social-feed-empty social-feed-fb-card" data-reveal>
-      <p><strong>เพจ Facebook — ${esc(pageLabel)}</strong></p>
-      <p class="muted">Feed อาจไม่แสดงในบางเบราว์เซอร์ (Ad blocker / คุกกี้) — กดปุ่มด้านล่างเพื่อเปิดเพจโดยตรง</p>
-      <a class="btn btn-primary" href="${esc(openUrl)}" target="_blank" rel="noopener">เปิดเพจ Facebook</a>
+      <p><strong>Facebook page — ${esc(pageLabel)}</strong></p>
+      <p class="muted">The feed may not show in some browsers (ad blocker / cookies) — tap the button below to open the page directly</p>
+      <a class="btn btn-primary" href="${esc(openUrl)}" target="_blank" rel="noopener">Open Facebook page</a>
     </div>`;
   }
 
@@ -358,7 +358,7 @@
       if (fbUrl) {
         host.innerHTML = facebookFallbackCard(fbUrl, '');
       } else {
-        host.innerHTML = `<div class="social-feed-empty"><p>ยังไม่ได้ตั้งลิงก์ Facebook</p><p class="muted">ตั้งค่าใน admin → ข้อมูลเว็บ → <strong>Facebook URL</strong></p></div>`;
+        host.innerHTML = `<div class="social-feed-empty"><p>Facebook link not set</p><p class="muted">Set it in admin → Site info → <strong>Facebook URL</strong></p></div>`;
       }
       return;
     }
@@ -378,7 +378,7 @@
     if (tiktokHost) {
       const mounted = mountPaginatedFeed(tiktokHost, videos, 'tiktok', ic, FEED_PAGE_SIZE);
       if (!mounted) {
-        tiktokHost.innerHTML = `<div class="social-feed-empty"><p>ยังไม่มีคลิป TikTok</p><p class="muted">เพิ่มใน admin → วิดีโอ แล้ววางลิงก์คลิปจาก TikTok (Share → Copy link)</p></div>`;
+        tiktokHost.innerHTML = `<div class="social-feed-empty"><p>No TikTok clips yet</p><p class="muted">Add them in admin → Videos, then paste a TikTok clip link (Share → Copy link)</p></div>`;
       }
     }
 
@@ -390,7 +390,7 @@
         fbVideosHost.innerHTML = `<div class="embed-grid embed-grid--facebook">${fbEmbeds}</div>`;
         if (clipsWrap) clipsWrap.hidden = false;
       } else if (fbAll) {
-        fbVideosHost.innerHTML = `<p class="social-feed-hint">วาง<strong>ลิงก์คลิป Facebook</strong> ใน admin → วิดีโอ (เลือกแพลตฟอร์ม Facebook)</p><div class="video-grid">${fbAll}</div>`;
+        fbVideosHost.innerHTML = `<p class="social-feed-hint">Paste a <strong>Facebook clip link</strong> in admin → Videos (select Facebook platform)</p><div class="video-grid">${fbAll}</div>`;
         if (clipsWrap) clipsWrap.hidden = false;
       } else {
         fbVideosHost.innerHTML = '';

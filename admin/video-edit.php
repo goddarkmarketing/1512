@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $postIdx = isset($_POST['idx']) ? (int)$_POST['idx'] : -1;
     $title = trim($_POST['title'] ?? '');
     if ($title === '') {
-        tt_set_flash('กรุณาระบุชื่อวิดีโอ');
+        tt_set_flash('Please enter a video title');
         header('Location: video-edit.php' . ($postIdx >= 0 ? '?i=' . $postIdx : ''));
         exit;
     }
@@ -56,19 +56,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data['videos'] = $videos;
     tt_write_data($data);
-    tt_set_flash('บันทึกวิดีโอแล้ว');
+    tt_set_flash('Video saved');
     header('Location: video-edit.php?i=' . $postIdx);
     exit;
 }
 
-$pageTitle = $isNew ? 'เพิ่มวิดีโอ' : 'แก้ไขวิดีโอ';
+$pageTitle = $isNew ? 'Add video' : 'Edit video';
 tt_admin_header($pageTitle, 'videos');
 $flash = tt_flash();
 if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
 
 <form method="post">
   <div class="card">
-    <h2>วิดีโอ Social (TikTok / Facebook)</h2>
+    <h2>Social video (TikTok / Facebook)</h2>
     <input type="hidden" name="idx" value="<?= $isNew ? -1 : $idx ?>"/>
 
     <?php if (!empty($video['thumb'])): ?>
@@ -76,31 +76,31 @@ if ($flash): ?><div class="alert alert-success"><?= htmlspecialchars($flash, ENT
     <?php endif; ?>
 
     <div class="grid-2">
-      <div class="field"><label>แพลตฟอร์ม</label>
+      <div class="field"><label>Platform</label>
         <select name="platform" id="video-platform">
           <option value="tiktok"<?= $platform === 'tiktok' ? ' selected' : '' ?>>TikTok</option>
           <option value="facebook"<?= $platform === 'facebook' ? ' selected' : '' ?>>Facebook</option>
         </select>
       </div>
-      <div class="field"><label>ชื่อวิดีโอ</label><input name="title" required value="<?= htmlspecialchars($video['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
-      <div class="field"><label>ID (ตัวเลข)</label><input name="vid" type="number" min="1" value="<?= (int)($video['id'] ?? 0) ?>" placeholder="ว่าง = สร้างอัตโนมัติ"/></div>
-      <div class="field"><label>ยอดวิว (ข้อความ)</label><input name="views" value="<?= htmlspecialchars($video['views'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="128K"/></div>
-      <div class="field" style="grid-column:1/-1"><label>ลิงก์คลิป</label><input name="url" value="<?= htmlspecialchars($video['url'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="วางลิงก์คลิปจาก Share → Copy link"/></div>
-      <?php tt_render_image_url_field('URL รูปปก', 'thumb', $video['thumb'] ?? '', ['context' => 'video_thumb', 'style' => 'grid-column:1/-1']); ?>
+      <div class="field"><label>Video title</label><input name="title" required value="<?= htmlspecialchars($video['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/></div>
+      <div class="field"><label>ID (number)</label><input name="vid" type="number" min="1" value="<?= (int)($video['id'] ?? 0) ?>" placeholder="Blank = auto-generate"/></div>
+      <div class="field"><label>Views (text)</label><input name="views" value="<?= htmlspecialchars($video['views'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="128K"/></div>
+      <div class="field" style="grid-column:1/-1"><label>Video link</label><input name="url" value="<?= htmlspecialchars($video['url'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="Paste the video link from Share → Copy link"/></div>
+      <?php tt_render_image_url_field('Cover image URL', 'thumb', $video['thumb'] ?? '', ['context' => 'video_thumb', 'style' => 'grid-column:1/-1']); ?>
     </div>
 
     <p class="field-hint" id="video-url-hint">
-      <strong>TikTok:</strong> ใช้ลิงก์คลิป เช่น <code>https://www.tiktok.com/@user/video/123...</code> (ไม่ใช่ลิงก์โปรไฟล์)<br/>
-      <strong>Facebook:</strong> ใช้ลิงก์คลิป/Reels จากเพจ เช่น <code>facebook.com/.../videos/...</code> หรือ <code>fb.watch/...</code>
+      <strong>TikTok:</strong> use the video link, e.g. <code>https://www.tiktok.com/@user/video/123...</code> (not the profile link)<br/>
+      <strong>Facebook:</strong> use the video / Reels link from the page, e.g. <code>facebook.com/.../videos/...</code> or <code>fb.watch/...</code>
     </p>
 
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">บันทึก</button>
-      <a class="btn btn-ghost" href="videos.php">กลับ</a>
-      <a class="btn btn-ghost" href="media.php">อัปโหลดรูป</a>
-      <a class="btn btn-ghost" href="../videos.html" target="_blank">ดูหน้าวิดีโอ</a>
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a class="btn btn-ghost" href="videos.php">Back</a>
+      <a class="btn btn-ghost" href="media.php">Upload image</a>
+      <a class="btn btn-ghost" href="../videos.html" target="_blank">View videos page</a>
       <?php if (!$isNew): ?>
-        <a class="btn btn-danger" href="videos.php?delete=<?= $idx ?>" onclick="return confirm('ลบวิดีโอนี้?')">ลบวิดีโอนี้</a>
+        <a class="btn btn-danger" href="videos.php?delete=<?= $idx ?>" onclick="return confirm('Delete this video?')">Delete this video</a>
       <?php endif; ?>
     </div>
   </div>

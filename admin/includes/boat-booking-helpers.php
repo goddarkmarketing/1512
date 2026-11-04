@@ -251,12 +251,12 @@ function tt_bb_get(array $data): array
 function tt_bb_addon_unit_label(string $unit): string
 {
     return match ($unit) {
-        'perPerson', 'per_person' => 'ต่อท่าน (กรอกจำนวน)',
-        'perPersonSplit', 'per_person_split' => 'แยกผู้ใหญ่/เด็ก (กรอกจำนวน)',
-        'perBoat', 'per_boat' => 'ต่อลำ',
-        'perVan', 'per_van' => 'ต่อคัน',
-        'perQty', 'per_qty' => 'กรอกจำนวน',
-        default => 'ต่อลำ (คงที่)',
+        'perPerson', 'per_person' => 'Per person (enter count)',
+        'perPersonSplit', 'per_person_split' => 'Adult/child split (enter count)',
+        'perBoat', 'per_boat' => 'Per boat',
+        'perVan', 'per_van' => 'Per van',
+        'perQty', 'per_qty' => 'Enter quantity',
+        default => 'Per boat (fixed)',
     };
 }
 
@@ -271,12 +271,12 @@ function tt_bb_render_addon_unit_select(string $name, string $selected): void
         default => $selected,
     };
     $options = [
-        'flat' => 'ต่อลำ (คงที่)',
-        'perPerson' => 'ต่อท่าน (กรอกจำนวน)',
-        'perPersonSplit' => 'แยกผู้ใหญ่/เด็ก (กรอกจำนวน)',
-        'perBoat' => 'ต่อลำ (คูณจำนวนเรือ)',
-        'perVan' => 'ต่อคัน (กรอกจำนวน)',
-        'perQty' => 'กรอกจำนวน (ไกด์/ช่างภาพ)',
+        'flat' => 'Per boat (fixed)',
+        'perPerson' => 'Per person (enter count)',
+        'perPersonSplit' => 'Adult/child split (enter count)',
+        'perBoat' => 'Per boat (multiplied by number of boats)',
+        'perVan' => 'Per van (enter count)',
+        'perQty' => 'Enter quantity (guide/photographer)',
     ];
     ?>
 <select name="<?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?>">

@@ -10,16 +10,16 @@ $sections = tt_home_sections($data);
 $keys = ['hero', 'boats', 'programs', 'packages3d2n', 'packages4d3n', 'booking', 'reviews', 'videos', 'office', 'cta'];
 
 $labels = [
-    'hero' => 'แบนเนอร์ — ข้อความบนรูปสไลด์',
-    'boats' => 'Section แพ็กเกจไปเช้าเย็นกลับ (#boats)',
-    'programs' => 'Section แพ็กเกจ 2 วัน 1 คืน (#home-section-programs)',
-    'packages3d2n' => 'Section แพ็กเกจ 3 วัน 2 คืน (#home-section-packages3d2n)',
-    'packages4d3n' => 'Section แพ็กเกจ 4 วัน 3 คืน (#home-section-packages4d3n)',
-    'booking' => 'Section ขั้นตอนจอง (4 ขั้นตอน)',
-    'reviews' => 'Section รีวิวลูกค้า',
-    'videos' => 'Section TikTok / วิดีโอ',
-    'office' => 'Section ออฟฟิศ / แผนที่',
-    'cta' => 'Section CTA ท้ายหน้า',
+    'hero' => 'Banner — text over the slide image',
+    'boats' => 'Day trip packages section (#boats)',
+    'programs' => '2 days 1 night packages section (#home-section-programs)',
+    'packages3d2n' => '3 days 2 nights packages section (#home-section-packages3d2n)',
+    'packages4d3n' => '4 days 3 nights packages section (#home-section-packages4d3n)',
+    'booking' => 'Booking steps section (4 steps)',
+    'reviews' => 'Customer reviews section',
+    'videos' => 'TikTok / Videos section',
+    'office' => 'Office / Map section',
+    'cta' => 'CTA section at bottom of page',
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -43,15 +43,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $data['homeSections'] = $out;
     if (tt_write_data($data)) {
-        tt_set_flash('บันทึกหัวข้อ Section แล้ว — เปิดหน้าแรกแล้วกดรีเฟรชเพื่อดูผล');
+        tt_set_flash('Section headings saved — open the home page and refresh to see the result');
     } else {
-        tt_set_flash('บันทึกไม่สำเร็จ', 'error');
+        tt_set_flash('Save failed', 'error');
     }
     header('Location: section-headings.php');
     exit;
 }
 
-tt_admin_header('หัวข้อ Section', 'section-headings');
+tt_admin_header('Section headings', 'section-headings');
 $flash = tt_flash();
 $flashType = tt_flash_type();
 if ($flash): ?>
@@ -59,8 +59,8 @@ if ($flash): ?>
 <?php endif; ?>
 
 <div class="card">
-  <h2>หัวข้อ Section หน้าแรก</h2>
-  <p class="field-hint">แก้เฉพาะ <strong>หัวข้อใหญ่</strong> ของแต่ละ Section บน index.html (Eyebrow / H2 / คำอธิบาย) — ไม่รวมการ์ดรายการ การ์ดแพ็กเกจไปเช้าเย็นกลับ/โปรแกรม/รีวิว แก้ที่เมนู <a href="programs.php">โปรแกรมทัวร์</a> (รหัส # บนการ์ด), <a href="boats.php">ประเภทเรือ</a>, <a href="reviews.php">รีวิว</a></p>
+  <h2>Home page section headings</h2>
+  <p class="field-hint">Edit only the <strong>main heading</strong> of each Section on index.html (Eyebrow / H2 / description) — excluding list cards. Day trip package cards / programs / reviews are edited in the <a href="programs.php">Tour programs</a> menu (the # code on the card), <a href="boats.php">Boat types</a>, <a href="reviews.php">Reviews</a></p>
 </div>
 
 <form method="post">
@@ -76,43 +76,43 @@ if ($flash): ?>
     <div class="grid-2">
       <?php if ($key !== 'hero'): ?>
       <div class="field">
-        <label>ข้อความเล็กด้านบน (Eyebrow)</label>
+        <label>Small text above (Eyebrow)</label>
         <input name="<?= $key ?>_eyebrow" value="<?= htmlspecialchars($s['eyebrow'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/>
       </div>
       <?php endif; ?>
       <div class="field" style="<?= $key === 'hero' ? 'grid-column:1/-1' : '' ?>">
-        <label>หัวข้อหลัก (H2)</label>
+        <label>Main heading (H2)</label>
         <input name="<?= $key ?>_title" value="<?= htmlspecialchars($s['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/>
       </div>
       <?php if ($key === 'office'): ?>
       <div class="field" style="grid-column:1/-1">
-        <label>หัวข้อในกล่องข้อมูลออฟฟิศ</label>
+        <label>Heading in the office info box</label>
         <input name="office_infoTitle" value="<?= htmlspecialchars($s['infoTitle'] ?? '', ENT_QUOTES, 'UTF-8') ?>"/>
       </div>
       <div class="field" style="grid-column:1/-1">
-        <label>คำอธิบายในกล่องข้อมูลออฟฟิศ</label>
+        <label>Description in the office info box</label>
         <textarea name="office_infoLead" rows="2"><?= htmlspecialchars($s['infoLead'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
       </div>
       <?php endif; ?>
       <?php if ($key !== 'office'): ?>
       <div class="field" style="grid-column:1/-1">
-        <label>คำอธิบาย (Lead)</label>
+        <label>Description (Lead)</label>
         <textarea name="<?= $key ?>_lead" rows="2"><?= htmlspecialchars($s['lead'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
       </div>
       <?php endif; ?>
       <?php if ($key === 'videos'): ?>
       <div class="field">
-        <label>ชื่อ TikTok ในลิงก์ (เช่น @talaytrang)</label>
+        <label>TikTok name in the link (e.g. @talaytrang)</label>
         <input name="videos_tiktokHandle" value="<?= htmlspecialchars($s['tiktokHandle'] ?? '@talaytrang', ENT_QUOTES, 'UTF-8') ?>"/>
-        <p class="field-hint">ลิงก์ไป URL TikTok จากเมนู <a href="site.php">ข้อมูลเว็บ</a></p>
+        <p class="field-hint">The link goes to the TikTok URL from the <a href="site.php">Site info</a> menu</p>
       </div>
       <?php endif; ?>
     </div>
   </div>
   <?php endforeach; ?>
   <div class="form-actions">
-    <button type="submit" class="btn btn-primary">บันทึกหัวข้อ Section ทั้งหมด</button>
-    <a class="btn btn-ghost" href="../index.html" target="_blank" rel="noopener">เปิดดูหน้าแรก ↗</a>
+    <button type="submit" class="btn btn-primary">Save all section headings</button>
+    <a class="btn btn-ghost" href="../index.html" target="_blank" rel="noopener">Open home page ↗</a>
   </div>
 </form>
 
