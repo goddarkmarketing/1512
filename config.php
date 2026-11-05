@@ -22,3 +22,9 @@ define('TT_ADMIN_PASSWORD', 'talaytrang2026');
 
 /** Session */
 define('TT_SESSION_NAME', 'tt_admin_session');
+
+/**
+ * Card checkout (Stripe). Leave empty until the live secret key is set.
+ * Never put this key in site.json or frontend JavaScript.
+ */
+define('TT_STRIPE_SECRET_KEY', getenv('TT_STRIPE_SECRET_KEY') ?: '');

@@ -1,7 +1,7 @@
 {
     "meta": {
         "version": 1,
-        "updated": "2026-11-03T17:27:12.866Z",
+        "updated": "2026-11-05T04:31:57.775Z",
         "tiktokRssSynced": "https://raw.githubusercontent.com/goddarkmarketing/tiktok-rss-flat/main/rss/talaytrang.xml",
         "note": "Suwan Travel Krabi — homepage refreshed for day trips and car rental"
     },
@@ -82,7 +82,17 @@
         "mapEmbed": "https://maps.google.com/maps?q=1267+Moo+2+Ao+Nang+Mueang+Krabi+Krabi+81180&hl=en&z=16&output=embed",
         "phone2": "080-6323483",
         "whatsapp": "+66937414111",
-        "whatsappUrl": "https://wa.me/66937414111"
+        "whatsappUrl": "https://wa.me/66937414111",
+        "paymentNote": "Pay the full amount by bank transfer or Wise. No deposit. Payment details are sent on WhatsApp after you confirm.",
+        "payment": {
+            "promptPayId": "0937414111",
+            "promptPayName": "Suwan Travel",
+            "bankName": "Kasikorn Bank",
+            "accountName": "Suwan Travel",
+            "accountNumber": "012-3-45678-9",
+            "bankSample": true,
+            "wiseEmail": ""
+        }
     },
     "navItems": [
         {
@@ -1035,7 +1045,7 @@
         {
             "icon": "starOutline",
             "title": "Local Krabi team",
-            "desc": "Based in Ao Nang, Krabi — easy to reach by phone, WhatsApp, or LINE."
+            "desc": "Based in Ao Nang, Krabi — easy to reach by phone or WhatsApp."
         },
         {
             "icon": "shield",
@@ -1069,14 +1079,14 @@
         {
             "n": 3,
             "icon": "line",
-            "title": "Message us",
-            "desc": "Contact LINE @ndpoolvilla or WhatsApp to confirm availability."
+            "title": "Message us on WhatsApp",
+            "desc": "Confirm the date and group on WhatsApp. We reply with the full price."
         },
         {
             "n": 4,
             "icon": "check",
-            "title": "Confirm & go",
-            "desc": "Receive pickup time and meeting details before your trip."
+            "title": "Pay in full",
+            "desc": "Pay the full amount by bank transfer or Wise. No deposit. Then we send your pickup time."
         }
     ],
     "services": [
@@ -1091,9 +1101,9 @@
             "href": "cars.html"
         },
         {
-            "icon": "line",
-            "title": "Book on LINE",
-            "href": "https://line.me/R/ti/p/%40ndpoolvilla",
+            "icon": "whatsapp",
+            "title": "Book on WhatsApp",
+            "href": "https://wa.me/66937414111",
             "external": true
         }
     ],
@@ -1133,7 +1143,7 @@
             "title": "Travel experiences from Ao Nang",
             "paragraphs": [
                 "Suwan Travel and Tour operates from Ao Nang, Krabi. We arrange speedboat and longtail day trips to Phi Phi, Maya Bay, Hong Island, and the Krabi 4 Islands, plus daily car rental.",
-                "Message us on LINE @ndpoolvilla or WhatsApp to check availability, pickup times, and current conditions."
+                "Message us on WhatsApp +66937414111 to check availability. Pay the full amount by bank transfer or Wise — no deposit."
             ],
             "ctaPrimary": {
                 "href": "programs.html",
@@ -1174,8 +1184,8 @@
         },
         "cta": {
             "title": "Book your Krabi trip with us",
-            "lead": "Ask about tours or car rental on LINE @ndpoolvilla.",
-            "lineLabel": "Chat on LINE",
+            "lead": "Ask about tours or car rental on WhatsApp. Pay the full amount by bank transfer or Wise.",
+            "lineLabel": "Chat on WhatsApp",
             "bookingLabel": "Browse packages"
         }
     },
@@ -1244,7 +1254,7 @@
         "booking": {
             "eyebrow": "Easy booking",
             "title": "How to book",
-            "lead": "Pick a package, confirm on LINE @ndpoolvilla or WhatsApp, then receive your pickup time."
+            "lead": "Pick a package, confirm on WhatsApp, then pay the full amount by bank transfer or Wise. No deposit."
         },
         "reviews": {
             "eyebrow": "",
@@ -1266,7 +1276,7 @@
         "cta": {
             "eyebrow": "Ready when you are",
             "title": "Ready for Krabi? Book with Suwan Travel",
-            "lead": "Tours from 1,350 THB · Car rental from 900 THB · LINE @ndpoolvilla"
+            "lead": "Tours from 1,350 THB · Car rental from 900 THB · Pay in full by bank transfer or Wise"
         }
     },
     "boatBooking": {

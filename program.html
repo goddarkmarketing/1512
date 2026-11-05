@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://images.pexels.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/fonts.css" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/style.css?v=payui6" />
 </head>
 <body data-tt-page="program">
   <div id="site-header"></div>
@@ -800,15 +800,51 @@
               </div>
             </div>
 
+            <fieldset class="pkg-pay-choice">
+              <legend>How would you like to pay?</legend>
+              <div class="pkg-pay-grid">
+                <label class="pkg-pay-opt">
+                  <input type="radio" name="pay_method" value="card" />
+                  <span class="pkg-pay-logos" aria-hidden="true">
+                    <img src="assets/icon/1736409068278-213734dd376baa9642331bf4620bcb41.png" alt="" />
+                    <img src="assets/icon/1736479220958-0c6dae87da47bf1bbf6ae51ab5150617.png" alt="" />
+                  </span>
+                  <span class="pkg-pay-copy">
+                    <strong>Card</strong>
+                    <small>Enter the card details.</small>
+                  </span>
+                </label>
+                <label class="pkg-pay-opt">
+                  <input type="radio" name="pay_method" value="transfer" />
+                  <span class="pkg-pay-logos" aria-hidden="true">
+                    <img src="assets/icon/1736480762727-aef62311a0107a1e58dac9b3492b4f4c.png" alt="" />
+                  </span>
+                  <span class="pkg-pay-copy">
+                    <strong>Bank transfer</strong>
+                    <small>Bank name and account number.</small>
+                  </span>
+                </label>
+                <label class="pkg-pay-opt">
+                  <input type="radio" name="pay_method" value="promptpay" />
+                  <span class="pkg-pay-logos" aria-hidden="true">
+                    <img class="is-wide" src="assets/icon/promptpay.png" alt="PromptPay" />
+                  </span>
+                  <span class="pkg-pay-copy">
+                    <strong>PromptPay</strong>
+                    <small>Scan the QR to pay.</small>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
             <div class="pkg-book-actions">
-              <button type="button" class="btn btn-line btn-lg" id="pkg-book-line">
-                ${ICONS.line} Send booking via LINE
+              <button type="button" class="btn btn-primary btn-lg" id="pkg-book-pay">
+                Continue to payment
               </button>
-              <button type="button" class="btn btn-outline btn-lg" id="pkg-book-copy">
-                ${ICONS.copy} Copy summary to send yourself
+              <button type="button" class="btn btn-line btn-lg" id="pkg-book-line">
+                ${ICONS.whatsapp || ICONS.line} Ask on WhatsApp
               </button>
             </div>
-            <p class="pkg-book-note">* Calculated from per-person rates · final price confirmed on LINE</p>
+            <p class="pkg-book-note">* Full payment only. No deposit. Choose card, bank transfer, or PromptPay.</p>
           </form>
         </section>`;
 
@@ -886,7 +922,7 @@
       function initPkgBookForm(pkg, childRate, hotels) {
         const form = document.getElementById('pkg-book-form');
         if (!form) return;
-        const lineUrl = (window.TT?.SITE?.lineUrl) || 'https://line.me/R/ti/p/%40ndpoolvilla';
+        const waBase = (window.TT?.SITE?.whatsappUrl) || 'https://wa.me/66937414111';
         const tripDays = getPkgTripDays(pkg);
         const dateInput = form.querySelector('input[name="date"]');
         const endDateInput = form.querySelector('#pkg-book-date-end');
@@ -1101,7 +1137,8 @@
             if (state.adults > 0) L.push(`Adults: ฿${fmt.format(calc.adultPrice)} × ${state.adults} = ฿${fmt.format(calc.adultTotal)}`);
             if (state.children > 0) L.push(`Children: ฿${fmt.format(calc.childPriceUnit)} × ${state.children} = ฿${fmt.format(calc.childTotal)}`);
             L.push(`>>> Estimated total: ฿${fmt.format(calc.total)} <<<`);
-            if (calc.roomQuoted) L.push('(Selected hotel rate may vary by season · confirmed on LINE)');
+            if (calc.roomQuoted) L.push('(Selected hotel rate may vary by season · confirmed on WhatsApp)');
+            L.push('Payment: full amount by bank transfer or Wise (no deposit).');
           }
           if (state.note) {
             L.push('');
@@ -1119,6 +1156,38 @@
         });
         renderPkgTotal();
 
+        document.getElementById('pkg-book-pay')?.addEventListener('click', () => {
+          const { state, calc } = renderPkgTotal();
+          if (!validatePkgForm(state)) {
+            window.TT?.toast?.('Please complete all required fields');
+            return;
+          }
+          if (calc.isBookOnly || !(calc.total > 0)) {
+            window.TT?.toast?.('This package needs a price on WhatsApp first');
+            return;
+          }
+          const method = form.querySelector('input[name="pay_method"]:checked')?.value;
+          if (method !== 'card' && method !== 'transfer' && method !== 'promptpay') {
+            window.TT?.toast?.('Please choose card, bank transfer, or PromptPay');
+            return;
+          }
+          sessionStorage.setItem('tt-checkout', JSON.stringify({
+            ref: 'ST-' + Date.now().toString(36).toUpperCase(),
+            packageId: pkg.id,
+            packageName: pkg.name,
+            date: state.date,
+            dateEnd: state.dateEnd || '',
+            adults: state.adults,
+            children: state.children,
+            name: state.name,
+            phone: state.phone,
+            note: state.note || '',
+            total: calc.total,
+            method,
+          }));
+          location.href = 'checkout.html';
+        });
+
         document.getElementById('pkg-book-line')?.addEventListener('click', () => {
           const { state, calc } = renderPkgTotal();
           if (!validatePkgForm(state)) {
@@ -1127,8 +1196,9 @@
           }
           const msg = buildPkgLineMessage(state, calc);
           try { navigator.clipboard?.writeText(msg); } catch {}
-          window.TT?.toast?.('Copied — opening LINE…');
-          window.open(lineUrl, '_blank', 'noopener');
+          window.TT?.toast?.('Opening WhatsApp…');
+          const waLink = waBase + (waBase.includes('?') ? '&' : '?') + 'text=' + encodeURIComponent(msg);
+          window.open(waLink, '_blank', 'noopener');
         });
 
         document.getElementById('pkg-book-copy')?.addEventListener('click', () => {
@@ -1139,7 +1209,7 @@
           }
           const msg = buildPkgLineMessage(state, calc);
           navigator.clipboard?.writeText(msg).then(
-            () => window.TT?.toast?.('Copied — ready to send on LINE'),
+            () => window.TT?.toast?.('Copied — ready to send on WhatsApp'),
             () => window.TT?.toast?.('Copy failed')
           );
         });

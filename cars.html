@@ -33,7 +33,7 @@
       <ul class="cars-hero-checks">
         <li><span class="ico" data-icon="car"></span>New &amp; clean cars</li>
         <li><span class="ico" data-icon="shield"></span>Insurance included</li>
-        <li><span class="ico" data-icon="chat"></span>Easy LINE booking</li>
+        <li><span class="ico" data-icon="whatsapp"></span>Book on WhatsApp</li>
       </ul>
       <div class="btn-row cars-hero-cta">
         <a class="btn btn-primary btn-lg" href="#fleet">Browse cars →</a>
@@ -78,7 +78,7 @@
     <div class="container">
       <div class="cars-info-grid" data-reveal>
         <div class="cars-info-card">
-          <h3>Security deposit</h3>
+          <h3>How to pay</h3>
           <ul class="cars-check-list" id="cars-deposit"></ul>
         </div>
         <div class="cars-info-card">
@@ -100,10 +100,10 @@
     </div>
     <div class="container cars-cta-inner" data-reveal>
       <span class="eyebrow">Ready to book?</span>
-      <h2>Message us on LINE to reserve your car</h2>
-      <p>Tell us the car model, rental dates, and pickup point — we’ll confirm availability and deposit details.</p>
+      <h2>Message us on WhatsApp to reserve your car</h2>
+      <p>Tell us the car, dates, and pickup point. Pay the full amount by bank transfer or Wise — no deposit. We’ll send payment details on WhatsApp.</p>
       <div class="btn-row center">
-        <a class="btn btn-line btn-lg" id="cars-line-btn" href="#" target="_blank" rel="noopener"><span data-icon="line"></span>Book on LINE</a>
+        <a class="btn btn-line btn-lg" id="cars-line-btn" href="#" target="_blank" rel="noopener"><span data-icon="whatsapp"></span>Book on WhatsApp</a>
         <a class="btn btn-ghost btn-lg" id="cars-wa-btn" href="#" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
@@ -121,8 +121,7 @@
       const rental = window.TT.CAR_RENTAL || {};
       const vehicles = rental.vehicles || [];
       const fmt = new Intl.NumberFormat('en-US');
-      const lineUrl = SITE.lineUrl || '#';
-      const waUrl = SITE.whatsappUrl || (SITE.whatsapp ? `https://wa.me/${String(SITE.whatsapp).replace(/\D/g,'')}` : '#');
+      const waUrl = SITE.whatsappUrl || (SITE.whatsapp ? `https://wa.me/${String(SITE.whatsapp).replace(/\D/g,'')}` : 'https://wa.me/66937414111');
 
       const heroSrc = vehicles.find(v => /veloz/i.test(v.name))?.image
         || IMAGES.heroCars
@@ -132,7 +131,7 @@
       document.getElementById('cars-title').textContent = rental.title || 'Car rental';
       document.getElementById('cars-lead').textContent = rental.lead || '';
       document.getElementById('cars-count').textContent = `${vehicles.length} cars available`;
-      document.getElementById('cars-line-btn').href = lineUrl;
+      document.getElementById('cars-line-btn').href = waUrl;
       document.getElementById('cars-wa-btn').href = waUrl;
 
       const badgeFor = (car, i) => {
@@ -149,7 +148,7 @@
       document.getElementById('cars-grid').innerHTML = vehicles.map((car, i) => {
         const badge = badgeFor(car, i);
         const ask = encodeURIComponent(`Hi, I'd like to rent the ${car.name} (${fmt.format(car.pricePerDay)} THB/day).`);
-        const href = lineUrl.includes('?') ? `${lineUrl}&text=${ask}` : lineUrl;
+        const href = `${waUrl}${waUrl.includes('?') ? '&' : '?'}text=${ask}`;
         return `
         <a class="car-card" href="${href}" target="_blank" rel="noopener" data-reveal style="--rd:${i * 0.04}s">
           <div class="car-card-media">
@@ -179,7 +178,7 @@
         { icon: 'car', title: 'Wide selection', desc: 'Compact cars to 7-seat MPVs' },
         { icon: 'shield', title: 'Insurance included', desc: 'Confirm cover before pickup' },
         { icon: 'ticket', title: 'Best daily rates', desc: 'From 900 THB per day' },
-        { icon: 'chat', title: 'LINE support', desc: 'Fast booking via @ndpoolvilla' },
+        { icon: 'whatsapp', title: 'WhatsApp booking', desc: 'Pay in full by bank transfer or Wise' },
       ].map((w) => `
         <div class="cars-why-item" data-reveal>
           <div class="cars-why-ico">${ICONS[w.icon] || ''}</div>
@@ -188,12 +187,11 @@
         </div>
       `).join('');
 
-      const dep = rental.deposit || {};
       document.getElementById('cars-deposit').innerHTML = `
-        <li><span class="cars-check" aria-hidden="true"></span><span>Cash deposit <strong>THB ${fmt.format(dep.cash || 3000)}</strong></span></li>
-        <li><span class="cars-check" aria-hidden="true"></span><span>Cash / credit card hold <strong>THB ${fmt.format(dep.cardOrCashHold || 5000)}</strong></span></li>
-        <li><span class="cars-check" aria-hidden="true"></span><span>Valid ID card or passport + driving licence</span></li>
-        ${dep.note ? `<li><span class="cars-check" aria-hidden="true"></span><span>${dep.note}</span></li>` : ''}
+        <li><span class="cars-check" aria-hidden="true"></span><span>Pay the <strong>full amount</strong> — no deposit</span></li>
+        <li><span class="cars-check" aria-hidden="true"></span><span>Bank transfer or Wise</span></li>
+        <li><span class="cars-check" aria-hidden="true"></span><span>We send payment details on WhatsApp after you confirm</span></li>
+        <li><span class="cars-check" aria-hidden="true"></span><span>Valid ID or passport and driving licence at pickup</span></li>
       `;
 
       document.getElementById('cars-notes').innerHTML = (rental.notes || [

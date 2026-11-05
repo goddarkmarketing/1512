@@ -23,7 +23,7 @@
     <div class="container hero-inner" data-reveal>
       <span class="crumb">Contact us</span>
       <h1>Happy to answer every question</h1>
-      <p class="lead">Choose the channel that works best for you — message on LINE for a quick reply, call or WhatsApp for details,<br/>or visit us at the Ao Nang, Krabi office.</p>
+      <p class="lead">International guests book on WhatsApp. Pay the full amount by bank transfer or Wise — no deposit.<br/>We’ll send payment details after you confirm the trip.</p>
     </div>
   </section>
 
@@ -38,7 +38,7 @@
           <h2>Choose what works for you</h2>
           <ul class="contact-list"></ul>
           <div class="btn-row" style="margin-top:1rem;">
-            <a class="btn btn-line btn-lg" data-tt-line-btn href="#" target="_blank" rel="noopener"><span data-icon="line"></span>Add LINE</a>
+            <a class="btn btn-line btn-lg" data-tt-wa-btn href="#" target="_blank" rel="noopener"><span data-icon="whatsapp"></span>Book on WhatsApp</a>
             <a class="btn btn-call btn-lg" data-tt-call-btn href="#"><span data-icon="phone"></span>Call now</a>
           </div>
         </div>
@@ -54,8 +54,8 @@
       </div>
       <div class="grid grid-2" data-reveal>
         <div class="faq-item">
-          <h3><span class="q">Q.</span> How much deposit do I need?</h3>
-          <p>Typically a 30% deposit of the total, with the balance due on the travel day. Final details are confirmed again on LINE after you chat with our team.</p>
+          <h3><span class="q">Q.</span> How do international guests pay?</h3>
+          <p>Pay the full amount — we do not take a deposit. After you confirm on WhatsApp, we send bank-transfer or Wise details. There is no card checkout on this website.</p>
         </div>
         <div class="faq-item">
           <h3><span class="q">Q.</span> Can I cancel?</h3>
@@ -75,7 +75,7 @@
         </div>
         <div class="faq-item">
           <h3><span class="q">Q.</span> What if it rains?</h3>
-          <p>Itineraries may change with weather and sea conditions. If a trip cannot run safely, we help you reschedule or discuss options on LINE.</p>
+          <p>Itineraries may change with weather and sea conditions. If a trip cannot run safely, we help you reschedule or discuss options on WhatsApp.</p>
         </div>
       </div>
     </div>
@@ -89,8 +89,9 @@
   <script>document.write('<script src="assets/js/main.js?v='+(encodeURIComponent(window.__TT_SCRIPT_V||Date.now()))+'"><\/script>');</script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const { IMAGES } = window.TT;
+      const { IMAGES, SITE } = window.TT;
       document.getElementById('hero-img').src = IMAGES.heroContact;
+      document.querySelectorAll('[data-tt-wa-btn]').forEach((a) => { a.href = SITE.whatsappUrl || 'https://wa.me/66937414111'; });
     });
   </script>
 </body>

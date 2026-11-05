@@ -15,6 +15,9 @@ node_modules/
 
 # CMS — อย่า commit รหัสผ่าน admin
 data/admin-credentials.json
+data/orders/*
+!data/orders/.gitkeep
+!data/orders/.htaccess
 data/site.json.tmp
 data/backups/*
 !data/backups/.gitkeep

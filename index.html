@@ -130,8 +130,8 @@
         </ul>
         <ul class="home-checks">
           <li><span class="home-check" aria-hidden="true"></span>All automatic transmission</li>
-          <li><span class="home-check" aria-hidden="true"></span>Cash deposit 3,000 THB or card hold 5,000 THB</li>
-          <li><span class="home-check" aria-hidden="true"></span>Easy booking on LINE</li>
+          <li><span class="home-check" aria-hidden="true"></span>Pay in full — bank transfer or Wise</li>
+          <li><span class="home-check" aria-hidden="true"></span>Book on WhatsApp</li>
           <li><span class="home-check" aria-hidden="true"></span>Krabi Airport return +300 THB</li>
         </ul>
         <div class="btn-row">
@@ -155,7 +155,7 @@
       <div class="section-head" data-reveal data-tt-home-section="booking">
         <span class="eyebrow">Easy booking</span>
         <h2>How to book</h2>
-        <p class="lead">Pick a package, confirm on LINE @ndpoolvilla or WhatsApp, then receive your pickup time.</p>
+        <p class="lead">Pick a package, confirm on WhatsApp, then pay the full amount by bank transfer or Wise. No deposit.</p>
       </div>
       <div class="home-steps" id="home-steps"></div>
     </div>
@@ -201,9 +201,9 @@
     <div class="container home-cta-inner" data-reveal data-tt-home-section="cta">
       <span class="eyebrow">Ready when you are</span>
       <h2>Ready for Krabi? Book with Suwan Travel</h2>
-      <p>Tours from 1,350 THB · Car rental from 900 THB · LINE @ndpoolvilla</p>
+      <p>Tours from 1,350 THB · Car rental from 900 THB · Pay in full by bank transfer or Wise</p>
       <div class="btn-row center">
-        <a class="btn btn-call btn-lg" data-tt-line-btn href="#" target="_blank" rel="noopener">Book now</a>
+        <a class="btn btn-line btn-lg" data-tt-wa-btn href="#" target="_blank" rel="noopener"><span data-icon="whatsapp"></span>Book on WhatsApp</a>
         <a class="btn btn-ghost btn-lg" href="contact.html">Inquire</a>
       </div>
     </div>
@@ -235,8 +235,8 @@
       const { PROGRAMS, STEPS, ICONS, SITE, HOME_SECTIONS, CAR_RENTAL } = window.TT;
       applyHomeSections(HOME_SECTIONS);
       const fmt = new Intl.NumberFormat('en-US');
-      const lineUrl = SITE.lineUrl || '#';
-      document.querySelectorAll('[data-tt-line-btn]').forEach((a) => { a.href = lineUrl; });
+      const waUrl = SITE.whatsappUrl || 'https://wa.me/66937414111';
+      document.querySelectorAll('[data-tt-wa-btn]').forEach((a) => { a.href = waUrl; });
 
       /* Office map only (areas section) */
       const mapFrame = document.querySelector('.home-areas-map iframe');
@@ -301,7 +301,7 @@
         { icon: 'users', title: 'Local Krabi team' },
         { icon: 'starOutline', title: 'Popular routes' },
         { icon: 'clock', title: 'On-time pickups' },
-        { icon: 'chat', title: 'LINE booking' },
+        { icon: 'whatsapp', title: 'WhatsApp booking' },
       ];
       document.getElementById('home-trust').innerHTML = trust.map((t) => `
         <div class="home-trust-item">

@@ -23,6 +23,7 @@
 /* Auto-generated from Lucide — node tools/generate-lucide-icons.js */
   const ICONS = {
     line: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.36 10.62c0-3.78-3.79-6.85-8.45-6.85S2.46 6.84 2.46 10.62c0 3.39 3 6.23 7.06 6.77.28.06.65.18.74.42.08.21.05.55.03.77l-.12.72c-.04.21-.17.83.73.45.9-.38 4.84-2.85 6.61-4.88 1.22-1.34 1.85-2.7 1.85-4.25Zm-11.4 2.02H6.28c-.24 0-.43-.2-.43-.43V9.05c0-.24.2-.43.43-.43.24 0 .43.19.43.43v2.74h1.25c.24 0 .43.19.43.43 0 .23-.19.42-.43.42Zm1.69-.43c0 .23-.19.43-.43.43-.24 0-.43-.2-.43-.43V9.05c0-.24.19-.43.43-.43.24 0 .43.19.43.43v3.16Zm3.79 0c0 .18-.12.35-.3.41a.44.44 0 0 1-.13.02c-.14 0-.27-.07-.35-.18l-1.72-2.35v2.1c0 .23-.19.43-.43.43-.24 0-.43-.2-.43-.43V9.05c0-.18.12-.35.3-.41.05-.01.09-.02.13-.02.14 0 .27.07.35.17l1.72 2.35v-2.1c0-.24.19-.43.43-.43.24 0 .43.19.43.43v3.16Zm3.05-1.6h-1.25v.74h1.25c.23 0 .43.2.43.43 0 .23-.2.43-.43.43h-1.69c-.23 0-.42-.2-.42-.43V9.05c0-.23.19-.43.43-.43h1.69c.23 0 .43.19.43.43 0 .23-.2.43-.43.43h-1.25v.74h1.25c.23 0 .43.19.43.43 0 .23-.2.42-.44.42Z"/></svg>',
+    whatsapp: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 2.1 16.8L1 23l6.4-1.1A11 11 0 0 0 12 22a11 11 0 0 0 8.5-18.5zM12 20.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.8.6.6-3.7-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.7 6.7 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.3a.5.5 0 0 0 0-.5c0-.1-.5-1.2-.7-1.6s-.4-.4-.5-.4h-.5a.8.8 0 0 0-.6.3 2.4 2.4 0 0 0-.8 1.8 4.2 4.2 0 0 0 .9 2.2 9.6 9.6 0 0 0 3.7 3.3 4.2 4.2 0 0 0 2.6.7 2.1 2.1 0 0 0 1.4-1c.2-.3.2-.6.1-.8-.1-.2-.3-.3-.5-.4z"/></svg>',
     fb: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z"/></svg>',
     tt: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 6.32a4.83 4.83 0 0 1-3.77-2.16h-2.99v13.05a2.83 2.83 0 1 1-2.83-2.83c.21 0 .42.03.62.07v-3.05a5.94 5.94 0 1 0 5.21 5.9V9.43a7.96 7.96 0 0 0 4.45 1.37V7.81a4.86 4.86 0 0 1-.69-1.49Z"/></svg>',
     phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>',
@@ -95,8 +96,8 @@
             <span class="brand-text"><strong>${esc(brandTh())}</strong><small>Ao Nang, Krabi</small></span>
           </a>
           <nav class="nav-menu" aria-label="Main menu">${linksHtml}</nav>
-          <a class="btn btn-line btn-sm nav-cta" href="${site().lineUrl}" target="_blank" rel="noopener">
-            ${ICONS.line} Book via LINE
+          <a class="btn btn-line btn-sm nav-cta" href="${site().whatsappUrl || '#'}" target="_blank" rel="noopener">
+            ${ICONS.whatsapp} Book via WhatsApp
           </a>
           <button class="nav-toggle" type="button" aria-label="Open menu" id="nav-toggle">${ICONS.menu}</button>
         </div>
@@ -115,7 +116,7 @@
         <button class="nav-drawer-close" type="button" aria-label="Close menu" id="nav-drawer-close">${ICONS.close}</button>
         <div>${drawerLinksHtml}</div>
         <div class="drawer-foot">
-          <a class="btn btn-line btn-block" href="${site().lineUrl}" target="_blank" rel="noopener">${ICONS.line} Book on LINE</a>
+          <a class="btn btn-line btn-block" href="${site().whatsappUrl || '#'}" target="_blank" rel="noopener">${ICONS.whatsapp} Book on WhatsApp</a>
           <a class="btn btn-call btn-block" href="tel:${phoneTel}">${ICONS.phone} Call now</a>
         </div>
       </div>
@@ -272,7 +273,7 @@
                 <p>${site().addressFull}</p>
                 <p class="muted-thin">${site().hours}</p>
                 <div class="footer-contact-buttons">
-                  <a class="btn btn-line btn-sm" href="${site().lineUrl}" target="_blank" rel="noopener">${ICONS.line} Add LINE</a>
+                  <a class="btn btn-line btn-sm" href="${site().whatsappUrl || '#'}" target="_blank" rel="noopener">${ICONS.whatsapp} Chat on WhatsApp</a>
                   <a class="btn btn-ghost btn-sm" href="tel:${phoneTel}">${ICONS.phone} Call</a>
                 </div>
               </div>
@@ -484,7 +485,7 @@
     el.className = 'sticky-cta';
     el.innerHTML = `
       <a class="btn btn-call" href="tel:${(site().phone || '').replace(/[^\d+]/g,'')}">${ICONS.phone} Call now</a>
-      <a class="btn btn-line" href="${site().lineUrl}" target="_blank" rel="noopener">${ICONS.line} Book on LINE</a>
+      <a class="btn btn-line" href="${site().whatsappUrl || '#'}" target="_blank" rel="noopener">${ICONS.whatsapp} Book on WhatsApp</a>
     `;
     document.body.appendChild(el);
     document.body.classList.add('has-sticky');

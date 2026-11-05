@@ -52,7 +52,7 @@
         <ul class="about-checks">
           <li><span class="about-check" aria-hidden="true"></span>Local Ao Nang team</li>
           <li><span class="about-check" aria-hidden="true"></span>Safe &amp; reliable day trips</li>
-          <li><span class="about-check" aria-hidden="true"></span>Flexible plans on LINE</li>
+          <li><span class="about-check" aria-hidden="true"></span>Book on WhatsApp — pay in full by bank transfer or Wise</li>
         </ul>
         <div class="btn-row" id="about-story-ctas"></div>
       </div>
@@ -92,7 +92,7 @@
         <p id="about-office-info-text" class="lead" style="margin-bottom:0;"></p>
         <ul class="about-contact-list" id="about-contact-list"></ul>
         <div class="btn-row" style="margin-top:1.4rem;">
-          <a class="btn btn-line" id="about-line-btn" href="#" target="_blank" rel="noopener"><span data-icon="line"></span>Chat on LINE</a>
+          <a class="btn btn-line" id="about-line-btn" href="#" target="_blank" rel="noopener"><span data-icon="whatsapp"></span>Chat on WhatsApp</a>
           <a class="btn btn-outline" href="contact.html">All contact details</a>
         </div>
       </div>
@@ -106,7 +106,7 @@
     </div>
     <div class="container about-cta-inner" data-reveal>
       <h2 id="about-cta-title">Book your Krabi trip with us</h2>
-      <p id="about-cta-lead">Ask about tours or car rental on LINE @ndpoolvilla.</p>
+      <p id="about-cta-lead">Ask about tours or car rental on WhatsApp. Pay the full amount by bank transfer or Wise.</p>
       <div class="btn-row center" id="about-cta-buttons"></div>
     </div>
   </section>
@@ -128,6 +128,7 @@
       const ctaPrimary = story.ctaPrimary || {};
       const ctaSecondary = story.ctaSecondary || {};
       const lineUrl = SITE.lineUrl || '#';
+      const waUrl = SITE.whatsappUrl || 'https://wa.me/66937414111';
 
       document.getElementById('about-hero-img').src = IMAGES.heroAbout || 'assets/uploads/tours/krabi-4islands/img-0.jpg';
       document.getElementById('about-hero-img').alt = hero.heroAlt || 'Ao Nang, Krabi sea tours';
@@ -167,7 +168,7 @@
         whyItems.push({
           icon: 'chat',
           title: 'Friendly support',
-          desc: 'Quick replies on LINE @ndpoolvilla and WhatsApp.',
+          desc: 'Book on WhatsApp. Pay in full by bank transfer or Wise — no deposit.',
         });
       }
       document.getElementById('why-list').innerHTML = whyItems.map((w, i) => `
@@ -188,7 +189,7 @@
       document.getElementById('about-office-info-title').textContent = office.infoTitle || 'Contact channels';
       document.getElementById('about-office-info-text').textContent = office.infoText || '';
       document.getElementById('about-map').src = SITE.mapEmbed || '';
-      document.getElementById('about-line-btn').href = lineUrl;
+      document.getElementById('about-line-btn').href = waUrl;
 
       const phoneTel = (SITE.phone || '').replace(/\D/g, '');
       const phone2Tel = (SITE.phone2 || '').replace(/\D/g, '');
@@ -198,13 +199,13 @@
         <li><span class="ico" data-icon="phone"></span><span><strong>Call us</strong><span>
           <a href="tel:${phoneTel}">${SITE.phone || ''}</a>${SITE.phone2 ? ` · <a href="tel:${phone2Tel}">${SITE.phone2}</a>` : ''}
         </span></span></li>
-        <li><span class="ico" data-icon="line"></span><span><strong>LINE Official</strong><span><a href="${lineUrl}" target="_blank" rel="noopener">${SITE.lineId || '@ndpoolvilla'}</a></span></span></li>
+        <li><span class="ico" data-icon="whatsapp"></span><span><strong>WhatsApp</strong><span><a href="${waUrl}" target="_blank" rel="noopener">${SITE.whatsapp || '+66937414111'}</a></span></span></li>
       `;
 
       document.getElementById('about-cta-title').textContent = cta.title || 'Book your Krabi trip with us';
-      document.getElementById('about-cta-lead').textContent = cta.lead || 'Ask about tours or car rental on LINE @ndpoolvilla.';
+      document.getElementById('about-cta-lead').textContent = 'Ask about tours or car rental on WhatsApp. Pay the full amount by bank transfer or Wise.';
       document.getElementById('about-cta-buttons').innerHTML = `
-        <a class="btn btn-line btn-lg" href="${lineUrl}" target="_blank" rel="noopener"><span data-icon="line"></span>${cta.lineLabel || 'Chat on LINE'}</a>
+        <a class="btn btn-line btn-lg" href="${waUrl}" target="_blank" rel="noopener"><span data-icon="whatsapp"></span>Chat on WhatsApp</a>
         <a class="btn btn-ghost btn-lg" href="programs.html">${cta.bookingLabel || 'Browse packages'}</a>
       `;
 

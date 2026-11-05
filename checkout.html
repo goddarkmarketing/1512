@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Pay your booking — Suwan Travel</title>
+  <meta name="description" content="Pay the full Suwan Travel booking amount by PromptPay, card, bank transfer, or Wise. No deposit." />
+  <meta name="theme-color" content="#0277bd" />
+  <link rel="icon" type="image/png" href="assets/logo/logo.png" />
+  <link rel="apple-touch-icon" href="assets/logo/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/fonts.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/checkout.css?v=payui10" />
+</head>
+<body data-tt-page="checkout">
+  <div id="site-header"></div>
+
+  <section class="section" style="padding-top: calc(var(--header-h) + 2rem);">
+    <div class="container">
+      <div class="pay-empty" id="pay-empty" hidden>
+        <h1>No booking to pay yet</h1>
+        <p class="lead">Choose a package, enter your travel date, then continue to payment.</p>
+        <a class="btn btn-primary" href="programs.html">View tour packages</a>
+      </div>
+
+      <div class="pay-wrap" id="pay-wrap" hidden>
+        <aside class="pay-card">
+          <span class="eyebrow">Checkout</span>
+          <h2 id="pay-title">Your booking</h2>
+          <p class="pay-note" id="pay-who"></p>
+          <div class="pay-amount">
+            <small>Full amount due now · no deposit</small>
+            <strong id="pay-total">THB 0</strong>
+          </div>
+          <ul class="pay-lines" id="pay-lines"></ul>
+          <p class="pay-ref">Booking reference <strong id="pay-ref"></strong></p>
+        </aside>
+
+        <div class="pay-card">
+          <h2>Choose how to pay</h2>
+          <p class="pay-note">Pick one. The charge is the full trip price, with no deposit.</p>
+          <div class="pay-choices" role="radiogroup" aria-label="Payment method">
+            <button type="button" class="pay-choice" data-pay="card" role="radio" aria-checked="false">
+              <span class="pay-choice-logos" aria-hidden="true">
+                <img src="assets/icon/1736409068278-213734dd376baa9642331bf4620bcb41.png" alt="" />
+                <img src="assets/icon/1736479220958-0c6dae87da47bf1bbf6ae51ab5150617.png" alt="" />
+              </span>
+              <span class="pay-choice-title">Card</span>
+              <span class="pay-choice-desc">Enter the card number, expiry, and security code.</span>
+            </button>
+            <button type="button" class="pay-choice" data-pay="transfer" role="radio" aria-checked="false">
+              <span class="pay-choice-logos" aria-hidden="true">
+                <img src="assets/icon/1736480762727-aef62311a0107a1e58dac9b3492b4f4c.png" alt="" />
+              </span>
+              <span class="pay-choice-title">Bank transfer</span>
+              <span class="pay-choice-desc">Pay to the bank name and account number.</span>
+            </button>
+            <button type="button" class="pay-choice" data-pay="promptpay" role="radio" aria-checked="false">
+              <span class="pay-choice-logos" aria-hidden="true">
+                <img class="is-wide" src="assets/icon/promptpay.png" alt="PromptPay" />
+              </span>
+              <span class="pay-choice-title">PromptPay</span>
+              <span class="pay-choice-desc">Scan a QR for the full amount.</span>
+            </button>
+          </div>
+          <p class="pay-note" id="pay-pick-hint">Select card, bank transfer, or PromptPay.</p>
+
+          <div class="pay-panel" data-panel="card">
+            <form class="card-form" id="card-form" autocomplete="on" novalidate>
+              <label>Card number
+                <input class="input" id="card-number" name="cardnumber" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="23" required />
+              </label>
+              <label>Name on card
+                <input class="input" id="card-name" name="ccname" autocomplete="cc-name" placeholder="ALEX JOHNSON" required />
+              </label>
+              <div class="card-form-row">
+                <label>Expiry
+                  <input class="input" id="card-exp" name="exp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7" required />
+                </label>
+                <label>Security code
+                  <input class="input" id="card-cvc" name="cvc" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4" required />
+                </label>
+              </div>
+              <p class="pay-note" id="pay-card-error" hidden></p>
+              <p class="pay-note">Card details stay on this page and are not charged. A payment slip is still required.</p>
+            </form>
+          </div>
+
+          <div class="pay-panel" data-panel="transfer">
+            <h3 class="pay-sub">Transfer to this account</h3>
+            <div class="pay-bank" id="pay-bank"></div>
+            <p class="pay-note" id="pay-bank-sample" hidden>Sample account for this preview. The shop will replace it with the real bank account.</p>
+            <div class="btn-row" style="margin-top:1rem;">
+              <button type="button" class="btn btn-outline" id="pay-copy">Copy account number</button>
+              <a class="btn btn-line pay-slip" href="#" target="_blank" rel="noopener"><span data-icon="whatsapp"></span>Send slip on WhatsApp</a>
+            </div>
+          </div>
+
+          <div class="pay-panel" data-panel="promptpay">
+            <h3 class="pay-sub">Scan to pay</h3>
+            <div class="pay-qr">
+              <img id="pay-qr" alt="PromptPay QR for this booking amount" width="220" height="220" />
+              <p class="pay-note">Open a Thai banking app and scan. The QR already includes the full amount, paid to <strong id="pay-pp-name">Suwan Travel</strong> (<span id="pay-pp-id"></span>).</p>
+            </div>
+            <div class="btn-row" style="margin-top:1rem;">
+              <a class="btn btn-line pay-slip" href="#" target="_blank" rel="noopener"><span data-icon="whatsapp"></span>Send slip on WhatsApp</a>
+            </div>
+          </div>
+
+          <div class="pay-proof" id="pay-proof" hidden>
+            <h3 class="pay-sub">Payment slip</h3>
+            <p class="pay-note">Required for card, bank transfer, and PromptPay. Attach a photo or PDF of the transfer slip or card receipt.</p>
+            <div class="pay-slip-box">
+              <label class="pay-drop" for="pay-slip-file">
+                <input type="file" id="pay-slip-file" accept="image/jpeg,image/png,image/webp,application/pdf" />
+                <span class="pay-drop-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 16V5M8.5 8.5 12 5l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 15.5V19h14v-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="pay-drop-copy">
+                  <strong id="pay-slip-label">Attach payment slip</strong>
+                  <small id="pay-slip-name">JPG, PNG, WEBP, or PDF · up to 8 MB</small>
+                </span>
+              </label>
+              <button type="button" class="pay-slip-remove" id="pay-slip-remove" hidden aria-label="Remove payment slip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V5h6v2M8 7l1 13h6l1-13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <img id="pay-slip-preview" alt="Payment slip preview" hidden />
+            <p class="pay-note" id="pay-slip-error" hidden></p>
+            <button type="button" class="btn btn-primary btn-lg" id="pay-submit-slip">Submit with payment slip</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <script>document.write('<script src="assets/js/tt-cache-version.js?t='+Date.now()+'"><\/script>');</script>
+  <script>document.write('<script src="assets/js/data-fallback.js?v='+(encodeURIComponent(window.__TT_SCRIPT_V||Date.now()))+'"><\/script>');</script>
+  <script>document.write('<script src="assets/js/data.js?v='+(encodeURIComponent(window.__TT_SCRIPT_V||Date.now()))+'"><\/script>');</script>
+  <script>document.write('<script src="assets/js/main.js?v='+(encodeURIComponent(window.__TT_SCRIPT_V||Date.now()))+'"><\/script>');</script>
+  <script src="assets/js/promptpay.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const fmt = new Intl.NumberFormat('en-US');
+      let order = null;
+      try { order = JSON.parse(sessionStorage.getItem('tt-checkout') || 'null'); } catch (e) { order = null; }
+      if (!order || !(Number(order.total) > 0)) {
+        document.getElementById('pay-empty').hidden = false;
+        return;
+      }
+      document.getElementById('pay-wrap').hidden = false;
+
+      const pay = (window.TT && window.TT.SITE && window.TT.SITE.payment) || {};
+      const promptId = pay.promptPayId || '0937414111';
+      const ref = order.ref || ('ST-' + Date.now().toString(36).toUpperCase());
+      order.ref = ref;
+      sessionStorage.setItem('tt-checkout', JSON.stringify(order));
+
+      document.getElementById('pay-title').textContent = order.packageName || 'Your booking';
+      document.getElementById('pay-who').textContent = [order.name, order.date, order.adults ? (order.adults + ' adults') : '', order.children ? (order.children + ' children') : ''].filter(Boolean).join(' · ');
+      document.getElementById('pay-total').textContent = 'THB ' + fmt.format(order.total);
+      document.getElementById('pay-ref').textContent = ref;
+      document.getElementById('pay-pp-name').textContent = pay.promptPayName || 'Suwan Travel';
+      document.getElementById('pay-pp-id').textContent = promptId;
+
+      const lines = document.getElementById('pay-lines');
+      const rows = [
+        ['Date', order.date || ''],
+        ['Adults', order.adults ? String(order.adults) : ''],
+        ['Children', order.children ? String(order.children) : ''],
+        ['Phone', order.phone || ''],
+        ['Notes', order.note || ''],
+      ].filter((row) => row[1]);
+      lines.innerHTML = rows.map((row) => `<li><span>${row[0]}</span><span>${row[1]}</span></li>`).join('');
+
+      const payload = window.TTPromptPay.payload(promptId, Number(order.total));
+      document.getElementById('pay-qr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=440x440&data=' + encodeURIComponent(payload);
+
+      const bankName = pay.bankName || 'Kasikorn Bank';
+      const accountName = pay.accountName || 'Suwan Travel';
+      const accountNumber = pay.accountNumber || '012-3-45678-9';
+      const bank = document.getElementById('pay-bank');
+      const bankRows = [
+        ['Bank', bankName],
+        ['Account name', accountName],
+        ['Account number', accountNumber],
+        ['Amount', 'THB ' + fmt.format(order.total)],
+        ['Reference', ref],
+      ];
+      const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+      bank.innerHTML = bankRows.map((row) => `<div class="pay-bank-row"><span>${esc(row[0])}</span><strong>${esc(row[1])}</strong></div>`).join('');
+      if (pay.bankSample !== false) document.getElementById('pay-bank-sample').hidden = false;
+
+      const wa = (window.TT.SITE && window.TT.SITE.whatsappUrl) || 'https://wa.me/66937414111';
+      const slip = `Suwan Travel payment\nRef: ${ref}\n${order.packageName || ''}\nAmount: THB ${fmt.format(order.total)}\nI have transferred the full amount.`;
+      const slipHref = wa + (wa.includes('?') ? '&' : '?') + 'text=' + encodeURIComponent(slip);
+      document.querySelectorAll('.pay-slip').forEach((a) => { a.href = slipHref; });
+      document.getElementById('pay-copy').addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(accountNumber.replace(/\s/g, '')); } catch (e) {}
+        window.TT?.toast?.('Account number copied');
+      });
+
+      const hint = document.getElementById('pay-pick-hint');
+      function selectPay(method) {
+        document.querySelectorAll('.pay-choice').forEach((b) => {
+          const on = b.dataset.pay === method;
+          b.classList.toggle('is-on', on);
+          b.setAttribute('aria-checked', on ? 'true' : 'false');
+        });
+        document.querySelectorAll('.pay-panel').forEach((p) => p.classList.toggle('is-on', p.dataset.panel === method));
+        if (hint) hint.hidden = true;
+        document.getElementById('pay-proof').hidden = false;
+        const labels = {
+          card: 'Submit card payment and slip',
+          transfer: 'Submit transfer slip',
+          promptpay: 'Submit PromptPay slip',
+        };
+        document.getElementById('pay-submit-slip').textContent = labels[method] || 'Submit with payment slip';
+        order.method = method;
+        sessionStorage.setItem('tt-checkout', JSON.stringify(order));
+      }
+      document.querySelectorAll('.pay-choice').forEach((btn) => {
+        btn.addEventListener('click', () => selectPay(btn.dataset.pay));
+      });
+      if (order.method === 'card' || order.method === 'transfer' || order.method === 'promptpay') selectPay(order.method);
+
+      const cardNumber = document.getElementById('card-number');
+      const cardExp = document.getElementById('card-exp');
+      cardNumber.addEventListener('input', () => {
+        const digits = cardNumber.value.replace(/\D/g, '').slice(0, 19);
+        cardNumber.value = digits.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
+      });
+      cardExp.addEventListener('input', () => {
+        const digits = cardExp.value.replace(/\D/g, '').slice(0, 4);
+        cardExp.value = digits.length > 2 ? digits.slice(0, 2) + ' / ' + digits.slice(2) : digits;
+      });
+      const slipInput = document.getElementById('pay-slip-file');
+      const slipError = document.getElementById('pay-slip-error');
+      function slipFile() {
+        return slipInput.files && slipInput.files[0] ? slipInput.files[0] : null;
+      }
+      function slipProblem() {
+        const file = slipFile();
+        if (!file) return 'Attach the payment slip before submitting.';
+        const okType = /^(image\/jpeg|image\/png|image\/webp|application\/pdf)$/.test(file.type) || /\.(jpe?g|png|webp|pdf)$/i.test(file.name);
+        if (!okType) return 'Use a JPG, PNG, WEBP, or PDF slip.';
+        if (file.size > 8 * 1024 * 1024) return 'The slip must be 8 MB or smaller.';
+        return '';
+      }
+      function showSlip(file) {
+        document.getElementById('pay-slip-label').textContent = file ? 'Slip attached' : 'Attach payment slip';
+        document.getElementById('pay-slip-name').textContent = file ? file.name : 'JPG, PNG, WEBP, or PDF · up to 8 MB';
+        const preview = document.getElementById('pay-slip-preview');
+        const removeBtn = document.getElementById('pay-slip-remove');
+        if (preview.dataset.url) URL.revokeObjectURL(preview.dataset.url);
+        delete preview.dataset.url;
+        if (file && file.type.startsWith('image/')) {
+          const url = URL.createObjectURL(file);
+          preview.dataset.url = url;
+          preview.src = url;
+          preview.hidden = false;
+        } else {
+          preview.removeAttribute('src');
+          preview.hidden = true;
+        }
+        removeBtn.hidden = !file;
+        slipError.hidden = true;
+      }
+      slipInput.addEventListener('change', () => showSlip(slipFile()));
+      document.getElementById('pay-slip-remove').addEventListener('click', () => {
+        slipInput.value = '';
+        showSlip(null);
+        document.getElementById('pay-submit-slip').disabled = false;
+      });
+
+      function cardProblem() {
+        const digits = cardNumber.value.replace(/\D/g, '');
+        const expDigits = cardExp.value.replace(/\D/g, '');
+        const month = Number(expDigits.slice(0, 2));
+        const cvc = document.getElementById('card-cvc').value.replace(/\D/g, '');
+        const name = document.getElementById('card-name').value.trim();
+        if (digits.length < 13 || digits.length > 19) return 'Enter the full card number.';
+        if (!name) return 'Enter the name on the card.';
+        if (expDigits.length !== 4 || month < 1 || month > 12) return 'Enter the expiry as MM / YY.';
+        if (cvc.length < 3) return 'Enter the 3-digit security code.';
+        return '';
+      }
+
+      async function submitSlip() {
+        const cardErr = document.getElementById('pay-card-error');
+        cardErr.hidden = true;
+        if (order.method === 'card') {
+          const cardMsg = cardProblem();
+          if (cardMsg) {
+            cardErr.hidden = false;
+            cardErr.textContent = cardMsg;
+            return;
+          }
+        }
+        const problem = slipProblem();
+        slipError.hidden = !problem;
+        slipError.textContent = problem;
+        if (problem) return;
+        const btn = document.getElementById('pay-submit-slip');
+        btn.disabled = true;
+        const body = new FormData();
+        body.append('ref', order.ref);
+        body.append('method', order.method || '');
+        body.append('total', String(order.total || ''));
+        body.append('packageName', order.packageName || '');
+        body.append('name', order.name || '');
+        body.append('phone', order.phone || '');
+        body.append('date', order.date || '');
+        body.append('slip', slipFile());
+        try {
+          const res = await fetch('api/payment-slip.php', { method: 'POST', body });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) throw new Error(data.error || 'Could not save the slip');
+          if (order.method === 'card') {
+            cardNumber.value = '';
+            document.getElementById('card-cvc').value = '';
+          }
+          slipError.hidden = false;
+          slipError.textContent = 'Payment slip received for ' + order.ref + '.';
+        } catch (e) {
+          btn.disabled = false;
+          slipError.hidden = false;
+          slipError.textContent = e.message || 'Could not save the slip';
+        }
+      }
+      document.getElementById('card-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        submitSlip();
+      });
+      document.getElementById('pay-submit-slip').addEventListener('click', submitSlip);
+
+      window.TT.injectIcons();
+    });
+  </script>
+</body>
+</html>
