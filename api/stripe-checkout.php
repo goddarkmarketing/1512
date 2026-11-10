@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $secret = TT_STRIPE_SECRET_KEY;
 if ($secret === '') {
     http_response_code(503);
-    echo json_encode(['error' => 'Card payment is not available on the site yet. Please choose bank transfer.']);
+    echo json_encode(['error' => 'Card payment is not available on the site yet. Please choose PromptPay.']);
     exit;
 }
 

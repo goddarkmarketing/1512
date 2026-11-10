@@ -43,7 +43,7 @@
   margin: 1rem 0 0.4rem;
 }
 @media (min-width: 860px) {
-  .pay-choices { grid-template-columns: repeat(3, 1fr); }
+  .pay-choices { grid-template-columns: repeat(2, 1fr); }
 }
 .pay-choice {
   position: relative;

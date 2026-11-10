@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $ref = preg_replace('/[^A-Za-z0-9\-]/', '', (string) ($_POST['ref'] ?? ''));
 $method = preg_replace('/[^a-z]/', '', (string) ($_POST['method'] ?? ''));
-if ($ref === '' || !in_array($method, ['card', 'transfer', 'promptpay'], true)) {
+if ($ref === '' || !in_array($method, ['card', 'promptpay'], true)) {
     http_response_code(400);
     echo json_encode(['error' => 'Choose a payment method before attaching the slip.']);
     exit;

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Pay your booking — Suwan Travel</title>
-  <meta name="description" content="Pay the full Suwan Travel booking amount by PromptPay, card, bank transfer, or Wise. No deposit." />
+  <meta name="description" content="Pay the full Suwan Travel booking amount by PromptPay or card. No deposit." />
   <meta name="theme-color" content="#0277bd" />
   <link rel="icon" type="image/png" href="assets/logo/logo.png" />
   <link rel="apple-touch-icon" href="assets/logo/logo.png" />
@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/fonts.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="stylesheet" href="assets/css/checkout.css?v=payui10" />
+  <link rel="stylesheet" href="assets/css/checkout.css?v=payui11" />
 </head>
 <body data-tt-page="checkout">
   <div id="site-header"></div>
@@ -51,13 +51,6 @@
               <span class="pay-choice-title">Card</span>
               <span class="pay-choice-desc">Enter the card number, expiry, and security code.</span>
             </button>
-            <button type="button" class="pay-choice" data-pay="transfer" role="radio" aria-checked="false">
-              <span class="pay-choice-logos" aria-hidden="true">
-                <img src="assets/icon/1736480762727-aef62311a0107a1e58dac9b3492b4f4c.png" alt="" />
-              </span>
-              <span class="pay-choice-title">Bank transfer</span>
-              <span class="pay-choice-desc">Pay to the bank name and account number.</span>
-            </button>
             <button type="button" class="pay-choice" data-pay="promptpay" role="radio" aria-checked="false">
               <span class="pay-choice-logos" aria-hidden="true">
                 <img class="is-wide" src="assets/icon/promptpay.png" alt="PromptPay" />
@@ -66,7 +59,7 @@
               <span class="pay-choice-desc">Scan a QR for the full amount.</span>
             </button>
           </div>
-          <p class="pay-note" id="pay-pick-hint">Select card, bank transfer, or PromptPay.</p>
+          <p class="pay-note" id="pay-pick-hint">Select card or PromptPay.</p>
 
           <div class="pay-panel" data-panel="card">
             <form class="card-form" id="card-form" autocomplete="on" novalidate>
@@ -89,16 +82,6 @@
             </form>
           </div>
 
-          <div class="pay-panel" data-panel="transfer">
-            <h3 class="pay-sub">Transfer to this account</h3>
-            <div class="pay-bank" id="pay-bank"></div>
-            <p class="pay-note" id="pay-bank-sample" hidden>Sample account for this preview. The shop will replace it with the real bank account.</p>
-            <div class="btn-row" style="margin-top:1rem;">
-              <button type="button" class="btn btn-outline" id="pay-copy">Copy account number</button>
-              <a class="btn btn-line pay-slip" href="#" target="_blank" rel="noopener"><span data-icon="whatsapp"></span>Send slip on WhatsApp</a>
-            </div>
-          </div>
-
           <div class="pay-panel" data-panel="promptpay">
             <h3 class="pay-sub">Scan to pay</h3>
             <div class="pay-qr">
@@ -112,7 +95,7 @@
 
           <div class="pay-proof" id="pay-proof" hidden>
             <h3 class="pay-sub">Payment slip</h3>
-            <p class="pay-note">Required for card, bank transfer, and PromptPay. Attach a photo or PDF of the transfer slip or card receipt.</p>
+            <p class="pay-note">Required for card and PromptPay. Attach a photo or PDF of the payment slip or card receipt.</p>
             <div class="pay-slip-box">
               <label class="pay-drop" for="pay-slip-file">
                 <input type="file" id="pay-slip-file" accept="image/jpeg,image/png,image/webp,application/pdf" />
@@ -181,29 +164,10 @@
       const payload = window.TTPromptPay.payload(promptId, Number(order.total));
       document.getElementById('pay-qr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=440x440&data=' + encodeURIComponent(payload);
 
-      const bankName = pay.bankName || 'Kasikorn Bank';
-      const accountName = pay.accountName || 'Suwan Travel';
-      const accountNumber = pay.accountNumber || '012-3-45678-9';
-      const bank = document.getElementById('pay-bank');
-      const bankRows = [
-        ['Bank', bankName],
-        ['Account name', accountName],
-        ['Account number', accountNumber],
-        ['Amount', 'THB ' + fmt.format(order.total)],
-        ['Reference', ref],
-      ];
-      const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
-      bank.innerHTML = bankRows.map((row) => `<div class="pay-bank-row"><span>${esc(row[0])}</span><strong>${esc(row[1])}</strong></div>`).join('');
-      if (pay.bankSample !== false) document.getElementById('pay-bank-sample').hidden = false;
-
       const wa = (window.TT.SITE && window.TT.SITE.whatsappUrl) || 'https://wa.me/66937414111';
-      const slip = `Suwan Travel payment\nRef: ${ref}\n${order.packageName || ''}\nAmount: THB ${fmt.format(order.total)}\nI have transferred the full amount.`;
+      const slip = `Suwan Travel payment\nRef: ${ref}\n${order.packageName || ''}\nAmount: THB ${fmt.format(order.total)}\nI have paid the full amount.`;
       const slipHref = wa + (wa.includes('?') ? '&' : '?') + 'text=' + encodeURIComponent(slip);
       document.querySelectorAll('.pay-slip').forEach((a) => { a.href = slipHref; });
-      document.getElementById('pay-copy').addEventListener('click', async () => {
-        try { await navigator.clipboard.writeText(accountNumber.replace(/\s/g, '')); } catch (e) {}
-        window.TT?.toast?.('Account number copied');
-      });
 
       const hint = document.getElementById('pay-pick-hint');
       function selectPay(method) {
@@ -217,7 +181,6 @@
         document.getElementById('pay-proof').hidden = false;
         const labels = {
           card: 'Submit card payment and slip',
-          transfer: 'Submit transfer slip',
           promptpay: 'Submit PromptPay slip',
         };
         document.getElementById('pay-submit-slip').textContent = labels[method] || 'Submit with payment slip';
@@ -227,7 +190,7 @@
       document.querySelectorAll('.pay-choice').forEach((btn) => {
         btn.addEventListener('click', () => selectPay(btn.dataset.pay));
       });
-      if (order.method === 'card' || order.method === 'transfer' || order.method === 'promptpay') selectPay(order.method);
+      if (order.method === 'card' || order.method === 'promptpay') selectPay(order.method);
 
       const cardNumber = document.getElementById('card-number');
       const cardExp = document.getElementById('card-exp');
